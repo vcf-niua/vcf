@@ -11,4 +11,3 @@ export default function Document() {
     </Html>
   )
 }
-// https://github.com/orgs/vcf-niua/people/pending_invitations
