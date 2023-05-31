@@ -37,10 +37,14 @@ export default function Header() {
         setAnchorElUser(null);
     };
 
+    const style = {
+
+        background : ''
+    };
     return (
         <>
-            <AppBar position="static">
-                <Container maxWidth="xl">
+            <AppBar sx={{ bgcolor: "white" }} style={{color:"#2D6E93"}} position="static" >
+                <Container>
                     <Toolbar disableGutters>
 
                         <Typography
@@ -49,17 +53,17 @@ export default function Header() {
                             component="a"
                             href="/"
                             sx={{
-                                mr: 50,
+                                mr: 20,
                                 display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
+                                
+                                // fontWeight: 700,
                                 letterSpacing: '.3rem',
-                                color: 'inherit',
+                                
                                 textDecoration: 'none',
                             }}
-                            className={HeaderStyle.respMenu}
+                            
                         >
-                            <HomeIcon />
+                            Value Capture Financing
                         </Typography>
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -69,7 +73,7 @@ export default function Header() {
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
                                 onClick={handleOpenNavMenu}
-                                color="inherit"
+                            
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -96,7 +100,7 @@ export default function Header() {
                             >
                                 {pages.map((page) => (
                                     <MenuItem key={page} onClick={handleCloseNavMenu} sx={{ml:10}}>
-                                        <Typography textAlign="center" className={global.customNav}>{page}</Typography>
+                                        <Typography textAlign="center">{page} </Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
@@ -114,18 +118,20 @@ export default function Header() {
                                 fontFamily: 'monospace',
                                 fontWeight: 700,
                                 letterSpacing: '.3rem',
-                                color: 'inherit',
+                                color:'black',
                                 textDecoration: 'none',
                             }}
+                           
                         >
-                            <HomeIcon />
+                            Value Capture Financing
                         </Typography>
+                        {/* Medium size */}
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
                                 <Button
                                     key={page}
                                     onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    sx={{ my: 2,  display: 'block' }}
                                 >
                                     {page}
                                 </Button>
@@ -133,11 +139,7 @@ export default function Header() {
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
-                            {/* <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip> */}
+                           
                             <Menu
                                 sx={{ mt: '45px'}}
                                

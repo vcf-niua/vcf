@@ -1,0 +1,21 @@
+@use 'variables';
+ 
+.customColor:hover {
+    background-color:#4C95BF ;
+    color:white;
+    .cell {
+      color: #fff;
+    }
+ }
+
+ .cell {
+   padding: 9px 10px;
+   vertical-align: middle;
+   cursor: pointer;
+   color: variables.$base;
+   svg {
+      vertical-align: middle;
+   }
+ }
+
+ 
