@@ -1,15 +1,11 @@
-.iconbackground {
-    background-color:rgb(34,106,151);
-    color: white;
-    
-}
-
-
-
-@media (max-width: 768) { 
 .customCard {
-    width: 100%;
-    margin-right: "0px"
-}
- }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #226A96;
+  color: #fff;
+  padding-top: 10px;
+  height: 160px;
 
+}

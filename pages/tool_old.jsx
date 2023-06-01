@@ -10,12 +10,10 @@ import Box from '@mui/material/Box';
 import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import { Stack } from '@mui/material';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-
 
 export default function Tool() {
-  const [tools, setTools] = useState([
+
+  const [tool, setTool] = useState([
     {
       id: 1,
       toolName: "Premium/additional FAR",
@@ -85,59 +83,36 @@ export default function Tool() {
     }
   ])
 
-
   return (
     <>
       <Header />
-      {/* <Container maxWidth="lg" >
-        <Stack spacing={2}>
-          <Grid container>
-
-            <Stack spacing={2} direction='row'>
-              <Grid item xs={12} sm={6} md={3} >
-                <Card >
-                  <CardContent >
-                    <NoteAltIcon style={{ fontSize: "40px" }} />
-                    <Typography >
-                      Lorem Ipsum
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-
-
-
-            </Stack>
-
-
-
-          </Grid>
-        </Stack>
-      </Container> */}
       <Container maxWidth="lg" >
-        <Box sx={{ flexGrow: 1, mt: 8 }} style={{paddingBottom: "100px"}} >
-          <Grid container spacing={{ xs: 2, md: 5 }} columns={{ xs: 4, sm: 8, md: 12 }} >
-            {tools.map((tool,index)=>(
-               <Grid item xs={2} sm={4} md={3} >
-               <Card className={ToolStyles.customCard}>
-                 <CardContent sx={{textAlign:"center"}}>
-                   <NoteAltIcon style={{ width: "98px", height: "70px" }} />
-                   <Typography mt={1} >
-                   {tool.toolName}
-                   </Typography>
- 
-                 </CardContent>
- 
-               </Card>
-             </Grid>
-            ))}
-           
-            
+        <Stack spacing={2}>
+          <Stack spacing={2} direction='row'>
+            <Grid container>
 
+              {tool.map((item, index) => (
+                <Grid item xs={12} sm={6} md={3} style={{ margin: "20px 0" }} >
+                  <Card style={{ marginRight: "10px", textAlign: "center", height: '120px' }} className={ToolStyles.iconbackground}>
+                    <CardContent >
+                      <NoteAltIcon style={{ fontSize: "40px" }} />
+                      <Typography >
+                        {item.toolName}
+                      </Typography>
 
-          </Grid>
-        </Box>
+                    </CardContent>
+
+                  </Card>
+
+                </Grid>
+
+              ))}
+
+            </Grid>
+          </Stack>
+        </Stack>
       </Container>
+
     </>
   )
 }
