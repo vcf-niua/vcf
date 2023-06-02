@@ -1,9 +1,10 @@
+@use 'variables';
 .customCard {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #226A96;
+  background-color: variables.$base;
   color: #fff;
   padding-top: 10px;
   height: 160px;

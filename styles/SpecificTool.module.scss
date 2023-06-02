@@ -1,0 +1,72 @@
+@use 'variables';
+
+.titleHeading {
+  text-align: center;
+  background-color: variables.$base;
+  color: #fff;
+  border-radius: 7px;
+  padding: 12px;
+  
+}
+ 
+.customColor:hover {
+    background-color:#4C95BF ;
+    color:white;
+    .cell {
+      color: #fff;
+    }
+ }
+
+ .cell {
+   padding: 9px 10px;
+   vertical-align: middle;
+   cursor: pointer;
+   color: variables.$base;
+   border-bottom: 1px solid variables.$secondary;
+   svg {
+      vertical-align: middle;
+   }
+ }
+
+
+
+ .title {
+  color: variables.$paraColor;
+ }
+
+.customCardLeft {
+  height: 70vh;
+  overflow-y: auto;
+  margin-bottom: 1px;
+  margin-top : 10px;
+  box-shadow: none
+}
+
+.customIndicatorCard {
+   height: 80px;
+   background-color: variables.$base;
+   color:#fff;
+   box-shadow: none;
+
+
+   .icon {
+    font-size: 35px;
+   }
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.cityTool {
+  border-bottom: variables.$secondary;
+  color:variables.$secondary
+}
+
+.cityTool:hover {
+  // background-color: #4C95BF;
+  text-decoration: underline;
+  color: #4C95BF;
+}

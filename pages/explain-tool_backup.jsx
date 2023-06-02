@@ -1,235 +1,1100 @@
-import React, { useState } from 'react';
-import pagesStyle from '@/styles/ExplainTool.module.scss';
+import React, { useState } from 'react'
+import Header from '@/components/Header';
+import { Card, CardContent, CardHeader, Avatar, IconButton, CardActions, Grid, Container, Box } from '@mui/material';
+import { Table, TableBody, TableRow, TableCell, Typography, List, ListItem, ListItemText } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Image from 'next/image';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import pagesStyle from '@/styles/ExplainTool.module.scss';
+import CardWithList from '@/components/CardWithList';
+import Button from '@mui/material/Button';
+import { Edit as EditIcon } from '@mui/icons-material';
 
-const Row = ({ rowData }) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <>
-            <TableRow>
-                <TableCell>
-                    <IconButton size="small" onClick={() => setOpen(!open)}>
-                        {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-                    </IconButton>
-                </TableCell>
-                <TableCell>{rowData.column}</TableCell>
-
-            </TableRow>
-            <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
-                    <Collapse in={open} unmountOnExit>
-                        <Grid container>
-                            <Grid item xs={3} style={{ padding: "5px" }}>
-                                <Card style={{ marginRight: "10px", backgroundColor: "rgb(103,165,201)" }}>
-                                    <Grid container spacing={2} >
-                                        <Grid item xs={4} >
-                                            <Image src="/images/andhra-pradesh.jpg" alt="My Image" width={80} height={80} />
-                                        </Grid>
-                                        <Grid item xs={5}>
-                                            <CardContent>
-                                                <Typography variant="body2" color="textSecondary" style={{}}>
-                                                    Andhra pradesh
-                                                </Typography>
-                                            </CardContent>
-                                        </Grid>
-                                    </Grid>
-
-                                    {/* <CardActions>
-                                        Actions for the card
-                                    </CardActions> */}
-                                </Card>
-                            </Grid>
-                            <Grid item xs={3} style={{ padding: "5px" }}>
-                                <Card style={{ marginRight: "10px" }}>
-                                    <CardContent>
-                                        <Typography variant="body2" color="textSecondary">
-                                            Content of the collapsible card
-                                        </Typography>
-                                    </CardContent>
-                                    {/* <CardActions>
-                                        Actions for the card
-                                    </CardActions> */}
-                                </Card>
-                            </Grid>
-                            <Grid item xs={3} style={{ padding: "5px" }}>
-                                <Card style={{ marginRight: "10px" }}>
-                                    <CardContent>
-                                        <Typography variant="body2" color="textSecondary">
-                                            Content of the collapsible card
-                                        </Typography>
-                                    </CardContent>
-
-                                </Card>
-                            </Grid>
-                            <Grid item xs={3} style={{ padding: "5px" }}>
-                                <Card >
-                                    <CardContent>
-                                        <Typography variant="body2" color="textSecondary">
-                                            Content of the collapsible card
-                                        </Typography>
-                                    </CardContent>
-
-                                </Card>
-                            </Grid>
-                        </Grid>
-
-                    </Collapse>
-                </TableCell>
-            </TableRow>
-        </>
-    );
-};
+export default function ExplainTool() {
 
 
 
+    let tools = [
+        {
+            id: 1,
+            tool: "Premium/additional FAR",
+            defination: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui hic quibusdam quos dignissimos repellat perspiciatis iure nemo magnam eaque, neque aliquid voluptatum aliquam! ",
+            indicator: [
+                {
+                    id: 11,
+                    icon: "iconImage",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 12,
+                    icon: "iconImage2",
+                    title: "Total Expenditure"
+                },
+                {
+                    id: 13,
+                    icon: "iconImage3",
+                    title: "Total Revenue"
+                },
+                {
+                    id: 14,
+                    icon: "iconImage4",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 15,
+                    icon: "iconImage5",
+                    title: "Total Expenditure"
+                },
+            ],
 
-const ExplainTool = () => {
-    const tableData = [
-        { column: 'Defination' },
-        { column: 'Indicators Tmpacting Tool', code: 'ind_impact' },
-        { column: 'Cities adopting the Tool' },
-        { column: 'Case Studies' },
+            state_adopt_tool: [
+                {
+                    id: 1,
+                    iconImage: "/image",
+                    state_name: "Andhra Pradesh",
+                    cities: [
+                        {
+                            id: 21,
+                            cities_name: "Anantapur"
+                        },
+                        {
+                            id: 22,
+                            cities_name: "Nellore"
+                        }
+
+                    ]
+                },
+                {
+                    id: 2,
+                    iconImage: "/image2",
+                    state_name: "Chhattisgarh",
+                    cities: [
+                        {
+                            id: 27,
+                            cities_name: "Bilaspur"
+                        },
+                        {
+                            id: 28,
+                            cities_name: "Raipur"
+                        },
+
+                    ]
+                },
+                {
+                    id: 3,
+                    iconImage: "/image3",
+                    state_name: "Gujarat",
+                    cities: [
+                        {
+                            id: 32,
+                            cities_name: "Surat"
+                        },
+                        {
+                            id: 33,
+                            cities_name: "Ahmedabad"
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    iconImage: "/image4",
+                    state_name: "Kerala",
+                    cities: [
+                        {
+                            id: 37,
+                            cities_name: "kozhikode"
+                        },
+                        {
+                            id: 38,
+                            cities_name: "Kochi"
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    iconImage: "/image5",
+                    state_name: "Madhya Pradesh",
+                    cities: [
+                        {
+                            id: 39,
+                            cities_name: "Jabalpur"
+                        },
+                        {
+                            id: 40,
+                            cities_name: "Bhopal"
+                        }
+                    ]
+                }
+            ],
+            cities: [
+                {
+                    id: 37,
+                    cities_name: "kozhikode"
+                },
+                {
+                    id: 38,
+                    cities_name: "Kochi"
+                }
+            ]
+        },
+        {
+            id: 2,
+            tool: "Total Revenue",
+            defination: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui hic quibusdam quos dignissimos repellat perspiciatis iure nemo magnam eaque, neque aliquid voluptatum aliquam! ",
+            indicator: [
+                {
+                    id: 11,
+                    icon: "iconImage",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 12,
+                    icon: "iconImage2",
+                    title: "Total Expenditure"
+                },
+                {
+                    id: 13,
+                    icon: "iconImage3",
+                    title: "Total Revenue"
+                },
+                {
+                    id: 14,
+                    icon: "iconImage4",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 15,
+                    icon: "iconImage5",
+                    title: "Total Expenditure"
+                },
+            ],
+
+            state_adopt_tool: [
+                {
+                    id: 1,
+                    iconImage: "/image",
+                    state_name: "Andhra Pradesh",
+                    cities: [
+                        {
+                            id: 21,
+                            cities_name: "Anantapur"
+                        },
+                        {
+                            id: 22,
+                            cities_name: "Nellore"
+                        },
+                        {
+                            id: 23,
+                            cities_name: "Machilipatnam"
+                        },
+                        {
+                            id: 24,
+                            cities_name: "Visakhapatnam"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Vijayawada"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Kurnool"
+                        },
+                        {
+                            id: 26,
+                            cities_name: "Guntur"
+                        },
+                    ]
+                },
+                {
+                    id: 2,
+                    iconImage: "/image2",
+                    state_name: "Chhattisgarh",
+                    cities: [
+                        {
+                            id: 27,
+                            cities_name: "Bilaspur"
+                        },
+                        {
+                            id: 28,
+                            cities_name: "Raipur"
+                        },
+                        {
+                            id: 29,
+                            cities_name: "Naya Raipur"
+                        },
+                        {
+                            id: 30,
+                            cities_name: "Bhilai"
+                        },
+                        {
+                            id: 31,
+                            cities_name: "Ambikapur"
+                        }
+
+                    ]
+                },
+                {
+                    id: 3,
+                    iconImage: "/image3",
+                    state_name: "Gujarat",
+                    cities: [
+                        {
+                            id: 32,
+                            cities_name: "Surat"
+                        },
+                        {
+                            id: 33,
+                            cities_name: "Ahmedabad"
+                        },
+                        {
+                            id: 34,
+                            cities_name: "Rajkot"
+                        },
+                        {
+                            id: 35,
+                            cities_name: "Vadodara"
+                        },
+                        {
+                            id: 36,
+                            cities_name: "Junagadh"
+                        }
+
+                    ]
+                },
+                {
+                    id: 4,
+                    iconImage: "/image4",
+                    state_name: "Kerala",
+                    cities: [
+                        {
+                            id: 37,
+                            cities_name: "kozhikode"
+                        },
+                        {
+                            id: 38,
+                            cities_name: "Kochi"
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    iconImage: "/image5",
+                    state_name: "Madhya Pradesh",
+                    cities: [
+                        {
+                            id: 39,
+                            cities_name: "Jabalpur"
+                        },
+                        {
+                            id: 40,
+                            cities_name: "Bhopal"
+                        }
+                    ]
+                }
+            ],
+            cities: [
+                {
+                    id: 37,
+                    cities_name: "kozhikode"
+                },
+                {
+                    id: 38,
+                    cities_name: "Kochi"
+                }
+            ]
+        },
+        {
+            id: 3,
+            tool: "Share Tax Revenue",
+            defination: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui hic quibusdam quos dignissimos repellat perspiciatis iure nemo magnam eaque, neque aliquid voluptatum aliquam! ",
+            indicator: [
+                {
+                    id: 11,
+                    icon: "iconImage",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 12,
+                    icon: "iconImage2",
+                    title: "Total Expenditure"
+                },
+                {
+                    id: 13,
+                    icon: "iconImage3",
+                    title: "Total Revenue"
+                },
+                {
+                    id: 14,
+                    icon: "iconImage4",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 15,
+                    icon: "iconImage5",
+                    title: "Total Expenditure"
+                },
+            ],
+
+            state_adopt_tool: [
+                {
+                    id: 1,
+                    iconImage: "/image",
+                    state_name: "Andhra Pradesh",
+                    cities: [
+                        {
+                            id: 21,
+                            cities_name: "Anantapur"
+                        },
+                        {
+                            id: 22,
+                            cities_name: "Nellore"
+                        },
+                        {
+                            id: 23,
+                            cities_name: "Machilipatnam"
+                        },
+                        {
+                            id: 24,
+                            cities_name: "Visakhapatnam"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Vijayawada"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Kurnool"
+                        },
+                        {
+                            id: 26,
+                            cities_name: "Guntur"
+                        },
+                    ]
+                },
+                {
+                    id: 2,
+                    iconImage: "/image2",
+                    state_name: "Chhattisgarh",
+                    cities: [
+                        {
+                            id: 27,
+                            cities_name: "Bilaspur"
+                        },
+                        {
+                            id: 28,
+                            cities_name: "Raipur"
+                        },
+                        {
+                            id: 29,
+                            cities_name: "Naya Raipur"
+                        },
+                        {
+                            id: 30,
+                            cities_name: "Bhilai"
+                        },
+                        {
+                            id: 31,
+                            cities_name: "Ambikapur"
+                        }
+
+                    ]
+                },
+                {
+                    id: 3,
+                    iconImage: "/image3",
+                    state_name: "Gujarat",
+                    cities: [
+                        {
+                            id: 32,
+                            cities_name: "Surat"
+                        },
+                        {
+                            id: 33,
+                            cities_name: "Ahmedabad"
+                        },
+                        {
+                            id: 34,
+                            cities_name: "Rajkot"
+                        },
+                        {
+                            id: 35,
+                            cities_name: "Vadodara"
+                        },
+                        {
+                            id: 36,
+                            cities_name: "Junagadh"
+                        }
+
+                    ]
+                },
+                {
+                    id: 4,
+                    iconImage: "/image4",
+                    state_name: "Kerala",
+                    cities: [
+                        {
+                            id: 37,
+                            cities_name: "kozhikode"
+                        },
+                        {
+                            id: 38,
+                            cities_name: "Kochi"
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    iconImage: "/image5",
+                    state_name: "Madhya Pradesh",
+                    cities: [
+                        {
+                            id: 39,
+                            cities_name: "Jabalpur"
+                        },
+                        {
+                            id: 40,
+                            cities_name: "Bhopal"
+                        }
+                    ]
+                }
+            ],
+            cities: [
+                {
+                    id: 37,
+                    cities_name: "kozhikode"
+                },
+                {
+                    id: 38,
+                    cities_name: "Kochi"
+                }
+            ]
+        },
+        {
+            id: 4,
+            tool: "Property Tax Billed",
+            defination: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui hic quibusdam quos dignissimos repellat perspiciatis iure nemo magnam eaque, neque aliquid voluptatum aliquam! ",
+            indicator: [
+                {
+                    id: 11,
+                    icon: "iconImage",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 12,
+                    icon: "iconImage2",
+                    title: "Total Expenditure"
+                },
+                {
+                    id: 13,
+                    icon: "iconImage3",
+                    title: "Total Revenue"
+                },
+                {
+                    id: 14,
+                    icon: "iconImage4",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 15,
+                    icon: "iconImage5",
+                    title: "Total Expenditure"
+                },
+            ],
+
+            state_adopt_tool: [
+                {
+                    id: 1,
+                    iconImage: "/image",
+                    state_name: "Andhra Pradesh",
+                    cities: [
+                        {
+                            id: 21,
+                            cities_name: "Anantapur"
+                        },
+                        {
+                            id: 22,
+                            cities_name: "Nellore"
+                        },
+                        {
+                            id: 23,
+                            cities_name: "Machilipatnam"
+                        },
+                        {
+                            id: 24,
+                            cities_name: "Visakhapatnam"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Vijayawada"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Kurnool"
+                        },
+                        {
+                            id: 26,
+                            cities_name: "Guntur"
+                        },
+                    ]
+                },
+                {
+                    id: 2,
+                    iconImage: "/image2",
+                    state_name: "Chhattisgarh",
+                    cities: [
+                        {
+                            id: 27,
+                            cities_name: "Bilaspur"
+                        },
+                        {
+                            id: 28,
+                            cities_name: "Raipur"
+                        },
+                        {
+                            id: 29,
+                            cities_name: "Naya Raipur"
+                        },
+                        {
+                            id: 30,
+                            cities_name: "Bhilai"
+                        },
+                        {
+                            id: 31,
+                            cities_name: "Ambikapur"
+                        }
+
+                    ]
+                },
+                {
+                    id: 3,
+                    iconImage: "/image3",
+                    state_name: "Gujarat",
+                    cities: [
+                        {
+                            id: 32,
+                            cities_name: "Surat"
+                        },
+                        {
+                            id: 33,
+                            cities_name: "Ahmedabad"
+                        },
+                        {
+                            id: 34,
+                            cities_name: "Rajkot"
+                        },
+                        {
+                            id: 35,
+                            cities_name: "Vadodara"
+                        },
+                        {
+                            id: 36,
+                            cities_name: "Junagadh"
+                        }
+
+                    ]
+                },
+                {
+                    id: 4,
+                    iconImage: "/image4",
+                    state_name: "Kerala",
+                    cities: [
+                        {
+                            id: 37,
+                            cities_name: "kozhikode"
+                        },
+                        {
+                            id: 38,
+                            cities_name: "Kochi"
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    iconImage: "/image5",
+                    state_name: "Madhya Pradesh",
+                    cities: [
+                        {
+                            id: 39,
+                            cities_name: "Jabalpur"
+                        },
+                        {
+                            id: 40,
+                            cities_name: "Bhopal"
+                        }
+                    ]
+                }
+            ],
+            cities: [
+                {
+                    id: 37,
+                    cities_name: "kozhikode"
+                },
+                {
+                    id: 38,
+                    cities_name: "Kochi"
+                }
+            ]
+        },
+        {
+            id: 5,
+            tool: "Credit Rating",
+            defination: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui hic quibusdam quos dignissimos repellat perspiciatis iure nemo magnam eaque, neque aliquid voluptatum aliquam! ",
+            indicator: [
+                {
+                    id: 11,
+                    icon: "iconImage",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 12,
+                    icon: "iconImage2",
+                    title: "Total Expenditure"
+                },
+                {
+                    id: 13,
+                    icon: "iconImage3",
+                    title: "Total Revenue"
+                },
+                {
+                    id: 14,
+                    icon: "iconImage4",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 15,
+                    icon: "iconImage5",
+                    title: "Total Expenditure"
+                },
+            ],
+
+            state_adopt_tool: [
+                {
+                    id: 1,
+                    iconImage: "/image",
+                    state_name: "Andhra Pradesh",
+                    cities: [
+                        {
+                            id: 21,
+                            cities_name: "Anantapur"
+                        },
+                        {
+                            id: 22,
+                            cities_name: "Nellore"
+                        },
+                        {
+                            id: 23,
+                            cities_name: "Machilipatnam"
+                        },
+                        {
+                            id: 24,
+                            cities_name: "Visakhapatnam"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Vijayawada"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Kurnool"
+                        },
+                        {
+                            id: 26,
+                            cities_name: "Guntur"
+                        },
+                    ]
+                },
+                {
+                    id: 2,
+                    iconImage: "/image2",
+                    state_name: "Chhattisgarh",
+                    cities: [
+                        {
+                            id: 27,
+                            cities_name: "Bilaspur"
+                        },
+                        {
+                            id: 28,
+                            cities_name: "Raipur"
+                        },
+                        {
+                            id: 29,
+                            cities_name: "Naya Raipur"
+                        },
+                        {
+                            id: 30,
+                            cities_name: "Bhilai"
+                        },
+                        {
+                            id: 31,
+                            cities_name: "Ambikapur"
+                        }
+
+                    ]
+                },
+                {
+                    id: 3,
+                    iconImage: "/image3",
+                    state_name: "Gujarat",
+                    cities: [
+                        {
+                            id: 32,
+                            cities_name: "Surat"
+                        },
+                        {
+                            id: 33,
+                            cities_name: "Ahmedabad"
+                        },
+                        {
+                            id: 34,
+                            cities_name: "Rajkot"
+                        },
+                        {
+                            id: 35,
+                            cities_name: "Vadodara"
+                        },
+                        {
+                            id: 36,
+                            cities_name: "Junagadh"
+                        }
+
+                    ]
+                },
+                {
+                    id: 4,
+                    iconImage: "/image4",
+                    state_name: "Kerala",
+                    cities: [
+                        {
+                            id: 37,
+                            cities_name: "kozhikode"
+                        },
+                        {
+                            id: 38,
+                            cities_name: "Kochi"
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    iconImage: "/image5",
+                    state_name: "Madhya Pradesh",
+                    cities: [
+                        {
+                            id: 39,
+                            cities_name: "Jabalpur"
+                        },
+                        {
+                            id: 40,
+                            cities_name: "Bhopal"
+                        }
+                    ]
+                }
+            ],
+            cities: [
+                {
+                    id: 37,
+                    cities_name: "kozhikode"
+                },
+                {
+                    id: 38,
+                    cities_name: "Kochi"
+                }
+            ]
+        },
+        {
+            id: 6,
+            tool: "Land Value Tax Exchange",
+            defination: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui hic quibusdam quos dignissimos repellat perspiciatis iure nemo magnam eaque, neque aliquid voluptatum aliquam! ",
+            indicator: [
+                {
+                    id: 11,
+                    icon: "iconImage",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 12,
+                    icon: "iconImage2",
+                    title: "Total Expenditure"
+                },
+                {
+                    id: 13,
+                    icon: "iconImage3",
+                    title: "Total Revenue"
+                },
+                {
+                    id: 14,
+                    icon: "iconImage4",
+                    title: "No. of persons living in slums"
+                },
+                {
+                    id: 15,
+                    icon: "iconImage5",
+                    title: "Total Expenditure"
+                },
+            ],
+
+            state_adopt_tool: [
+                {
+                    id: 1,
+                    iconImage: "/image",
+                    state_name: "Andhra Pradesh",
+                    cities: [
+                        {
+                            id: 21,
+                            cities_name: "Anantapur"
+                        },
+                        {
+                            id: 22,
+                            cities_name: "Nellore"
+                        },
+                        {
+                            id: 23,
+                            cities_name: "Machilipatnam"
+                        },
+                        {
+                            id: 24,
+                            cities_name: "Visakhapatnam"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Vijayawada"
+                        },
+                        {
+                            id: 25,
+                            cities_name: "Kurnool"
+                        },
+                        {
+                            id: 26,
+                            cities_name: "Guntur"
+                        },
+                    ]
+                },
+                {
+                    id: 2,
+                    iconImage: "/image2",
+                    state_name: "Chhattisgarh",
+                    cities: [
+                        {
+                            id: 27,
+                            cities_name: "Bilaspur"
+                        },
+                        {
+                            id: 28,
+                            cities_name: "Raipur"
+                        },
+                        {
+                            id: 29,
+                            cities_name: "Naya Raipur"
+                        },
+                        {
+                            id: 30,
+                            cities_name: "Bhilai"
+                        },
+                        {
+                            id: 31,
+                            cities_name: "Ambikapur"
+                        }
+
+                    ]
+                },
+                {
+                    id: 3,
+                    iconImage: "/image3",
+                    state_name: "Gujarat",
+                    cities: [
+                        {
+                            id: 32,
+                            cities_name: "Surat"
+                        },
+                        {
+                            id: 33,
+                            cities_name: "Ahmedabad"
+                        },
+                        {
+                            id: 34,
+                            cities_name: "Rajkot"
+                        },
+                        {
+                            id: 35,
+                            cities_name: "Vadodara"
+                        },
+                        {
+                            id: 36,
+                            cities_name: "Junagadh"
+                        }
+
+                    ]
+                },
+                {
+                    id: 4,
+                    iconImage: "/image4",
+                    state_name: "Kerala",
+                    cities: [
+                        {
+                            id: 37,
+                            cities_name: "kozhikode"
+                        },
+                        {
+                            id: 38,
+                            cities_name: "Kochi"
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    iconImage: "/image5",
+                    state_name: "Madhya Pradesh",
+                    cities: [
+                        {
+                            id: 39,
+                            cities_name: "Jabalpur"
+                        },
+                        {
+                            id: 40,
+                            cities_name: "Bhopal"
+                        }
+                    ]
+                }
+            ],
+            cities: [
+                {
+                    id: 37,
+                    cities_name: "kozhikode"
+                },
+                {
+                    id: 38,
+                    cities_name: "Kochi"
+                }
+            ]
+        },
     ];
 
-    function getDetailsOfSomething(i) {
-        if(i == 1) {
-            return <p>Hi</p>
-        } else if() {
-            {i.variable}
-        }
+    const [vcfTool, setVcfTool] = useState(tools);
+
+
+
+    function indicator() {
+        return (<div>
+            <Box p={5} className={pagesStyle.title}>
+                <Typography variant="subtitle1" mb={1} sx={{ fontWeight: 'bold' }}>
+                    Definition
+                </Typography>
+
+                <Typography variant="body">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus?
+                </Typography>
+            </Box>
+            <Card>
+                <CardHeader
+                    avatar={<EditIcon />}
+                    title="Title of the Card"
+                />
+            </Card>
+
+            <Grid container spacing={2}>
+                {vcfTool[0].indicator.map((item, index) => (
+                    <Grid item xs={6} sm={6} md={3}>
+                        <Card style={{ height: "100px" }}>
+                            <CardContent>
+                                <Grid container>
+                                    <Grid item xs={12} sm={12} md={4}>
+                                        {/* <NoteAltIcon /> */}
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={8}>
+                                        <Typography > {item.title} </Typography>
+                                    </Grid>
+                                </Grid>
+
+
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
+        </div>)
+    }
+    function adoptToolState() {
+        return (<div>
+            <Grid container spacing={2}>
+                {vcfTool[0].state_adopt_tool.map((item, index) => (
+                    <CardWithList stateName={item.state_name} cityList={item.cities} />
+                ))}
+            </Grid>
+        </div>)
     }
 
-    function renderAccordion(state) {
-        let res = []
+    function rightSection() {
+        return (
+            <div>
+                <h4 className={pagesStyle.titleHeading}>VCF Tools</h4>
+                <Card className={pagesStyle.customCard}>
+                    <CardContent>
+                        <Table>
+                            <TableBody>
 
-        [1, 2, 3, 4].forEach((i, idx) => {
-            res.push(
-                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                    >
-                        {i.title}
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        {getDetailsOfSomething(i)}
-                    </AccordionDetails>
-                </Accordion>
-            )
-        })
+                                {vcfTool.map((item, index) => (
+                                    <TableRow key={index} className={pagesStyle.customColor}>
+                                        {/* <TableCell className={pagesStyle.cell}>
+                                            <NoteAltIcon style={{ fontSize: "20px", }} />
+                                        </TableCell> */}
 
-        return res
+                                        <TableCell className={`${pagesStyle.cell}`} style={{ backgroundColor: (index === 0 && 'rgba(76, 149, 191, 0.41)') }}>{item.tool} </TableCell>
+
+                                    </TableRow>
+                                ))}
+
+
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
+            </div>
+        );
+
+
+    };
+
+    function definition() {
+        return (<div>
+            <h4 className={pagesStyle.titleHeading}>Premium/additional FAR</h4>
+            <Box pt={3} pl={5} className={pagesStyle.title}>
+                <Typography variant="subtitle1" mb={1} sx={{ fontWeight: 'bold' }}>
+                    Definition
+                </Typography>
+
+                <Typography variant="body">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus?
+                </Typography>
+            </Box>
+        </div>)
+    }
+
+    function leftSection() {
+
+        return (
+            <div>
+                {definition()}
+                {indicator()}
+            </div>
+        )
     }
 
     return (
         <>
             <Header />
             <Container>
-                <Box style={{ marginTop: "80px" }} >
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={12} md={9}>
-                            <h3 style={{ textAlign: "center", backgroundColor: "rgb(1,136,209)", padding: "10px", color: "white" }}>Premium/additional FAR</h3>
-                            <Card>
-                                {isState && renderAccordion(state)}
-                                {/* <Table>
-
-                                    <TableBody style={{ textAlign: "right" }}>
-                                        {tableData.map((rowData, index) => (
-                                            <Row key={index} rowData={(rowData)} />
-                                        ))}
-                                    </TableBody>
-                                </Table> */}
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={3}>
-                            <h3 style={{ textAlign: "center", backgroundColor: "rgb(1,136,209)", padding: "10px", color: "white" }}>VCF Tools</h3>
-                            <Card style={{ height: '300px', overflowY: 'auto' }}>
-                                <CardContent>
-                                    <Table>
-
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell>Cell 1</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 2</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 3</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 4</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 5</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 5</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 5</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 5</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 5</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 5</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 5</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 5</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 15</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 25</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell3 5</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 345</TableCell>
-
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Cell 5</TableCell>
-
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
-                                </CardContent>
-                            </Card>
-                        </Grid>
+                <Grid container spacing={5} style={{ marginTop: "40px" }}>
+                    <Grid item xs={12} sm={12} md={9}>
+                        {leftSection()}
                     </Grid>
-                </Box>
+                    <Grid item xs={12} sm={12} md={3}>
+                        {rightSection()}
+                    </Grid>
+                </Grid>
             </Container>
         </>
-    );
-};
-
-export default ExplainTool;
+    )
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Header from '@/components/Header';
-import { Card, CardContent, CardActions, Grid, Container } from '@mui/material';
+import { Card, CardContent, CardHeader, Avatar, IconButton, CardActions, Grid, Container, Box } from '@mui/material';
 import { Table, TableBody, TableRow, TableCell, Typography, List, ListItem, ListItemText } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -8,32 +8,27 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Image from 'next/image';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import pagesStyle from '@/styles/ExplainTool.module.scss';
+import pagesStyle from '@/styles/SpecificTool.module.scss';
 import CardWithList from '@/components/CardWithList';
-
-export default function ExplainTool() {
-
-    const [expanded, setExpanded] = useState(false);
-    const [defination, setDefination] = useState();
-    const [isListOpen, setIsListOpen] = useState(false);
+import Button from '@mui/material/Button';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import ListSubheader from '@mui/material/ListSubheader';
 
 
+export default function SpecificTool() {
 
-    const handleCardClick = (props) => {
-        setIsListOpen(!isListOpen);
-    };
 
 
     let tools = [
         {
             id: 1,
-            tool: "Additional / Premium FAR",
+            tool: "Premium/additional FAR",
             defination: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui hic quibusdam quos dignissimos repellat perspiciatis iure nemo magnam eaque, neque aliquid voluptatum aliquam! ",
             indicator: [
                 {
                     id: 11,
                     icon: "iconImage",
-                    title: "No. of persons living in slums"
+                    title: "No. of persons living in slums "
                 },
                 {
                     id: 12,
@@ -978,62 +973,82 @@ export default function ExplainTool() {
             ]
         },
     ];
-
     const [vcfTool, setVcfTool] = useState(tools);
 
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
-
-    function indicator() {
+    function definition() {
         return (<div>
-            <Grid container spacing={2}>
-                {vcfTool[0].indicator.map((item, index) => (
-                    <Grid item xs={6} sm={6} md={3}>
-                        <Card style={{ height: "100px" }}>
-                            <CardContent>
-                                <Grid container>
-                                    <Grid item xs={12} sm={12} md={4}>
-                                        {/* <NoteAltIcon /> */}
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={8}>
-                                        <Typography > {item.title} </Typography>
-                                    </Grid>
-                                </Grid>
+            <h4 className={pagesStyle.titleHeading}>Premium/additional FAR</h4>
+            <Box pt={3} pl={5} className={pagesStyle.title}>
+                <Typography variant="subtitle1" mb={1} sx={{ fontWeight: 'bold' }}>
+                    Definition
+                </Typography>
 
-
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
+                <Typography variant="body">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus?
+                </Typography>
+            </Box>
         </div>)
     }
-    function adoptToolState() {
+    function indicator() {
         return (<div>
-            <Grid container spacing={2}>
-                {vcfTool[0].state_adopt_tool.map((item, index) => (
-                    <CardWithList stateName={item.state_name} cityList={item.cities}/>
+            <Box pt={3} pl={5} className={pagesStyle.title}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                    Indicator impacting the Tool
+                </Typography>
+
+                <Grid container spacing={2} mt={1}>
+                    {vcfTool[0].indicator.map((item, index) => (
+                        <Grid item xs={6} sm={6} md={3}>
+                            <Card className={pagesStyle.customIndicatorCard}>
+                                <CardHeader
+
+                                    avatar={<LocationCityIcon className={pagesStyle.icon} />}
+                                    title={item.title}
+                                />
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+
+        </div>)
+    }
+    function stateAdoptingTool() {
+        return (<div>
+            <Box pt={4} pl={5} className={pagesStyle.title}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                    Cities adopting the Tool
+                </Typography>
+
+                <Grid container spacing={2} mt={1}>
+                    {vcfTool[0].state_adopt_tool.map((item, index) => (
+                    <CardWithList stateName={item.state_name} cityList={item.cities} />
+                    
                 ))}
-            </Grid>
+
+                </Grid>
+
+            </Box>
         </div>)
     }
 
     function rightSection() {
         return (
             <div>
-                <h3 style={{ textAlign: "center", backgroundColor: "rgb(1,136,209)", padding: "10px", color: "white" }}>VCF Tools</h3>
-                <Card style={{ height: '300px', overflowY: 'auto' }}>
+                <h4 className={pagesStyle.titleHeading}>VCF Tools</h4>
+                <Card className={pagesStyle.customCardLeft}>
                     <CardContent>
                         <Table>
                             <TableBody>
 
                                 {vcfTool.map((item, index) => (
-                                    <TableRow key={index} className={pagesStyle.customColor}>
-                                        <TableCell className={pagesStyle.cell}>
-                                            {/* <NoteAltIcon style={{ fontSize: "20px", }} /> */}
-                                        </TableCell>
-                                        <TableCell className={pagesStyle.cell}>{item.tool} </TableCell>
+                                    <TableRow key={index}>
+                                        {/* <TableCell className={pagesStyle.cell}>
+                                            <NoteAltIcon style={{ fontSize: "20px", }} />
+                                        </TableCell> */}
+
+                                        <TableCell className={`${pagesStyle.cell} ${pagesStyle.customColor}`} style={{ backgroundColor: (index === 0 && 'rgba(76, 149, 191, 0.41)') }}>{item.tool} </TableCell>
+
                                     </TableRow>
                                 ))}
 
@@ -1052,76 +1067,9 @@ export default function ExplainTool() {
 
         return (
             <div>
-                <h3 style={{ textAlign: "center", backgroundColor: "rgb(1,136,209)", padding: "10px", color: "white" }}>Premium/additional FAR</h3>
-                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                    >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                            Defination
-                        </Typography>
-
-
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            {vcfTool[0].defination}
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-
-
-                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel2bh-content"
-                        id="panel2bh-header"
-                    >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                            Indicators impacting Tool
-                        </Typography>
-
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            {indicator()}
-
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel3bh-content"
-                        id="panel3bh-header"
-                    >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                            Citites Adopting the Tool
-                        </Typography>
-
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            {adoptToolState()}
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel4bh-content"
-                        id="panel4bh-header"
-                    >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>Case Studies</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            {adoptToolState()}
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
+                {definition()}
+                {indicator()}
+                {stateAdoptingTool()}
             </div>
         )
     }
@@ -1130,7 +1078,7 @@ export default function ExplainTool() {
         <>
             <Header />
             <Container>
-                <Grid container spacing={1} style={{ marginTop: "40px" }}>
+                <Grid container spacing={5} style={{ marginTop: "40px" }}>
                     <Grid item xs={12} sm={12} md={9}>
                         {leftSection()}
                     </Grid>

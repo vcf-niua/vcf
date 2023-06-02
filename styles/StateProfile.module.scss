@@ -1,0 +1,48 @@
+@use 'variables';
+
+.titleHeading {
+  text-align: center;
+  background-color: variables.$base;
+  color: #fff;
+  border-radius: 7px;
+  padding: 12px;
+  
+}
+ 
+.customCardLeft {
+  height: 30vh;
+  overflow-y: auto;
+  margin-bottom: 1px;
+  margin-top : 10px;
+  background-color: rgba(210, 235, 250, 0.24);
+}
+
+.customIndicatorCard {
+   height: 100px;
+   background-color: variables.$secondary;
+   border-radius: 10px;
+   color:#fff;
+   box-shadow: none;
+   .icon {
+    font-size: 45px;
+   }
+}
+
+.cell {
+  padding: 9px 10px;
+  vertical-align: middle;
+  cursor: pointer;
+  color: variables.$base;
+  border-bottom: 1px solid variables.$secondary;
+  svg {
+     vertical-align: middle;
+  }
+}
+
+.customColor:hover {
+  background-color:#4C95BF ;
+  color:white;
+  .cell {
+    color: #fff;
+  }
+}
