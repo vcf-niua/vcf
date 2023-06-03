@@ -1,143 +1,69 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
-import ToolStyles from '@/styles/Tool.module.scss';
+import React, { useEffect, useState } from 'react';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { Container, Card, CardContent, Grid } from '@mui/material';
-import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import { Stack } from '@mui/material';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
+
+import fetchData from '@/services/fetch';
+import { API_ENDPOINT_CMS } from '@/services/const.jsx';
+
+import styles from '@/styles/Tool.module.scss';
 
 
 export default function Tool() {
-  const [tools, setTools] = useState([
-    {
-      id: 1,
-      toolName: "Premium/additional FAR",
-      link: ""
-    },
-    {
-      id: 2,
-      toolName: "Tax increment Finance",
-      link: ""
-    },
-    {
-      id: 3,
-      toolName: "Transferable Development Rights",
-      link: ""
-    },
-    {
-      toolName: "Vacant Land Tax",
-      link: ""
-    },
-    {
-      toolName: "Development charges/ Cost Levy",
-      link: ""
-    },
-    {
-      toolName: "Bettement Levy",
-      link: ""
-    },
-    {
-      toolName: "Land Pooling",
-      link: ""
-    },
-    {
-      toolName: "Land Use Change Fee",
-      link: ""
-    },
-    {
-      toolName: "Land Acquisition and Development (Rajasthan)",
-      link: ""
-    },
-    {
-      toolName: "Land Value Tax (Including Property tax)",
-      link: ""
-    },
-    {
-      toolName: "Regularisation of Unauthorised Construction",
-      link: ""
-    },
-    {
-      toolName: "Air Rights",
-      link: ""
-    },
-    {
-      toolName: "Town Planning Charges",
-      link: ""
-    },
-    {
-      toolName: "City Level Infrastructure Fund (Telangana)",
-      link: ""
-    },
-    {
-      toolName: "Encroachment Fee Building",
-      link: ""
-    },
-    {
-      toolName: "Penalisation Fees",
-      link: ""
-    }
-  ])
 
+	const [toolInfoState, setToolInfoState] = useState();
 
-  return (
-    <>
-      <Header />
-      {/* <Container maxWidth="lg" >
-        <Stack spacing={2}>
-          <Grid container>
+	useEffect(() => {
+		fetchData('tool-infos', 'GET', {
+			'populate': 'icon'
+		})
+			.then(res => res.json())
+			.then(setToolInfoState)
+	}, [])
 
-            <Stack spacing={2} direction='row'>
-              <Grid item xs={12} sm={6} md={3} >
-                <Card >
-                  <CardContent >
-                    <NoteAltIcon style={{ fontSize: "40px" }} />
-                    <Typography >
-                      Lorem Ipsum
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+	function renderToolBox(toolInfoState) {
+		let res = []
 
+		if(toolInfoState && toolInfoState.data) {
+			toolInfoState.data.forEach((t, idx) => {
+				let ic = '/images/icon/betterment_levy.png'
+				console.log(t)
+				if(t.attributes.icon.data) {
+					ic = API_ENDPOINT_CMS + t.attributes.icon.data.attributes.url
+				}
+				res.push(
+					<Grid key={idx} item xs={2} sm={4} md={3} >
+						<Card>
+							<CardContent className={styles.card}>
+								<img src={ic} style={{ width: "70px" }} />
+								<Typography mt={1}>
+									{t.attributes.title}
+								</Typography>
+							</CardContent>
+	
+						</Card>
+					</Grid>
+				)
+			})
+		}
+		
 
+		return res
+	}
 
-            </Stack>
-
-
-
-          </Grid>
-        </Stack>
-      </Container> */}
-      <Container maxWidth="lg" >
+  	return (
+    	<>
+        <Header />
+        <Container maxWidth="lg" >
         <Box sx={{ flexGrow: 1, mt: 8 }} style={{paddingBottom: "100px"}} >
           <Grid container spacing={{ xs: 2, md: 5 }} columns={{ xs: 4, sm: 8, md: 12 }} >
-            {tools.map((tool,index)=>(
-               <Grid item xs={2} sm={4} md={3} >
-               <Card className={ToolStyles.customCard}>
-                 <CardContent sx={{textAlign:"center"}}>
-                   <NoteAltIcon style={{ width: "98px", height: "70px" }} />
-                   <Typography mt={1} >
-                   {tool.toolName}
-                   </Typography>
- 
-                 </CardContent>
- 
-               </Card>
-             </Grid>
-            ))}
-           
-            
-
-
+            {renderToolBox(toolInfoState)}
           </Grid>
         </Box>
-      </Container>
-    </>
-  )
+        </Container>
+        <Footer/>
+    	</>
+	)
 }
