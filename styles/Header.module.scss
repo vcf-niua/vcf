@@ -1,0 +1,17 @@
+@use 'variables';
+
+.brand_text {
+    font-weight: 700;
+    color: variables.$secondary;
+    flex: 1;
+    font-size: 1.8rem;
+}
+
+.nav_text { 
+    display: block;
+    color: variables.$base;
+    font-family: 'Gilroy';
+    font-weight: 900;
+    text-decoration: underline;
+    text-transform: none;
+}

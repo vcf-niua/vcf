@@ -1,15 +1,20 @@
 import React from 'react'
-import Header from '@/components/Header'
+import dynamic from 'next/dynamic'
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, Avatar, IconButton, CardActions, Grid, Container, Box } from '@mui/material';
 import Style from '@/styles/StateProfile.module.scss';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { Table, TableBody, TableRow, TableCell, Typography, List, ListItem, ListItemText } from '@mui/material';
+
+import Map from '@/components/Map';
+
 export default function StateProfile() {
 
     function leftSection() {
-        return (<div>
-           India Map
-        </div>)
+        return (
+            <Map/>
+        )
     }
 
     function rightSection() {
@@ -143,6 +148,8 @@ export default function StateProfile() {
                     </Grid>
                 </Grid>
             </Container>
+
+            <Footer/>
         </div>
     )
 }

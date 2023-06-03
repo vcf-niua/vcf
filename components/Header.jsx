@@ -7,13 +7,10 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import HeaderStyle from '@/styles/Header.module.scss';
 import Button from '@mui/material/Button';
-
 import MenuItem from '@mui/material/MenuItem';
 
-import HomeIcon from '@mui/icons-material/Home';
-
+import styles from '@/styles/Header.module.scss';
 
 const pages = ['About', 'State/City', 'Tool', 'Knowledge Platform', 'Suitability of the tool'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -43,24 +40,16 @@ export default function Header() {
     };
     return (
         <>
-            <AppBar sx={{ bgcolor: "white" }} style={{color:"#2D6E93"}} position="static" >
+            <AppBar sx={{ bgcolor: "white" }} style={{color:"#2D6E93", boxShadow: 'none'}} position="static" >
                 <Container>
                     <Toolbar disableGutters>
 
                         <Typography
+                            className={styles.brand_text}
                             variant="h6"
                             noWrap
                             component="a"
                             href="/"
-                            sx={{
-                                mr: 20,
-                                display: { xs: 'none', md: 'flex' },
-                                
-                                // fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                
-                                textDecoration: 'none',
-                            }}
                             
                         >
                             Value Capture Financing
@@ -126,12 +115,12 @@ export default function Header() {
                             Value Capture Financing
                         </Typography>
                         {/* Medium size */}
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
                                 <Button
                                     key={page}
+                                    className={styles.nav_text}
                                     onClick={handleCloseNavMenu}
-                                    sx={{ my: 2,  display: 'block' }}
                                 >
                                     {page}
                                 </Button>
