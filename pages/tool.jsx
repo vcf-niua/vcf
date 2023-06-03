@@ -55,7 +55,6 @@ export default function Tool() {
 
   	return (
     	<>
-        <Header />
         <Container maxWidth="lg" >
         <Box sx={{ flexGrow: 1, mt: 8 }} style={{paddingBottom: "100px"}} >
           <Grid container spacing={{ xs: 2, md: 5 }} columns={{ xs: 4, sm: 8, md: 12 }} >
@@ -63,7 +62,6 @@ export default function Tool() {
           </Grid>
         </Box>
         </Container>
-        <Footer/>
     	</>
 	)
 }
