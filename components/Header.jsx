@@ -14,8 +14,26 @@ import styles from '@/styles/Header.module.scss';
 
 import Logo from './images/logo.svg';
 import NIUALogo from './images/niua.svg';
+import Link from 'next/link';
 
-const pages = ['About', 'State/City', 'Tool', 'Knowledge Platform', 'Suitability of the tool'];
+const pages = [
+    {
+        name: 'About',
+        link: 'about'
+    }, {
+        name: 'State/City',
+        link: 'state-profile'
+    }, {
+        name: 'Tool',
+        link: 'tool'
+    }, {
+        name: 'Knowledge Platform',
+        link: '/'
+    }, {
+        name: 'Suitability of the tool',
+        link: '/'
+    }
+]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function Header() {
@@ -46,29 +64,31 @@ export default function Header() {
             <AppBar className={styles.app_bar} position="static" >
                 <Container className={styles.container}>
                     <div className={styles.logo_nav_container}>
-                        <div className={styles.logo_container}>
-                            <Logo/>
+                        <Link href="/">
+                            <div className={styles.logo_container}>
+                                <Logo/>
 
-                            <Typography
-                                className={styles.brand_text}
-                                variant="h6"
-                                noWrap
-                                component="a"
-                                href="/"
-                                
-                            >
-                                Value Capture Financing
-                            </Typography>
-                        </div>
-                        <Box className={styles.nav_container} sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
-                                <Button
-                                    key={page}
-                                    className={styles.nav_text}
-                                    onClick={handleCloseNavMenu}
+                                <Typography
+                                    className={styles.brand_text}
+                                    variant="h6"
+                                    noWrap
+                                    
                                 >
-                                    {page}
-                                </Button>
+                                    Value Capture Financing
+                                </Typography>
+                            </div>
+                        </Link>
+                        <Box className={styles.nav_container} sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            {pages.map((page, idx) => (
+                                <Link key={idx} href={page.link}>
+                                    <Button
+                                        key={page}
+                                        className={styles.nav_text}
+                                        onClick={handleCloseNavMenu}
+                                    >
+                                        {page.name}
+                                    </Button>
+                                </Link>
                             ))}
                         </Box>
                     </div>

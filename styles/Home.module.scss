@@ -1,32 +1,48 @@
+@use 'variables';
 
-.banner{
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 90vh;
-    position: relative;
-    
+.home {
+    color: variables.$base;
+    text-align: center;
+    h1 {
+        font-size: 2.9rem;
+        text-align: center;
+        font-weight: 400;
+        margin: 40px 0;
+        line-height: 4rem;
+        span {
+            font-weight: 900;
+        }
+    }
+    p {
+        font-size: 1.5rem;
+        text-align: center;
+        line-height: 2.4rem;
+    }
+    .hero_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 90px 0;
+        .hero_icon {
+            width: 10%;
+            margin-bottom: 30px;
+        }
+        h3 {
+            background-color: variables.$base;
+            color: variables.$white;
+            width: fit-content;
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border-radius: 7px;
+        }
+        h1 {
+            width: 60%;
+        }
+        p {
+            width: 80%;
+        }
+    }
+    .text_container {
+        margin-bottom: 80px;
+    }
 }
-
-.container{
-    width:900px;
-    padding: 88px;
-    background-color: rgba(26, 118, 210, 0.883);
-    margin: 0 auto;
-}
-.headingtext {
-    color:white;
-    line-height: 1.37;
-    font-size: 20px;
-    
-   
-}
-
-.containerBox{
-    position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    margin-top: 320px;
-}
-
