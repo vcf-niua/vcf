@@ -32,7 +32,7 @@ export default function StateProfile() {
     function rightSection() {
         return (
             <div>
-                <h1>State Profiles</h1>
+                <h1>State Profile</h1>
 
                 <Box pt={3} className={styles.title}>
 
