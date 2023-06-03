@@ -79,8 +79,8 @@ export default function Header() {
                             </div>
                         </Link>
                         <Box className={styles.nav_container} sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
-                                <Link href={page.link}>
+                            {pages.map((page, idx) => (
+                                <Link key={idx} href={page.link}>
                                     <Button
                                         key={page}
                                         className={styles.nav_text}
