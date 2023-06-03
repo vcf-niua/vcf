@@ -1,11 +1,51 @@
 @use 'variables';
 
-.brand_text {
-    font-weight: 700;
-    color: variables.$secondary;
-    flex: 1;
-    font-size: 1.8rem;
+.header {
+    padding: 20px 0;
+    background-color: #1111110b;
+    // border-bottom: 1px dotted #111;
+    .app_bar {
+        background-color: transparent;
+        box-shadow: none;
+        .container {
+            display: flex;
+            .logo_nav_container {
+                display: flex;
+                flex-direction: row;
+                flex: 1;
+                .logo_container {
+                    flex: 1;
+                    display: flex;
+            
+                    .brand_text {
+                        // font-weight: 700;
+                        color: variables.$base;
+                        font-size: 2rem;
+                        margin-left: 10px;
+                        // padding-top: 3px;
+                    }
+                    svg {
+                        height: 50px;
+                        align-self: center;
+                    }
+                }
+                .nav_container {
+                    margin-left: 55px;
+                    margin-right: 30px;
+                }
+            }
+            .niua_brand {
+                svg {
+                    height: 40px;
+                }
+            }
+        }
+        
+    }
+    
 }
+
+
 
 .nav_text { 
     display: block;
