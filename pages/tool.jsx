@@ -28,14 +28,14 @@ export default function Tool() {
 
 		if(toolInfoState && toolInfoState.data) {
 			toolInfoState.data.forEach((t, idx) => {
-				let ic = '/images/icon/betterment_levy.png'
+				let ic = '/images/icon/betterment_levy.svg'
 				console.log(t)
 				if(t.attributes.icon.data) {
 					ic = API_ENDPOINT_CMS + t.attributes.icon.data.attributes.url
 				}
 				res.push(
 					<Grid key={idx} item xs={2} sm={4} md={3} >
-						<Card>
+						<Card style={{boxShadow: 'none'}}>
 							<CardContent className={styles.card}>
 								<img src={ic} style={{ width: "70px" }} />
 								<Typography mt={1}>
