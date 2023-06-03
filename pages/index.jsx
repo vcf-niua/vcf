@@ -1,92 +1,35 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import MapImg from '../public/map.jpeg'
-import styles from '@/styles/Home.module.scss';
-import Image from 'next/image';
-import Slider from "react-slick";
-import Link from 'next/link';
-import Grid from '@mui/material/Grid';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { Row, Column } from 'react-foundation';
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
+import {
+    Container
+} from '@mui/material';
 
-var settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    speed: 100,
-    slidesToShow: 1,
-    swipeToSlide: true,
-};
+import Logo from '@/components/images/logo.svg';
+
+import styles from '@/styles/Home.module.scss';
 
 export default function Home() {
 
-
     return (
-        <>
-            <Header />
-            <Image src="/map.jpeg" alt="My Image" width={800} height={1000} className={styles.banner} />
+        <section className={styles.home}>
+            <Container>
 
-            <Box className={styles.containerBox}>
-                <div className={styles.container}>
-                    <Slider {...settings}>
-                        <div >
-                            <Grid container direction='row'>
-                                <Grid item md={6}>
-                                    <h2 className={styles.headingtext}>Value Capture Financing</h2>
-                                    <p className={styles.headingtext}>Read more...</p>
-                                </Grid>
-                                <Grid item md={6}>
-                                   
-                                        <p className={styles.headingtext}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.</p>
-                                    
-                                </Grid>
-                            </Grid>
-                        </div>
-                        <div>
-                            <Grid container direction='row'>
-                                <Grid item md={6}>
-
-                                    <h2 className={styles.headingtext}>Value Capture Financing</h2>
-                                    <p className={styles.headingtext}>Read more...</p>
-
-                                </Grid>
-                                <Grid item md={6}>
-                                    
-                                        <p className={styles.headingtext}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.</p>
-                                    
-                                </Grid>
-                            </Grid>
-                        </div>
-                        <div>
-                            <Grid container direction='row'>
-                                <Grid item md={6}>
-                                    <h2 className={styles.headingtext}>Value Capture Financing</h2>
-                                    <p className={styles.headingtext}>Read more...</p>
-                                </Grid>
-                                <Grid item md={6}>
-                                        <p className={styles.headingtext}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.</p>
-                                </Grid>
-                            </Grid>
-                        </div>
-                        <div>
-                            <Grid container direction='row'>
-                                <Grid item md={6}>
-                                    <h2 className={styles.headingtext}>Value Capture Financing</h2>
-                                    <h6 className={styles.headingtext}>Read more...</h6>
-                                </Grid>
-                                <Grid item md={6}>
-                                        <p className={styles.headingtext}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.</p>
-                                </Grid>
-                            </Grid>
-                        </div>
-
-                    </Slider>
+                <div className={styles.hero_section}>
+                    <Logo className={styles.hero_icon}/>
+                    <h3>Value Capture Financing</h3>
+                    <h1><span>Unlocking the Power of Value:</span> Transforming Land Growth into Public Progress.</h1>
+                    <p>Value Capture Finance is a method to monetise the rise in land values resulting from public infrastructure projects. It helps fund public projects by the government and generates a cycle of value creation, capture, and reinvestment.</p>
                 </div>
-            </Box>
-            {/* <Footer /> */}
-        </>
+
+                <div className={styles.text_container}>
+                    <h1>Summary of the Study</h1>
+                    <p>Value Capture Finance is a method to monetise the rise in land values resulting from public infrastructure projects. It helps fund public projects by the government and generates a cycle of value creation, capture, and reinvestment.</p>
+                </div>
+
+                <div>
+                    <h1>Policy Guidelines</h1>
+                    <p>View and download the policy document</p>
+                </div>
+
+            </Container>
+        </section>
     )
 }
