@@ -1076,7 +1076,6 @@ export default function SpecificTool() {
 
     return (
         <>
-            <Header />
             <Container>
                 <Grid container spacing={5} style={{ marginTop: "40px" }}>
                     <Grid item xs={12} sm={12} md={9}>

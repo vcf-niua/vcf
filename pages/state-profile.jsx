@@ -1,6 +1,4 @@
 import React from 'react'
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, Grid, Container, Box } from '@mui/material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { Table, TableBody, TableRow, TableCell } from '@mui/material';
@@ -142,8 +140,6 @@ export default function StateProfile() {
     }
     return (
         <div className={styles.state_profile}>
-            <Header />
-
             <Container>
                 <Grid container spacing={5} style={{ marginTop: "20px" }}>
                     <Grid item xs={12} sm={12} md={5}>
@@ -155,8 +151,6 @@ export default function StateProfile() {
                     </Grid>
                 </Grid>
             </Container>
-
-            <Footer/>
         </div>
     )
 }
