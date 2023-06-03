@@ -12,6 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 
 import styles from '@/styles/Header.module.scss';
 
+import Logo from './images/logo.svg';
+import NIUALogo from './images/niua.svg';
+
 const pages = ['About', 'State/City', 'Tool', 'Knowledge Platform', 'Suitability of the tool'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -39,23 +42,48 @@ export default function Header() {
         background : ''
     };
     return (
-        <>
-            <AppBar sx={{ bgcolor: "white" }} style={{color:"#2D6E93", boxShadow: 'none'}} position="static" >
-                <Container>
-                    <Toolbar disableGutters>
+        <header className={styles.header}>
+            <AppBar className={styles.app_bar} position="static" >
+                <Container className={styles.container}>
+                    <div className={styles.logo_nav_container}>
+                        <div className={styles.logo_container}>
+                            <Logo/>
 
-                        <Typography
-                            className={styles.brand_text}
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="/"
-                            
-                        >
-                            Value Capture Financing
-                        </Typography>
+                            <Typography
+                                className={styles.brand_text}
+                                variant="h6"
+                                noWrap
+                                component="a"
+                                href="/"
+                                
+                            >
+                                Value Capture Financing
+                            </Typography>
+                        </div>
+                        <Box className={styles.nav_container} sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            {pages.map((page) => (
+                                <Button
+                                    key={page}
+                                    className={styles.nav_text}
+                                    onClick={handleCloseNavMenu}
+                                >
+                                    {page}
+                                </Button>
+                            ))}
+                        </Box>
+                    </div>
+                    <div className={styles.niua_brand}>
+                        <NIUALogo/>
+                    </div>
+                </Container>
+                {/* <Container>
+                    <Toolbar disableGutters> */}
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        
+
+                        
+
+                        {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
@@ -93,9 +121,9 @@ export default function Header() {
                                     </MenuItem>
                                 ))}
                             </Menu>
-                        </Box>
+                        </Box> */}
 
-                        <Typography
+                        {/* <Typography
                             variant="h5"
                             noWrap
                             component="a"
@@ -113,9 +141,10 @@ export default function Header() {
                            
                         >
                             Value Capture Financing
-                        </Typography>
+                        </Typography> */}
+                        
                         {/* Medium size */}
-                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        {/* <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
                                 <Button
                                     key={page}
@@ -125,9 +154,9 @@ export default function Header() {
                                     {page}
                                 </Button>
                             ))}
-                        </Box>
+                        </Box> */}
 
-                        <Box sx={{ flexGrow: 0 }}>
+                        {/* <Box sx={{ flexGrow: 0 }}>
                            
                             <Menu
                                 sx={{ mt: '45px'}}
@@ -153,11 +182,11 @@ export default function Header() {
                                     </MenuItem>
                                 ))}
                             </Menu>
-                        </Box>
-                    </Toolbar>
-                </Container>
+                        </Box> */}
+                    {/* </Toolbar>
+                </Container> */}
             </AppBar>
 
-        </>
+        </header>
     )
 }

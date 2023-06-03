@@ -1,48 +1,74 @@
 @use 'variables';
 
-.titleHeading {
-  text-align: center;
-  background-color: variables.$base;
-  color: #fff;
-  border-radius: 7px;
-  padding: 12px;
-  
-}
- 
-.customCardLeft {
-  height: 30vh;
-  overflow-y: auto;
-  margin-bottom: 1px;
-  margin-top : 10px;
-  background-color: rgba(210, 235, 250, 0.24);
-}
+.state_profile {
+	color: variables.$black;
+	.titleHeading {
+		text-align: center;
+		background-color: variables.$base;
+		color: #fff;
+		border-radius: 7px;
+		padding: 12px;
+		font-size: 1.4rem;
+	}
 
-.customIndicatorCard {
-   height: 100px;
-   background-color: variables.$secondary;
-   border-radius: 10px;
-   color:#fff;
-   box-shadow: none;
-   .icon {
-    font-size: 45px;
-   }
-}
+	.customCardLeft {
+		height: 30vh;
+		overflow-y: auto;
+		margin-bottom: 1px;
+		margin-top : 10px;
+		background-color: rgba(210, 235, 250, 0.24);
+	}
 
-.cell {
-  padding: 9px 10px;
-  vertical-align: middle;
-  cursor: pointer;
-  color: variables.$base;
-  border-bottom: 1px solid variables.$secondary;
-  svg {
-     vertical-align: middle;
-  }
-}
+	.customIndicatorCard {
+		display: flex;
+		height: 100px;
+		background-color: variables.$secondary;
+		border-radius: 10px;
+		color:#fff;
+		box-shadow: none;
+		justify-content: center;
+		align-content: center;
+		padding: 7px;
+		.icon {
+			font-size: 45px;
+			align-self: center;
+			display: flex;
+			// justify-content: center;
+			margin-right: 8px;
+			width: 50px;
+			svg {
+				font-size: 2.5rem;
+			}
+		}
+		.content {
+			align-self: center;
+			// text-align: center;
+			p {
+				font-size: 0.8rem;
+			}
+			h2 {
+				margin-top: 4px;
+				font-size: 1.6rem;
+			}
+		}
+	}
 
-.customColor:hover {
-  background-color:#4C95BF ;
-  color:white;
-  .cell {
-    color: #fff;
-  }
+	.cell {
+		padding: 9px 10px;
+		vertical-align: middle;
+		cursor: pointer;
+		color: variables.$base;
+		border-bottom: 1px solid variables.$secondary;
+		svg {
+			vertical-align: middle;
+		}
+	}
+
+	.customColor:hover {
+		background-color:#4C95BF ;
+		color:white;
+		.cell {
+			color: #fff;
+		}
+	}
 }
