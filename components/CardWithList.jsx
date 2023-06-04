@@ -22,7 +22,7 @@ export default function CardWithList(props) {
 
     function renderList(cityList) {
         return (
-            <Card className={pagesStyle.listContainer}>
+            <Card className={`${pagesStyle.listContainer} ${pagesStyle.cardListInner}`}>
                 <List component="nav"  style={{transition: "transform 250ms linear"}}>
                     {cityList.map((item, index) => (
                         <ListItem  className={pagesStyle.cityTool}>
@@ -38,7 +38,7 @@ export default function CardWithList(props) {
     {/*  */ }
     return (
         <Grid item xs={6} sm={6} md={3}>
-            <Card className={pagesStyle.customIndicatorCard} onClick={() => handleCardClick(props.cityList)}>
+            <Card className={`${pagesStyle.customIndicatorCard} ${pagesStyle.cardList}`} onClick={() => handleCardClick(props.cityList)}>
                 
                 <CardHeader
 

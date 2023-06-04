@@ -10,7 +10,7 @@
 }
  
 .customColor:hover {
-    background-color:#4C95BF ;
+    background-color:variables.$base ;
     color:white;
     .cell {
       color: #fff;
@@ -69,4 +69,14 @@
   // background-color: #4C95BF;
   text-decoration: underline;
   color: #4C95BF;
+}
+
+.cardList {
+  position: relative;
+}
+.cardListInner {
+  position: absolute;
+  width: 192px;
+  z-index: 1;
+  background-color: #fff
 }
