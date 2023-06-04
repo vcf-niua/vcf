@@ -65,7 +65,7 @@
 	}
 
 	.customColor:hover {
-		background-color:#4C95BF ;
+		background-color: variables.$base ;
 		color:white;
 		.cell {
 			color: #fff;
