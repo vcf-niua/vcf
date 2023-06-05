@@ -8,12 +8,16 @@ import {
     ListItem,
     ListItemText,
     CardHeader,
+    Divider
 } from '@mui/material';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import pagesStyle from '@/styles/SpecificTool.module.scss';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 
+import InfoCard from '@/components/InfoCard';
+
 export default function CardWithList(props) {
+    console.log(props.cities)
     const [listOpenState, setListOpenState] = useState(false);
 
     const handleCardClick = () => {
@@ -22,15 +26,17 @@ export default function CardWithList(props) {
 
     function renderList(cityList) {
         return (
-            <Card className={`${pagesStyle.listContainer} ${pagesStyle.cardListInner}`}>
+            <Card className={`${pagesStyle.listContainer} ${pagesStyle.cardListInner}`} style={{marginTop:"10px", boxShadow: "none"}}>
                 <List component="nav"  style={{transition: "transform 250ms linear"}}>
                     {cityList.map((item, index) => (
-                        <ListItem  className={pagesStyle.cityTool}>
-                            <ListItemText primary={item.cities_name} />
+                       <div>
+                         <ListItem className={pagesStyle.cityTool}>
+                            <ListItemText primary={item.cities_name} className={pagesStyle.title}/>
                         </ListItem>
-                        
+                        <Divider component="li" sx={{ backgroundColor: '#2D6E93' }}/>
+                       </div>
                     ))}
-
+               
                 </List>
             </Card>
         )
@@ -38,7 +44,12 @@ export default function CardWithList(props) {
     {/*  */ }
     return (
         <Grid item xs={6} sm={6} md={3}>
-            <Card className={`${pagesStyle.customIndicatorCard} ${pagesStyle.cardList}`} onClick={() => handleCardClick(props.cityList)}>
+            <InfoCard
+                icon=<LocationCityIcon className={pagesStyle.icon} />
+                title={props.stateName} cityList={props.cities}
+                data={"2 Cities"}
+            />
+            {/* <Card className={`${pagesStyle.customIndicatorCard} ${pagesStyle.cardList}`} onClick={() => handleCardClick(props.cityList)}>
                 
                 <CardHeader
 
@@ -50,8 +61,9 @@ export default function CardWithList(props) {
                 />
                 
 
-            </Card>
+            </Card> */}
             {listOpenState && renderList(props.cityList)}
+            
         </Grid>
     )
 }

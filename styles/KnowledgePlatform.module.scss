@@ -1,0 +1,35 @@
+@use 'variables';
+.cell {
+    padding: 9px 10px;
+    vertical-align: middle;
+    cursor: pointer;
+    color: variables.$base;
+    border-bottom: 1px solid variables.$secondary;
+    svg {
+       vertical-align: middle;
+    }
+  }
+
+  .customColor:hover {
+    background-color:variables.$base ;
+    color:white;
+    .cell {
+      color: #fff;
+    }
+ }
+
+ .customCardLeft {
+    height: 70vh;
+    overflow-y: auto;
+    margin-bottom: 1px;
+    margin-top : 10px;
+    box-shadow: none
+  }
+  .titleHeading {
+    text-align: center;
+    background-color: variables.$base;
+    color: #fff;
+    border-radius: 7px;
+    padding: 12px;
+    
+  }

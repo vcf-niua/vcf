@@ -14,10 +14,9 @@ import Button from '@mui/material/Button';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import ListSubheader from '@mui/material/ListSubheader';
 
+import InfoCard from '@/components/InfoCard';
 
 export default function SpecificTool() {
-
-
 
     let tools = [
         {
@@ -975,15 +974,29 @@ export default function SpecificTool() {
     ];
     const [vcfTool, setVcfTool] = useState(tools);
 
+    function renderCard(props) {
+        return (
+            <Card className={pagesStyle.customIndicatorCard} >
+                <div className={pagesStyle.icon}>
+                    {props.icon}
+                </div>
+                <div className={pagesStyle.content}>
+                    <p>{props.title}</p>
+                    {/* <h2>{props.data}</h2> */}
+                </div>
+            </Card>
+        )
+    }
+
     function definition() {
         return (<div>
             <h4 className={pagesStyle.titleHeading}>Premium/additional FAR</h4>
             <Box pt={3} pl={5} className={pagesStyle.title}>
-                <Typography variant="subtitle1" mb={1} sx={{ fontWeight: 'bold' }}>
+                <Typography variant="h6"  mb={1} sx={{ fontWeight: 'bold' }}>
                     Definition
                 </Typography>
 
-                <Typography variant="body">
+                <Typography variant="body1">
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus?
                 </Typography>
             </Box>
@@ -992,20 +1005,25 @@ export default function SpecificTool() {
     function indicator() {
         return (<div>
             <Box pt={3} pl={5} className={pagesStyle.title}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
                     Indicator impacting the Tool
                 </Typography>
 
                 <Grid container spacing={2} mt={1}>
                     {vcfTool[0].indicator.map((item, index) => (
                         <Grid item xs={6} sm={6} md={3}>
-                            <Card className={pagesStyle.customIndicatorCard}>
+                            {/* <Card className={pagesStyle.customIndicatorCard}>
                                 <CardHeader
 
                                     avatar={<LocationCityIcon className={pagesStyle.icon} />}
                                     title={item.title}
                                 />
-                            </Card>
+                            </Card> */}
+                            <InfoCard
+                                icon=<LocationCityIcon/>
+                                title={item.title}
+                                
+                            />
                         </Grid>
                     ))}
                 </Grid>
@@ -1016,14 +1034,16 @@ export default function SpecificTool() {
     function stateAdoptingTool() {
         return (<div>
             <Box pt={4} pl={5} className={pagesStyle.title}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
                     Cities adopting the Tool
                 </Typography>
 
                 <Grid container spacing={2} mt={1}>
                     {vcfTool[0].state_adopt_tool.map((item, index) => (
-                    <CardWithList stateName={item.state_name} cityList={item.cities} />
-                    
+                    // <CardWithList />
+                    <Grid item xs={6} sm={6} md={3}>
+                        <InfoCard title={item.state_name} cityList={item.cities} data={34}  icon=<LocationCityIcon/> />
+                    </Grid>
                 ))}
 
                 </Grid>

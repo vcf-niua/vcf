@@ -1,0 +1,25 @@
+@use 'variables';
+.cityList {
+    height: 50vh;
+    overflow-y: auto;
+    color: variables.$secondary;
+    padding: 5px;
+}
+
+.title {
+    color: variables.$base;
+}
+.stateList {
+    color: variables.$secondary;
+    padding: 5px;
+}
+.active {
+    background-color: variables.$secondary;
+    padding: 10px;
+    color:#fff
+}
+.statehover:hover {
+    background-color: variables.$base;
+    cursor: pointer;
+    color:#ffff;
+}

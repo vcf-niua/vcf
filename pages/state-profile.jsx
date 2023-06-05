@@ -4,6 +4,7 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { Table, TableBody, TableRow, TableCell } from '@mui/material';
 
 import Map from '@/components/Map';
+import InfoCard from '@/components/InfoCard';
 
 import styles from '@/styles/StateProfile.module.scss';
 
@@ -40,11 +41,11 @@ export default function StateProfile() {
                     <Grid container spacing={2} mt={1}>
 
                         <Grid item xs={6} sm={6} md={6}>
-                            {renderCard({
-                                icon: <LocationCityIcon/>,
-                                title: 'Number of Cities',
-                                data: 48
-                            })}
+                            <InfoCard
+                                icon=<LocationCityIcon/>
+                                title='Number of Cities'
+                                data={48}
+                            />
                         </Grid>
                         <Grid item xs={6} sm={6} md={6}>
                             {renderCard({

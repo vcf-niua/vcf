@@ -2,7 +2,7 @@ import { API_ENDPOINT_CMS } from './const.jsx';
 
 export default function fetchData(url, type='GET', params={}) {
     let u = API_ENDPOINT_CMS + '/api/' + url + '?'
-    let token = '2d9d7c0ce40e349a50dcfd0a21faf37f3f5e75cbfb06099274bbf12580ca10ac326a4836710ff5d9651ca186af891a1cd95e3ea679682242d2eeea1ddf8510d45650ad50817eb1162187b2a18834237fc94326a1a44168d0ad9e620f3545e693cd5b695906fa36bb80e2e65f50d6bf06867f4ad89a05199e39a480476f5f3db5'
+    let token = '77c33262012d0a38dbdc789b85d4a795bf97b7efb2a07ed17701e0d2adce52db57143399ba33fe07db232ba1a3adbf04e27482406f584aebaffeda7e03e84df54cced12274b11c2319c31ec7dfa21a8d6c84b44daaa56a9234a20553a8bb6eec81823f6d259a4285c596d54daec318572e6a7ebe751208c78ac753de0218bcbc'
     
     var urlParams = new URLSearchParams(params)
 
