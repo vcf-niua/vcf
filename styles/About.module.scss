@@ -1,0 +1,59 @@
+@use 'variables';
+
+.about {
+    color: variables.$base;
+    text-align: center;
+    h1 {
+        font-size: 2.9rem;
+        text-align: center;
+        font-weight: 400;
+        margin: 40px 0;
+        line-height: 4rem;
+        span {
+            font-weight: 900;
+        }
+    }
+    p {
+        font-size: 1.5rem;
+        text-align: center;
+        line-height: 2.4rem;
+    }
+    .hero_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+        padding-bottom: 20px;
+       
+        h1 {
+            width: 70%;
+        }
+        p {
+            width: 80%;
+        }
+    }
+
+    .containerBox {
+        width: 407px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 100px;
+
+    }
+    .text_container {
+        margin-bottom: 80px;
+    }
+}
+.hero_icon {
+    font-size: 100px;
+    color: #fff;
+    margin-top: 20px;
+}
+.boxCard {
+    width: 200px;
+    height: 150px;
+    background-color: variables.$secondary;
+}
+.boxCard:hover {
+    background-color: variables.$base;
+}
