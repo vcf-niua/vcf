@@ -28,7 +28,7 @@ const pages = [
         link: 'tool'
     }, {
         name: 'Knowledge Platform',
-        link: '/'
+        link: '/knowledge-platform'
     }, {
         name: 'Suitability of the tool',
         link: '/'
