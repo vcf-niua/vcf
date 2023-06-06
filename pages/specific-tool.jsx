@@ -1012,13 +1012,7 @@ export default function SpecificTool() {
                 <Grid container spacing={2} mt={1}>
                     {vcfTool[0].indicator.map((item, index) => (
                         <Grid item xs={6} sm={6} md={3}>
-                            {/* <Card className={pagesStyle.customIndicatorCard}>
-                                <CardHeader
-
-                                    avatar={<LocationCityIcon className={pagesStyle.icon} />}
-                                    title={item.title}
-                                />
-                            </Card> */}
+                            
                             <InfoCard
                                 icon=<LocationCityIcon/>
                                 title={item.title}

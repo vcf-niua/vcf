@@ -1,0 +1,37 @@
+@use 'variables';
+
+.title {
+    h4 {
+        color: variables.$base;
+        font-size: large;
+    }
+    .line {
+        width: 185px;
+        background-color:  variables.$base;
+    }
+
+    .cardList {
+        .cardHeader {
+            background-color: variables.$base;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .listContain {
+            padding: 0 20px;
+
+            .listTitle {
+                color: variables.$base;
+                font-weight: bold;
+            }
+            .listPara {
+                color: variables.$secondary
+            }
+        }
+
+       
+    }
+
+   
+}
