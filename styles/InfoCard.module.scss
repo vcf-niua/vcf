@@ -33,32 +33,18 @@
         }
     }
 
-    .listContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-       
-      }
-
-      .cardListInner {
-        position: absolute;
-        width: 192px;
-        z-index: 1;
-        background-color: #fff;
-        
-
-        .cityTool {
-            border-bottom: variables.$secondary;
-            color:variables.$secondary;
-            .title {
-                color: variables.$paraColor;
-               }
-          }
-          
-          .cityTool:hover {
-            cursor: pointer;
-            color: #4C95BF;
-            font-weight: bold;
-          }
-      }
 }
+
+.cardListInner {
+    position: absolute;
+    width: 192px;
+    z-index: 1;
+    background-color: #ffffffde;
+    // opacity: 1.2 ;
+
+    .cityTool:hover {
+        cursor: pointer;
+        color: #4C95BF;
+        font-weight: bold;
+      }
+  }

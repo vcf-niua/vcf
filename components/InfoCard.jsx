@@ -39,15 +39,18 @@ export default function Infocard(props) {
     }
 
     return (
-        <Card className={styles.customIndicatorCard} onClick={() => handleCardClick(props.cityList)}>
+       <>
+        <Card className={`${styles.customIndicatorCard}`} onClick={() => handleCardClick(props.cityList)}>
             <div className={styles.icon}>
                 {props.icon}
             </div>
             <div className={styles.content}>
-                <p>{props.title}</p>
+                <p style={{fontSize: props.data ? "": "initial"}}>{props.title}</p>
+                
                 {props.data ? (<h2>{props.data}</h2>) : ''}
             </div>
-            {listOpenState && renderList(props.cityList)}
         </Card>
+            {listOpenState && renderList(props.cityList)}
+       </>
     )
 }

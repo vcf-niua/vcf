@@ -24,8 +24,11 @@ export default function IndiaMainPage() {
                     <div className={styles.stateList}>
                         <Grid container spacing={2} mt={1}>
 
-                            <Grid item xs={6} sm={6} md={6} style={{padding: '5px 10px', backgroundColor: 'gray'}}  >
+                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
                                 <p> All </p>
+                            </Grid>
+                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
+                                <p> Arunachal Pradesh </p>
                             </Grid>
                             <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
                                 <p > Andhra Pradesh </p>
@@ -48,9 +51,7 @@ export default function IndiaMainPage() {
                             <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
                                 <p> Kerala</p>
                             </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Arunachal Pradesh </p>
-                            </Grid>
+                           
                             <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
                                 <p> Assam </p>
                             </Grid>
