@@ -1,4 +1,9 @@
-import React from 'react'
+import React from 'react';
+import { 
+    useEffect,
+    useState
+} from 'react';
+import { useRouter } from 'next/router';
 import { Card, CardContent, CardHeader, Grid, Container, Box } from '@mui/material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { Table, TableBody, TableRow, TableCell } from '@mui/material';
@@ -6,9 +11,31 @@ import { Table, TableBody, TableRow, TableCell } from '@mui/material';
 import Map from '@/components/Map';
 import InfoCard from '@/components/InfoCard';
 
+import fetchData from '@/services/fetch';
+
 import styles from '@/styles/StateProfile.module.scss';
 
 export default function StateProfile() {
+
+    const router = useRouter();
+    const {state} = router.query;
+
+    const [stateProfile, setStateProfile] = useState();
+
+    useEffect(() => {
+        if(state) {
+            fetchData('states', 'GET', {
+                'filters[name][$eqi]': state,
+                'populate': 'laws,laws.law_document,cities'
+            })
+                .then(res => res.json())
+                .then(setStateProfile)
+        }
+    }, [state])
+
+    useEffect(() => {
+        console.log(stateProfile)
+    }, [stateProfile])
 
     function renderCard(props) {
         return (
@@ -24,6 +51,48 @@ export default function StateProfile() {
         )
     }
 
+    function renderDataGrid(attribs) {
+        let data = {
+            'Number of Cities': attribs.no_of_cities,
+            'Cities adopting VCF': attribs.cities.data.length,
+            'Total Population': attribs.population,
+            'Total Revenue (Cr)': attribs.total_revenue,
+            'VCF Revenue (Cr)': attribs.total_vcf_revenue
+        }
+
+        let res = []
+        Object.keys(data).forEach((i, idx) => {
+            if(data[i]) {
+                res.push(
+                    <Grid key={idx} item xs={6} sm={6} md={6}>
+                        <InfoCard
+                            icon=<LocationCityIcon/>
+                            title={i}
+                            data={data[i]}
+                        />
+                    </Grid>
+                )
+            }
+            
+        })
+
+        return res
+    }
+
+    function renderStateProfile(stateProfile) {
+        if(stateProfile) {
+            let state_name = stateProfile.data[0].attributes.name;
+            return (
+                <Box pt={3} className={styles.title}>
+                    <h4 className={styles.titleHeading}>{state_name + 'hiii'}</h4>
+                    <Grid container spacing={2} mt={1}>
+                        {renderDataGrid(stateProfile.data[0].attributes)}
+                    </Grid>
+                </Box>
+            )
+        }
+    }
+
     function leftSection() {
         return (
             <Map/>
@@ -35,7 +104,9 @@ export default function StateProfile() {
             <div>
                 <h1>State Profile</h1>
 
-                <Box pt={3} className={styles.title}>
+                {renderStateProfile(stateProfile)}
+
+                {/* <Box pt={3} className={styles.title}>
 
                     <h4 className={styles.titleHeading}> Rajasthan </h4>
                     <Grid container spacing={2} mt={1}>
@@ -100,7 +171,7 @@ export default function StateProfile() {
                         </Grid>
 
                     </Grid>
-                </Box>
+                </Box> */}
 
                 
                 <Box pt={3} className={styles.title}>
