@@ -11,6 +11,7 @@ import {
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useRouter } from 'next/router';
+import Link from 'next/Link';
 
 import Map from '@/components/Map';
 import fetchData from '@/services/fetch';
@@ -93,7 +94,7 @@ export default function IndiaMainPage() {
             cities.forEach((c, idx) => {
                 res.push(
                     <Grid key={idx} item xs={6} sm={6} md={6}>
-                        <p>{c.attributes.name}</p>
+                        <Link href={'/city/' + c.attributes.name}><p>{c.attributes.name}</p></Link>
                     </Grid>
                 )
             })
