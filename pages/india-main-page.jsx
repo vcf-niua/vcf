@@ -127,7 +127,16 @@ export default function IndiaMainPage() {
                         </Select>
                     </FormControl>
                     <div className={styles.state_profile_button}>
-                        <Button fullWidth variant="contained" size="large" disableElevation onClick={() => {router.push('/state/' + stateName)}} disabled={stateName == 'All' ? true : false}>Profile</Button>
+                        <Button 
+                            fullWidth 
+                            variant="contained" 
+                            size="large" 
+                            disableElevation 
+                            onClick={() => {router.push('/state/' + stateName)}} 
+                            disabled={stateName == 'All' ? true : false}
+                        >
+                            Profile
+                        </Button>
                     </div>
                 </div>
 
