@@ -73,7 +73,7 @@ export default function CityProfile() {
         if(catData) {
             Object.keys(catData).forEach((c, idx) => {
                 indCatBox.push(
-                    <Grid item xs={6} sm={6} md={2}>
+                    <Grid key={idx} item xs={6} sm={6} md={2}>
                         <InfoCard
                             icon={catData[c].icon}
                             title={c}
@@ -98,15 +98,40 @@ export default function CityProfile() {
     }
 
     function renderCityIndicators(cityData) {
-        let indicatorGroup = getCityIndicatorCatWise(cityData)
 
-        return (
-            <Box pt={3} className={styles.title}>
-                {renderIndicatorCat(indicatorGroup, 'City')}
-                {renderIndicatorCat(indicatorGroup, 'Finance')}
-                {renderIndicatorCat(indicatorGroup, 'Planning')}
-            </Box>
-        )
+        if(cityData) {
+            let indicatorGroup = getCityIndicatorCatWise(cityData)
+
+            return (
+                <Box pt={3} className={styles.title}>
+                    {renderIndicatorCat(indicatorGroup, 'City')}
+                    {renderIndicatorCat(indicatorGroup, 'Finance')}
+                    {renderIndicatorCat(indicatorGroup, 'Planning')}
+                </Box>
+            )
+        }
+        
+    }
+
+    function renderToolsGrid(cityData) {
+        let res = []
+        if(cityData && cityData.data.length > 0) {
+            let toolsArr = cityData.data[0].attributes.city_tools
+
+            toolsArr.forEach((t, idx) => {
+                let toolsInfo = t.tool_info.data.attributes
+                res.push(
+                    <Grid key={idx} item xs={6} sm={6} md={2}>
+                        <InfoCard
+                            icon=<LocationCityIcon />
+                            title={toolsInfo.title}
+                        />
+                    </Grid>
+                )
+            }) 
+        }
+
+        return res
     }
 
     return (
@@ -118,101 +143,11 @@ export default function CityProfile() {
                 {renderCityIndicators(cityData)}
             </Box>
             <Box pt={3} className={styles.title}>
-                <h4> Tools </h4>
+                <h4>Tools</h4>
                 <Divider className={styles.line} />
                 <Grid container spacing={2} mt={1} mb={1}>
-
-                    <Grid item xs={6} sm={6} md={2}>
-                        <InfoCard
-                            icon=<LocationCityIcon />
-                            title='City area (Sq.km.)'
-                            data={48}
-                        />
-                    </Grid>
-                    <Grid item xs={6} sm={6} md={2}>
-                        <InfoCard
-                            icon=<LocationCityIcon />
-                            title='No. of ward'
-                            data={48}
-                        />
-                    </Grid>
-                    <Grid item xs={6} sm={6} md={2}>
-                        <InfoCard
-                            icon=<LocationCityIcon />
-                            title='Population 
-            (as per census 2011)'
-                            data={48}
-                        />
-                    </Grid>
-                    <Grid item xs={6} sm={6} md={2}>
-                        <InfoCard
-                            icon=<LocationCityIcon />
-                            title='Population (2021)'
-                            data={48}
-                        />
-                    </Grid>
-                    <Grid item xs={6} sm={6} md={2}>
-                        <InfoCard
-                            icon=<LocationCityIcon />
-                            title='Total worker population'
-                            data={48}
-                        />
-                    </Grid>
-
-                    <Grid item xs={6} sm={6} md={2}>
-                        <InfoCard
-                            icon=<LocationCityIcon />
-                            title='No. of persons living in slums'
-                            data={48}
-                        />
-                    </Grid>
-
+                    {renderToolsGrid(cityData)}
                 </Grid>
-
-                <Card className={styles.cardList} pb={4}>
-                    
-                    <h4 className={styles.cardHeader}> Land Acquisition and Development  </h4>
-                    <List className={styles.listContain}>
-                        
-                    <ListItem>
-                        <Typography variant='title' className={styles.listTitle}>
-                        List Item 1
-                            </Typography>
-                            
-                        </ListItem>
-                       
-                        
-                        <Typography variant='body1' px={3} className={styles.listPara}>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt in, dolorum laborum molestias adipisci, nam necessitatibus nulla illum, esse laudantium nesciunt dignissimos. Quos obcaecati pariatur in aspernatur, dignissimos tempora laudantium!
-                        </Typography>
-                        <Divider />
-                        <ListItem>
-                        <Typography variant='title' className={styles.listTitle}>
-                        List Item 2
-                            </Typography>
-                            
-                        </ListItem>
-                       
-                        
-                        <Typography variant='body1' px={3} className={styles.listPara}>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt in, dolorum laborum molestias adipisci, nam necessitatibus nulla illum, esse laudantium nesciunt dignissimos. Quos obcaecati pariatur in aspernatur, dignissimos tempora laudantium!
-                        </Typography>
-                        <Divider />
-                        <ListItem>
-                        <Typography variant='title' className={styles.listTitle}>
-                        List Item 3
-                            </Typography>
-                            
-                        </ListItem>
-                       
-                        
-                        <Typography variant='body1' px={3} className={styles.listPara}>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt in, dolorum laborum molestias adipisci, nam necessitatibus nulla illum, esse laudantium nesciunt dignissimos. Quos obcaecati pariatur in aspernatur, dignissimos tempora laudantium!
-                        </Typography>
-                        <Divider />
-                    </List>
-
-                </Card>
             </Box>
         </Container>
     )
