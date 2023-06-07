@@ -1,11 +1,109 @@
-import React from 'react'
-import { Card, CardContent, CardHeader, Grid, Container, Box } from '@mui/material';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { 
+    Button,
+    MenuItem,
+    InputLabel,
+    FormControl,
+    Grid, 
+    Container, 
+    Box } from '@mui/material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
-import { Table, TableBody, TableRow, TableCell } from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useRouter } from 'next/router';
+import Link from 'next/Link';
+
 import Map from '@/components/Map';
+import fetchData from '@/services/fetch';
+
 import styles from '@/styles/IndiaMainPage.module.scss';
 
 export default function IndiaMainPage() {
+
+    const [stateName, setStateName] = useState('All');
+    const [stateList, setStateList] = useState();
+    const [citiesList, setCitiesList] = useState();
+
+    const router = useRouter();
+
+    useEffect(() => {
+        fetchData('states', 'GET', {
+            'sort': 'name'
+        })
+            .then(res => res.json())
+            .then(setStateList)
+    }, [])
+
+    useEffect(() => {
+        let params = {
+            'populate': 'cities'
+        }
+        if(stateName != 'All') {
+            params['filters[name][$eqi]'] = stateName
+        }
+        fetchData('states', 'GET', params)
+            .then(res => res.json())
+            .then(setCitiesList)
+    }, [stateName])
+
+    function renderStateInput(stateList) {
+        let res = []
+
+        res.push(<MenuItem key="1000" value="All">All</MenuItem>)
+
+        if(stateList) {
+            stateList.data.forEach((s, idx) => {
+                res.push(
+                    <MenuItem key={idx} value={s.attributes.name}>{s.attributes.name}</MenuItem>
+                )
+            })
+        }
+
+        return res
+    }
+
+    function getCitiesList(d, stateName) {
+        let c = []
+
+        if(stateName == 'All') {
+            citiesList.data.forEach(s => {
+                c = c.concat(s.attributes.cities.data)
+            })
+            return c
+        } else {
+            return d.data[0].attributes.cities.data
+        }
+    }
+
+    function renderCityList(citiesList) {
+        let res = []
+
+        if(citiesList) {
+            let cities = getCitiesList(citiesList, stateName) //citiesList.data[0].attributes.cities.data
+
+            console.log(cities)
+
+            if(cities.length == 0) {
+                return (
+                    <Grid item xs={6} sm={6} md={6}>
+                        <h4>Zero cities in {citiesList.data[0].attributes.name}</h4>
+                    </Grid>
+                )
+            }
+
+            cities.forEach((c, idx) => {
+                res.push(
+                    <Grid key={idx} item xs={6} sm={6} md={6}>
+                        <Link href={'/city/' + c.attributes.name}><p>{c.attributes.name}</p></Link>
+                    </Grid>
+                )
+            })
+        }
+
+        console.log(citiesList)
+
+        return res
+    }
 
     function leftSection() {
         return (
@@ -16,164 +114,39 @@ export default function IndiaMainPage() {
     function rightSection() {
         return (
             <div>
-
-
-                <Box pt={3} className={styles.title}>
-
-                    <h4> States </h4>
-                    <div className={styles.stateList}>
-                        <Grid container spacing={2} mt={1}>
-
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> All </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Arunachal Pradesh </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p > Andhra Pradesh </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Chhattisgarh</p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Goa </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Gujarat </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Maharashtra</p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Madhya Pradesh</p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Kerala</p>
-                            </Grid>
-                           
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Assam </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Manipur </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Meghalaya </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Nagaland </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} className={styles.statehover}>
-                                <p> Uttar Pradesh </p>
-                            </Grid>
-
-
-
-
-                        </Grid>
+                <div className={styles.state_selector_container}>
+                    <FormControl fullWidth className={styles.state_input}>
+                        <InputLabel id="state-name-label">State</InputLabel>
+                        <Select
+                            labelId="state-name-label"
+                            id="state-name-select"
+                            value={stateName}
+                            label="State"
+                            onChange={(e) => setStateName(e.target.value)}
+                        >
+                        {renderStateInput(stateList)}
+                        </Select>
+                    </FormControl>
+                    <div className={styles.state_profile_button}>
+                        <Button 
+                            fullWidth 
+                            variant="contained" 
+                            size="large" 
+                            disableElevation 
+                            onClick={() => {router.push('/state/' + stateName)}} 
+                            disabled={stateName == 'All' ? true : false}
+                        >
+                            Profile
+                        </Button>
                     </div>
-                </Box>
+                </div>
 
 
-                <Box pt={3} className={styles.title}>
-                    <h4> Cities </h4>
-                    <div className={styles.cityList}>
-                        <Grid container spacing={2} mt={1}>
-
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Mumbai </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Delhi </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Bangalore</p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Hyderabad </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Ahmedabad </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Chennai </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Kolkata </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Surat </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Pune </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Jaipur </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Lucknow </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Meghalaya </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Kanpur </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Nagpur </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Indore </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Thane </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Bhopal </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Visakhapatnam </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Pimpri and Chinchwad </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Patna </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Vadodara </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Ghaziabad </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Ludhiana </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Agra </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Nashik </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Faridabad </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Meerut </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Rajkot </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Kalyan and Dombivali </p>
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6}>
-                                <p> Varanasi </p>
-                            </Grid>
-                            
-
-
+                <Box pt={3} className={styles.cityList}>
+                    <h4>Cities</h4>
+                    <div>
+                        <Grid style={{marginTop: '0px'}} container spacing={2}>
+                            {renderCityList(citiesList)}
                         </Grid>
                     </div>
 
