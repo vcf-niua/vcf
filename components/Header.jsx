@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import { useRouter } from 'next/router';
 
 import styles from '@/styles/Header.module.scss';
 
@@ -19,24 +20,29 @@ import Link from 'next/link';
 const pages = [
     {
         name: 'About',
-        link: '/about'
+        link: 'about'
     }, {
         name: 'States',
-        link: '/states'
+        link: 'states'
     }, {
         name: 'Tool',
-        link: '/tool'
+        link: 'tool'
     }, {
         name: 'Knowledge Platform',
-        link: '/knowledge-platform'
+        link: 'knowledge-platform'
     }, {
         name: 'Suitability of the tool',
-        link: '/knowledge-platform'
+        link: 'knowledge-platform'
     }
 ]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function Header() {
+
+    const router = useRouter();
+
+    console.log(router)
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -50,6 +56,32 @@ export default function Header() {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    function renderLinks() {
+        let res = []
+
+        pages.forEach((page, idx) => {
+            let t = router.pathname.replace(/\[.*?\]/, '').replaceAll('/', '')
+
+            let highlightClass = ''
+            console.log(t, page.link, t == page.link)
+            if(t == page.link) {
+                highlightClass = styles.highlight
+            }
+            res.push(
+                <Link key={idx} href={'/' + page.link}>
+                    <Button
+                        key={page}
+                        className={styles.nav_text + ' ' + highlightClass}
+                    >
+                        {page.name}
+                    </Button>
+                </Link>
+            )
+        })
+        
+        return res
+    }
 
     return (
         <header className={styles.header}>
@@ -71,17 +103,7 @@ export default function Header() {
                             </div>
                         </Link>
                         <Box className={styles.nav_container} sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page, idx) => (
-                                <Link key={idx} href={page.link}>
-                                    <Button
-                                        key={page}
-                                        className={styles.nav_text}
-                                        onClick={handleCloseNavMenu}
-                                    >
-                                        {page.name}
-                                    </Button>
-                                </Link>
-                            ))}
+                            {renderLinks()}
                         </Box>
                     </div>
                     <div className={styles.niua_brand}>
