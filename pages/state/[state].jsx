@@ -79,12 +79,30 @@ export default function StateProfile() {
         return res
     }
 
+    //Listing State wise Act
+    function vcfAct(stateProfile) {
+        let res = []
+
+        if(stateProfile) {
+            let actList = stateProfile.data[0].attributes.laws;
+            actList.map((item, index)=> {
+                res.push(
+                    <TableRow key={index}>
+                        <TableCell className={`${styles.cell} ${styles.customColor}`} > <a href="/#" > {item.law_title}  </a>  </TableCell>
+                    </TableRow>
+                )
+            })
+        }
+        
+        return res
+    }
+
     function renderStateProfile(stateProfile) {
         if(stateProfile) {
             let state_name = stateProfile.data[0].attributes.name;
             return (
                 <Box pt={3} className={styles.title}>
-                    <h4 className={styles.titleHeading}>{state_name + 'hiii'}</h4>
+                    <h4 className={styles.titleHeading}> {stateProfile.data[0].attributes.name} </h4>
                     <Grid container spacing={2} mt={1}>
                         {renderDataGrid(stateProfile.data[0].attributes)}
                     </Grid>
@@ -181,27 +199,7 @@ export default function StateProfile() {
                     <CardContent>
                         <Table>
                             <TableBody>
-
-
-                                <TableRow >
-                                    <TableCell className={`${styles.cell} ${styles.customColor}`} > Rajasthan lands Special Irrigation Charges Act,1953  </TableCell>
-                                </TableRow>
-                                <TableRow >
-                                    <TableCell className={`${styles.cell} ${styles.customColor}`} > Rajasthan Urban Improvement Act,1959  </TableCell>
-                                </TableRow>
-                                <TableRow >
-                                    <TableCell className={`${styles.cell} ${styles.customColor}`} > Rajasthan Urban Improvement Trust Act,1959  </TableCell>
-                                </TableRow>
-                                <TableRow >
-                                    <TableCell className={`${styles.cell} ${styles.customColor}`} > Rajasthan land Special Irrigation  Charges Act,1953  </TableCell>
-                                </TableRow>
-                                <TableRow >
-                                    <TableCell className={`${styles.cell} ${styles.customColor}`} > Rajasthan Urban Improvement Act,1959  </TableCell>
-                                </TableRow>
-                               
-
-
-
+                                {vcfAct(stateProfile)}
                             </TableBody>
                         </Table>
                     </CardContent>
