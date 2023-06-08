@@ -22,6 +22,8 @@ import ListSubheader from '@mui/material/ListSubheader';
 
 import InfoCard from '@/components/InfoCard';
 import fetchData from '@/services/fetch';
+import utilsDate from '@/services/utils';
+import utils from '@/services/utils';
 
 export default function SpecificTool() {
     const router = useRouter();
@@ -1040,14 +1042,17 @@ export default function SpecificTool() {
                 </Typography>
 
                 <Typography variant="body1">
-                    Lorem ipsum
+                    {toolDescription.data[0].attributes.description}
                 </Typography>
             </Box>
             )
     }
 }
     function indicator(toolDescription) {
-        if(toolDescription && toolDescription.data[0].attributes.impact_indicators.data.length > 0){
+       if(toolDescription && toolDescription.data.length > 0) {
+        let indicators = toolDescription.data[0].attributes;
+        if(indicators.impact_indicators.data.length > 0) {
+            let state_indicator = indicators.impact_indicators;
             return (
                 <Box pt={3} pl={5} className={pagesStyle.title}>
                     <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
@@ -1055,13 +1060,13 @@ export default function SpecificTool() {
                     </Typography>
     
                     <Grid container spacing={2} mt={1}>
-                        {toolDescription.data[0].attributes.impact_indicators.data[0].attributes.map((item, index) => (
+                        {state_indicator.data.map((item, index) => (
                             <Grid item xs={6} sm={6} md={3}>
                                 
                                 <InfoCard
                                 key={index}
                                     icon=<LocationCityIcon/>
-                                    title={item.title}
+                                    title={item.attributes.title}
                                     
                                 />
                             </Grid>
@@ -1069,7 +1074,9 @@ export default function SpecificTool() {
                     </Grid>
                 </Box>
             )
-        }     
+        }
+       }
+        
     }
     function stateAdoptingTool() {
         return (
@@ -1109,7 +1116,7 @@ export default function SpecificTool() {
 
     };
 
-    function leftSection(toolDescription) {
+    function leftSection() {
 
         return (
             <div>
@@ -1128,7 +1135,7 @@ export default function SpecificTool() {
             <Container>
                 <Grid container spacing={5} style={{ marginTop: "40px" }}>
                     <Grid item xs={12} sm={12} md={9}>
-                        {leftSection(toolDescription)}
+                        {leftSection()}
                     </Grid>
                     <Grid item xs={12} sm={12} md={3}>
                         {rightSection()}
