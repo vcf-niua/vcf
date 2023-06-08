@@ -52,7 +52,21 @@
     color: variables.$base;
     font-family: 'Gilroy';
     font-weight: 900;
-    text-decoration: underline;
     text-transform: none;
     height: 100%;
+}
+
+.nav_text:hover {
+    background-color: variables.$secondary;
+    color: #fff;
+}
+
+.highlight {
+    background-color: variables.$base;
+    color: #fff;
+
+    &:hover {
+        background-color: variables.$base;
+        color: #fff;
+    }
 }

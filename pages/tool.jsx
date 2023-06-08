@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import { Container, Card, CardContent, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Link from 'next/link';
 
 import fetchData from '@/services/fetch';
 import { API_ENDPOINT_CMS } from '@/services/const.jsx';
@@ -35,15 +36,16 @@ export default function Tool() {
 				}
 				res.push(
 					<Grid key={idx} item xs={2} sm={4} md={3} >
-						<Card style={{boxShadow: 'none'}}>
-							<CardContent className={styles.card}>
-								<img src={ic} style={{ width: "70px" }} />
-								<Typography mt={1}>
-									{t.attributes.title}
-								</Typography>
-							</CardContent>
-	
-						</Card>
+						<Link href={"/tools/" + t.attributes.title}>
+							<Card style={{boxShadow: 'none'}}>
+								<CardContent className={styles.card}>
+									<img src={ic} style={{ width: "70px" }} />
+									<Typography mt={1}>
+										{t.attributes.title}
+									</Typography>
+								</CardContent>
+							</Card>
+						</Link>
 					</Grid>
 				)
 			})

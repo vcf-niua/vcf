@@ -4,7 +4,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 import styles from '@/styles/Map.module.scss';
 
-export default function Map(){
+export default function Map(props){
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng] = useState(82.678211);
@@ -29,7 +29,37 @@ export default function Map(){
                 .then(setIndiaBoundary)
         })
 
-    });
+    }, []);
+
+    useEffect(() => {
+        if(props.layerData) {
+            map.current.addSource('vcf-states-source', {
+                type: 'geojson',
+                data: props.layerData,
+                promoteId: 'name'
+            })
+
+            map.current.addLayer({
+                'id': 'vcf-states-layer',
+                'type': 'circle',
+                'source': 'vcf-states-source',
+                'layout': {},
+                'paint': {
+                    'circle-color': '#FBB328',
+                    'circle-opacity': 0.9,
+                    'circle-stroke-color': '#144665',
+                    'circle-stroke-width': 2,
+                    'circle-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['number', ['get', 'cities']],
+                        1, 6,
+                        10, 24
+                    ]
+                }
+            }, 'border')
+        }
+    }, [props.layerData])
 
     useEffect(() => {
         if(indiaBoundary) {
@@ -49,7 +79,7 @@ export default function Map(){
                         'case',
                         ['boolean', ['feature-state', 'hover'], false],
                         0.9,
-                        0.5
+                        0.2
                     ]
                 }
             }, 'border_india')
@@ -64,8 +94,8 @@ export default function Map(){
                     'line-width': [
                         'case',
                         ['boolean', ['feature-state', 'hover'], false],
-                        3.5,
-                        2
+                        2.5,
+                        1
                     ]
                 }
             }, 'border_india')
