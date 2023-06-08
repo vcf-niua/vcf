@@ -23,6 +23,7 @@ export default function IndiaMainPage() {
     const [stateName, setStateName] = useState('All');
     const [stateList, setStateList] = useState();
     const [citiesList, setCitiesList] = useState();
+    const [statesGeoJson, setStatesGeoJson] = useState();
 
     const router = useRouter();
 
@@ -32,7 +33,17 @@ export default function IndiaMainPage() {
         })
             .then(res => res.json())
             .then(setStateList)
+
+        fetchData('map-stats', 'GET', {
+            'for': 'state'
+        })
+            .then(res => res.json())
+            .then(setStatesGeoJson)
     }, [])
+
+    useEffect(() => {
+        console.log(statesGeoJson)
+    }, [statesGeoJson])
 
     useEffect(() => {
         let params = {
@@ -107,7 +118,7 @@ export default function IndiaMainPage() {
 
     function leftSection() {
         return (
-            <Map />
+            <Map layerData={statesGeoJson}/>
         )
     }
 
