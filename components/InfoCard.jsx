@@ -25,7 +25,7 @@ export default function Infocard(props) {
             <Card className={`${styles.listContainer} ${styles.cardListInner}`} style={{marginTop:"10px", boxShadow: "none"}} >
                 <List component="nav"  style={{transition: "transform 250ms linear"}}>
                     {cityList.map((item, index) => (
-                       <div>
+                       <div key={index}>
                          <ListItem className={styles.cityTool}>
                             <ListItemText primary={item.cities_name} className={styles.title}/>
                         </ListItem>

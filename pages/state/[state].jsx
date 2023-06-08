@@ -88,7 +88,7 @@ export default function StateProfile() {
             actList.map((item, index)=> {
                 res.push(
                     <TableRow key={index}>
-                        <TableCell className={`${styles.cell} ${styles.customColor}`} > <a href="#" target="_blank"> {item.law_title} </a> </TableCell>
+                        <TableCell className={`${styles.cell} ${styles.customColor}`} > <a href="/#" > {item.law_title}  </a>  </TableCell>
                     </TableRow>
                 )
             })
@@ -102,7 +102,7 @@ export default function StateProfile() {
             let state_name = stateProfile.data[0].attributes.name;
             return (
                 <Box pt={3} className={styles.title}>
-                    <h4 className={styles.titleHeading}>{state_name}</h4>
+                    <h4 className={styles.titleHeading}> {stateProfile.data[0].attributes.name} </h4>
                     <Grid container spacing={2} mt={1}>
                         {renderDataGrid(stateProfile.data[0].attributes)}
                     </Grid>

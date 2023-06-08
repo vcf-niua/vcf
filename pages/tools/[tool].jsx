@@ -1,4 +1,10 @@
 import React, { useState } from 'react'
+import { 
+    useEffect,
+} from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, Avatar, IconButton, CardActions, Grid, Container, Box } from '@mui/material';
 import { Table, TableBody, TableRow, TableCell, Typography, List, ListItem, ListItemText } from '@mui/material';
@@ -15,8 +21,15 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import ListSubheader from '@mui/material/ListSubheader';
 
 import InfoCard from '@/components/InfoCard';
+import fetchData from '@/services/fetch';
 
 export default function SpecificTool() {
+    const router = useRouter();
+    const {tool} = router.query;
+
+   
+    const [toolInfoState, setToolInfoState] = useState();
+    const [toolDescription, setToolDescription] = useState();
 
     let tools = [
         {
@@ -972,78 +985,108 @@ export default function SpecificTool() {
             ]
         },
     ];
+    
     const [vcfTool, setVcfTool] = useState(tools);
+    
+    useEffect(() => {
+		fetchData('tool-infos', 'GET', {
+			'populate': 'icon'
+		})
+			.then(res => res.json())
+			.then(setToolInfoState)
+	}, [])
 
-    function renderCard(props) {
-        return (
-            <Card className={pagesStyle.customIndicatorCard} >
-                <div className={pagesStyle.icon}>
-                    {props.icon}
-                </div>
-                <div className={pagesStyle.content}>
-                    <p>{props.title}</p>
-                    {/* <h2>{props.data}</h2> */}
-                </div>
-            </Card>
-        )
+    useEffect(() => {
+        if(tool) {
+            fetchData('tool-infos', 'GET', {
+                'filters[title][$eqi]': tool,
+                'populate': 'icon,impact_indicators,case_studies'
+            })
+                .then(res => res.json())
+                .then(setToolDescription)
+        }
+    }, [tool])
+
+    useEffect(()=> {
+        console.log(toolDescription)
+    },[toolDescription])
+
+    function renderVcfTools(toolInfoState) {
+        let res =[];
+        if(toolInfoState && toolInfoState.data) {
+            toolInfoState.data.forEach((t, index) => {
+                res.push(
+                    <TableRow key={index}>
+                        <TableCell 
+                            className={`${pagesStyle.cell} ${pagesStyle.customColor}`} 
+                            style={{ backgroundColor: (t.attributes.title === tool && 'rgba(76, 149, 191, 0.41)') }}> 
+                                <Link href={"/tools/" + t.attributes.title}>{t.attributes.title}</Link>
+                        </TableCell>
+                    </TableRow> 
+
+                )
+            })
+        }
+        return res
     }
 
-    function definition() {
-        return (<div>
-            <h4 className={pagesStyle.titleHeading}>Premium/additional FAR</h4>
-            <Box pt={3} pl={5} className={pagesStyle.title}>
+    function definition(toolDescription) {
+      if(toolDescription && toolDescription.data[0].attributes.description) {
+        
+        return (
+              <Box pt={3} pl={5} className={pagesStyle.title}>
                 <Typography variant="h6"  mb={1} sx={{ fontWeight: 'bold' }}>
                     Definition
                 </Typography>
 
                 <Typography variant="body1">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, veniam alias laboriosam totam aspernatur quia a illum natus beatae ex aut facere ratione, provident porro iusto officia sunt reiciendis. Temporibus?
+                    Lorem ipsum
                 </Typography>
             </Box>
-        </div>)
+            )
     }
-    function indicator() {
-        return (<div>
-            <Box pt={3} pl={5} className={pagesStyle.title}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                    Indicator impacting the Tool
-                </Typography>
-
-                <Grid container spacing={2} mt={1}>
-                    {vcfTool[0].indicator.map((item, index) => (
-                        <Grid item xs={6} sm={6} md={3}>
-                            
-                            <InfoCard
-                                icon=<LocationCityIcon/>
-                                title={item.title}
+}
+    function indicator(toolDescription) {
+        if(toolDescription && toolDescription.data[0].attributes.impact_indicators.data.length > 0){
+            return (
+                <Box pt={3} pl={5} className={pagesStyle.title}>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        Indicator impacting the Tool
+                    </Typography>
+    
+                    <Grid container spacing={2} mt={1}>
+                        {toolDescription.data[0].attributes.impact_indicators.data[0].attributes.map((item, index) => (
+                            <Grid item xs={6} sm={6} md={3}>
                                 
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-            </Box>
-
-        </div>)
+                                <InfoCard
+                                key={index}
+                                    icon=<LocationCityIcon/>
+                                    title={item.title}
+                                    
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Box>
+            )
+        }     
     }
     function stateAdoptingTool() {
-        return (<div>
+        return (
             <Box pt={4} pl={5} className={pagesStyle.title}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
                     Cities adopting the Tool
                 </Typography>
-
                 <Grid container spacing={2} mt={1}>
                     {vcfTool[0].state_adopt_tool.map((item, index) => (
                     // <CardWithList />
-                    <Grid item xs={6} sm={6} md={3}>
-                        <InfoCard title={item.state_name} cityList={item.cities} data={34}  icon=<LocationCityIcon/> />
+                    <Grid item xs={6} sm={6} md={3} >
+                        <InfoCard key={index} title={item.state_name} cityList={item.cities} data={34}  icon=<LocationCityIcon/> />
                     </Grid>
                 ))}
-
                 </Grid>
-
             </Box>
-        </div>)
+        )
     }
 
     function rightSection() {
@@ -1054,19 +1097,8 @@ export default function SpecificTool() {
                     <CardContent>
                         <Table>
                             <TableBody>
-
-                                {vcfTool.map((item, index) => (
-                                    <TableRow key={index}>
-                                        {/* <TableCell className={pagesStyle.cell}>
-                                            <NoteAltIcon style={{ fontSize: "20px", }} />
-                                        </TableCell> */}
-
-                                        <TableCell className={`${pagesStyle.cell} ${pagesStyle.customColor}`} style={{ backgroundColor: (index === 0 && 'rgba(76, 149, 191, 0.41)') }}>{item.tool} </TableCell>
-
-                                    </TableRow>
-                                ))}
-
-
+                            {renderVcfTools(toolInfoState)}
+                            
                             </TableBody>
                         </Table>
                     </CardContent>
@@ -1077,13 +1109,16 @@ export default function SpecificTool() {
 
     };
 
-    function leftSection() {
+    function leftSection(toolDescription) {
 
         return (
             <div>
-                {definition()}
-                {indicator()}
-                {stateAdoptingTool()}
+                <h4 className={pagesStyle.titleHeading}> 
+                   {tool}
+                 </h4>
+                {definition(toolDescription)}
+                {indicator(toolDescription)}
+                {stateAdoptingTool(toolDescription)}
             </div>
         )
     }
@@ -1093,7 +1128,7 @@ export default function SpecificTool() {
             <Container>
                 <Grid container spacing={5} style={{ marginTop: "40px" }}>
                     <Grid item xs={12} sm={12} md={9}>
-                        {leftSection()}
+                        {leftSection(toolDescription)}
                     </Grid>
                     <Grid item xs={12} sm={12} md={3}>
                         {rightSection()}
