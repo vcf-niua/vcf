@@ -19,19 +19,19 @@ import Link from 'next/link';
 const pages = [
     {
         name: 'About',
-        link: 'about'
+        link: '/about'
     }, {
-        name: 'State/City',
-        link: 'state-profile'
+        name: 'States',
+        link: '/states'
     }, {
         name: 'Tool',
-        link: 'tool'
+        link: '/tool'
     }, {
         name: 'Knowledge Platform',
         link: '/knowledge-platform'
     }, {
         name: 'Suitability of the tool',
-        link: '/'
+        link: '/knowledge-platform'
     }
 ]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -51,14 +51,6 @@ export default function Header() {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
-    const style = {
-
-        background : ''
-    };
     return (
         <header className={styles.header}>
             <AppBar className={styles.app_bar} position="static" >
