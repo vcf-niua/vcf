@@ -64,32 +64,29 @@ export default function About() {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title" sx={{textAlign:"center"}}>
+                    <DialogTitle id="alert-dialog-title" sx={{ textAlign: "center" }}>
                         {"Financing and entails four components"}
                     </DialogTitle>
 
 
                     <Grid container spacing={1} px={1}>
                         <Grid item xs={3}>
-                            
-                        <Paper>
-                        <DialogContent >
-                            <DialogContentText id="alert-dialog-description">
-                              <LocationCityIcon className={`${styles.hero_icon2}`} />
-                            </DialogContentText>
-                        </DialogContent>
-                        </Paper>
-                                    
-                                   
-                            
+
+                            <Paper sx={{ background: "#2D6E93" }}>
+                                <DialogContent >
+                                    <DialogContentText id="alert-dialog-description">
+                                        <LocationCityIcon className={`${styles.hero_icon2}`} />
+                                    </DialogContentText>
+                                </DialogContent>
+                            </Paper>
                         </Grid>
                         <Grid item xs={9}>
-                            <Paper>
+                            <Paper >
                                 <DialogContent>
                                     <DialogContentText id="alert-dialog-description">
-                                       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium magni aliquid cupiditate facere corporis tempora eligendi minima obcaecati, molestias suscipit nam repellat. Quaerat laudantium unde velit numquam expedita totam nulla?
+                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium magni aliquid cupiditate facere corporis tempora eligendi minima obcaecati, molestias suscipit nam repellat. Quaerat laudantium unde velit numquam expedita totam nulla?
                                     </DialogContentText>
-                                    
+
                                 </DialogContent>
                             </Paper>
                         </Grid>
