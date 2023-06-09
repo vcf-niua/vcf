@@ -10,13 +10,16 @@ export default function KnowledgePlatform() {
     return (
         <Box
             component="div"
-            height="100vh"
             display="flex"
             alignItems="center"
             justifyContent="center"
+            backgroundSize= "cover"
+            height= "70vh"
+
+
         >
             <Image
-                src="/images/comming-soon.jpg"
+                src="/images/comming-soon.png"
                 alt="My Image"
                 width={1000}
                 height={400}
