@@ -12,6 +12,7 @@ import Map from '@/components/Map';
 import InfoCard from '@/components/InfoCard';
 
 import fetchData from '@/services/fetch';
+import { API_ENDPOINT_CMS } from '@/services/const.jsx';
 
 import styles from '@/styles/StateProfile.module.scss';
 
@@ -86,9 +87,10 @@ export default function StateProfile() {
         if(stateProfile) {
             let actList = stateProfile.data[0].attributes.laws;
             actList.map((item, index)=> {
+                let doc = item.law_document.data.attributes.url
                 res.push(
                     <TableRow key={index}>
-                        <TableCell className={`${styles.cell} ${styles.customColor}`} > <a href="/#" > {item.law_title}  </a>  </TableCell>
+                        <TableCell className={`${styles.cell} ${styles.customColor}`} > <a href={API_ENDPOINT_CMS + doc} target="_blank"> {item.law_title}  </a>  </TableCell>
                     </TableRow>
                 )
             })
@@ -123,74 +125,6 @@ export default function StateProfile() {
                 <h1>State Profile</h1>
 
                 {renderStateProfile(stateProfile)}
-
-                {/* <Box pt={3} className={styles.title}>
-
-                    <h4 className={styles.titleHeading}> Rajasthan </h4>
-                    <Grid container spacing={2} mt={1}>
-
-                        <Grid item xs={6} sm={6} md={6}>
-                            <InfoCard
-                                icon=<LocationCityIcon/>
-                                title='Number of Cities'
-                                data={48}
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={6} md={6}>
-                            {renderCard({
-                                icon: <LocationCityIcon/>,
-                                title: 'Cities adopting VCF',
-                                data: 38
-                            })}
-                        </Grid>
-                        <Grid item xs={6} sm={6} md={6}>
-                            <Card className={styles.customIndicatorCard}>
-                                <div className={styles.icon}>
-                                    <LocationCityIcon/>
-                                </div>
-                                <div className={styles.content}>
-                                    <p>Total Population</p>
-                                    <h2>20,30,400</h2>
-                                </div>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={6} sm={6} md={6}>
-                            <Card className={styles.customIndicatorCard}>
-                                <div className={styles.icon}>
-                                    <LocationCityIcon/>
-                                </div>
-                                <div className={styles.content}>
-                                    <p>Urban Population</p>
-                                    <h2>10,30,400</h2>
-                                </div>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={6} sm={6} md={6}>
-                            <Card className={styles.customIndicatorCard}>
-                                <div className={styles.icon}>
-                                    <LocationCityIcon/>
-                                </div>
-                                <div className={styles.content}>
-                                    <p>Total Revenue (Cr)</p>
-                                    <h2>134.65</h2>
-                                </div>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={6} sm={6} md={6}>
-                            <Card className={styles.customIndicatorCard}>
-                                <div className={styles.icon}>
-                                    <LocationCityIcon/>
-                                </div>
-                                <div className={styles.content}>
-                                    <p>VCF Revenue (Cr)</p>
-                                    <h2>27.55</h2>
-                                </div>
-                            </Card>
-                        </Grid>
-
-                    </Grid>
-                </Box> */}
-
                 
                 <Box pt={3} className={styles.title}>
                 <h4 className={styles.titleHeading}> Legislative Acts enabling VCF </h4>
