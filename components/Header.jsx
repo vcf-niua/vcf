@@ -32,7 +32,7 @@ const pages = [
         link: 'knowledge-platform'
     }, {
         name: 'Suitability of the tool',
-        link: 'knowledge-platform'
+        link: 'sustainability'
     }
 ]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -40,8 +40,6 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 export default function Header() {
 
     const router = useRouter();
-
-    console.log(router)
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -64,7 +62,6 @@ export default function Header() {
             let t = router.pathname.replace(/\[.*?\]/, '').replaceAll('/', '')
 
             let highlightClass = ''
-            console.log(t, page.link, t == page.link)
             if(t == page.link) {
                 highlightClass = styles.highlight
             }
