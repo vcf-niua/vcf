@@ -5,7 +5,8 @@ import {
     ListItem,
     ListItemText,
     Grid,
-    Divider
+    Divider,
+    Typography
 } from '@mui/material';
 
 
@@ -14,15 +15,22 @@ import styles from '@/styles/InfoCard.module.scss';
 export default function Infocard(props) {
 
     const [listOpenState, setListOpenState] = useState(false);
+    const [listToolState, setListToolState] = useState(false);
 
     const handleCardClick = () => {
-        setListOpenState(!listOpenState);
+        if(props && props.cardType === 'stateMenu'){
+            setListToolState(!listToolState)
+            props.showDescriptionOfTool(!listToolState, props.eachGrid)
+        }else{
+            setListOpenState(!listOpenState);
+        }
     };
     
     function renderList(cityList) {
        
         return (
-            <Card className={`${styles.listContainer} ${styles.cardListInner}`} style={{marginTop:"10px", boxShadow: "none"}} >
+            <Card className={`${styles.listContainer} ${styles.cardListInner}`}
+             style={{marginTop:"10px", boxShadow: "none"}} >
                 <List component="nav"  style={{transition: "transform 250ms linear"}}>
                     {cityList.map((item, index) => (
                        <div key={index}>
@@ -38,9 +46,11 @@ export default function Infocard(props) {
         )
     }
 
+    
     return (
        <>
-        <Card className={`${styles.customIndicatorCard}`} onClick={() => handleCardClick(props.cityList)}>
+        <Card className={`${styles.customIndicatorCard}`}
+         onClick={() => handleCardClick()}>
             <div className={styles.icon}>
                 {props.icon}
             </div>
@@ -51,6 +61,7 @@ export default function Infocard(props) {
             </div>
         </Card>
             {listOpenState && renderList(props.cityList)}
+            
        </>
     )
 }
