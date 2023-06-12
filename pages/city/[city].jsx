@@ -83,7 +83,7 @@ export default function CityProfile() {
         if (catData) {
             Object.keys(catData).forEach((c, idx) => {
                 indCatBox.push(
-                    <Grid key={idx} item xs={6} sm={6} md={2}>
+                    <Grid key={idx} item xs={6} sm={6} md={2.5}>
                         <InfoCard
                             icon={catData[c].icon}
                             title={c}
@@ -131,7 +131,7 @@ export default function CityProfile() {
             toolsArr.forEach((t, idx) => {
                 let toolsInfo = t.tool_info.data.attributes
                 res.push(
-                    <Grid key={idx} item xs={6} sm={6} md={2}>
+                    <Grid key={idx} item xs={6} sm={6} md={2.5}>
                         <InfoCard
                             icon=<LocationCityIcon />
                             title={toolsInfo.title}

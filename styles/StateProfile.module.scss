@@ -4,8 +4,8 @@
 	color: variables.$black;
 	.titleHeading {
 		text-align: center;
-		background-color: variables.$base;
-		color: #fff;
+		background-color: variables.$secondary;
+		color: variables.$base;
 		border-radius: 7px;
 		padding: 12px;
 		font-size: 1.4rem;
@@ -58,7 +58,7 @@
 		vertical-align: middle;
 		cursor: pointer;
 		color: variables.$base;
-		border-bottom: 1px solid variables.$secondary;
+		border-bottom: 1px solid variables.$base;
 		svg {
 			vertical-align: middle;
 		}

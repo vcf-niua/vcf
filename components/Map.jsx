@@ -9,7 +9,7 @@ export default function Map(props){
     const map = useRef(null);
     const [lng] = useState(82.678211);
     const [lat] = useState(22.287897);
-    const [zoom] = useState(3.9);
+    const [zoom] = useState(props.zoom || 3.9);
     const [indiaBoundary, setIndiaBoundary] = useState();
     const hoveredStateId = useRef();
 
@@ -20,7 +20,8 @@ export default function Map(props){
             style: `/map_styles/light.json`,
             center: [lng, lat],
             zoom: zoom,
-            minZoom: 3
+            minZoom: 3,
+            maxZoom: 5
         });
 
         map.current.on('load', () => {
@@ -53,11 +54,34 @@ export default function Map(props){
                         'interpolate',
                         ['linear'],
                         ['number', ['get', 'cities']],
+                        0, 0,
                         1, 6,
                         10, 24
                     ]
                 }
             }, 'border')
+
+            map.current.on('click', 'vcf-states-layer', (e) => {
+                var coordinates = e.features[0].geometry.coordinates.slice();
+                var prop = e.features[0].properties;
+                
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+                
+                new maplibregl.Popup()
+                .setLngLat(coordinates)
+                .setHTML('<h2>' + prop.name + '</h2><p># of cities: ' + prop.cities + '</p>')
+                .addTo(map.current);
+            })
+
+            map.current.on('mouseenter', 'vcf-states-layer', function () {
+                map.current.getCanvas().style.cursor = 'pointer';
+            });
+            
+            map.current.on('mouseleave', 'vcf-states-layer', function () {
+                map.current.getCanvas().style.cursor = '';
+            });
         }
     }, [props.layerData])
 

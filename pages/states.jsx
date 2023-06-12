@@ -11,7 +11,7 @@ import {
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useRouter } from 'next/router';
-import Link from 'next/Link';
+import Link from 'next/link';
 
 import Map from '@/components/Map';
 import fetchData from '@/services/fetch';
@@ -118,7 +118,7 @@ export default function IndiaMainPage() {
 
     function leftSection() {
         return (
-            <Map layerData={statesGeoJson}/>
+            <Map layerData={statesGeoJson} zoom={3.2}/>
         )
     }
 

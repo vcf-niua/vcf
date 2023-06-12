@@ -15,7 +15,7 @@ export default function Home() {
                 <div className={styles.hero_section}>
                     <Logo className={styles.hero_icon}/>
                     <h3>Value Capture Financing</h3>
-                    <h1><span>Unlocking the Power of Value:</span> Transforming Land Growth into Public Progress.</h1>
+                    <h1><span>Unlocking the Power of Value: Transforming Land Growth into Public Progress.</span></h1>
                     <p>Value Capture Finance is a method to monetise the rise in land values resulting from public infrastructure projects. It helps fund public projects by the government and generates a cycle of value creation, capture, and reinvestment.</p>
                 </div>
 
