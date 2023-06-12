@@ -88,6 +88,8 @@ export default function CityProfile() {
                             icon={catData[c].icon}
                             title={c}
                             data={catData[c].value}
+                            cardType = "checkMenu" 
+                            
                         />
                     </Grid>
                 )
@@ -148,7 +150,7 @@ export default function CityProfile() {
     }
 
     function renderToolInfo(obj) {
-        console.log("Hiiii", obj);
+        
         return (
             <Card className={styles.cardList} pb={4}>
 
@@ -197,7 +199,7 @@ export default function CityProfile() {
     }
 
     function showDescriptionOfTool(showHide, obj) {
-        console.log("", showHide, obj)
+       
         setListToolState(showHide)
         setEachGrid(obj)
     }
