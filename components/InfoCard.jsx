@@ -21,7 +21,9 @@ export default function Infocard(props) {
         if(props && props.cardType === 'stateMenu'){
             setListToolState(!listToolState)
             props.showDescriptionOfTool(!listToolState, props.eachGrid)
-        }else{
+        }else if(props && props.cardType === 'checkMenu'){
+            setListOpenState(false);
+        }else {
             setListOpenState(!listOpenState);
         }
     };
