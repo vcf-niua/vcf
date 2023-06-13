@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Container, Grid, Box, Typography, Divider, Card, List, ListItem } from '@mui/material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import {unified} from 'unified'
+import remarkParse from 'remark-parse'
+import remarkHtml from 'remark-html'
 
 import InfoCard from '@/components/InfoCard';
 import fetchData from '@/services/fetch';
@@ -15,10 +18,7 @@ export default function CityProfile() {
     const { city } = router.query;
 
     const [cityData, setCityData] = useState();
-    const [listToolState, setListToolState] = useState(false);
-
-    const [eachGrid, setEachGrid] = useState();
-
+    const [showToolDetails, setShowToolDetails] = useState();
 
     useEffect(() => {
         fetchData('cities', 'GET', {
@@ -28,12 +28,6 @@ export default function CityProfile() {
             .then(res => res.json())
             .then(setCityData)
     }, [city])
-
-    // useEffect(() => {
-    //     if(cityData) {
-    //         settoolList(attrib)
-    //     }
-    // }, [cityData])
 
     function getCityIndicatorCatWise(cityData) {
         let indicatorGroup = {}
@@ -69,11 +63,20 @@ export default function CityProfile() {
         return indicatorGroup
     }
 
-    // function renderIndicatorBox(d) {
-    //     return (
+    function handleInfoCardClick(toolInfoObj) {
+        let mkPipe = unified().use(remarkParse).use(remarkHtml)
 
-    //     )
-    // }
+        Promise.all([
+            mkPipe.process(toolInfoObj.applicable_rates_text), 
+            mkPipe.process(toolInfoObj.legal_framework_text)
+        ])
+            .then((v) => {
+                toolInfoObj.applicable_rates_text_html = v[0]
+                toolInfoObj.legal_framework_text_html = v[1]
+
+                setShowToolDetails(toolInfoObj)
+            })
+    }
 
     function renderIndicatorCat(d, catName) {
         console.log(d, catName)
@@ -105,12 +108,9 @@ export default function CityProfile() {
                 </div>
             )
         }
-
-
     }
 
     function renderCityIndicators(cityData) {
-
         if (cityData) {
             let indicatorGroup = getCityIndicatorCatWise(cityData)
 
@@ -122,7 +122,6 @@ export default function CityProfile() {
                 </Box>
             )
         }
-
     }
 
     function renderToolsGrid(cityData) {
@@ -137,9 +136,7 @@ export default function CityProfile() {
                         <InfoCard
                             icon=<LocationCityIcon />
                             title={toolsInfo.title}
-                            eachGrid={t}
-                            cardType={'stateMenu'}
-                            showDescriptionOfTool={showDescriptionOfTool}
+                            onClick={() => handleInfoCardClick(t)}
                         />
                     </Grid>
                 )
@@ -149,35 +146,18 @@ export default function CityProfile() {
         return res
     }
 
-    function renderToolInfo(obj) {
-        
+    function renderToolInfo(showToolDetails) {
         return (
             <Card className={styles.cardList} pb={4}>
-
-                <h4 className={styles.cardHeader}> {obj.tool_info.data.attributes.title} </h4>
+                <h4 className={styles.cardHeader}> {showToolDetails.tool_info.data.attributes.title} </h4>
                 <List className={styles.listContain}>
-
-                    {
-                    obj.defination ? 
-                   (` <ListItem>
-                        <Typography variant='title' className={styles.listTitle}>
-                            Defination
-                        </Typography>
-                    </ListItem>
-                    <Typography variant='body1' px={3} className={styles.listPara}>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt in, dolorum laborum molestias adipisci, nam necessitatibus nulla illum, esse laudantium nesciunt dignissimos. Quos obcaecati pariatur in aspernatur, dignissimos tempora laudantium!
-                    </Typography>
-                    <Divider />`) : ''
-                    }
                     <ListItem>
                         <Typography variant='title' className={styles.listTitle}>
                             Legal Framework
                         </Typography>
-
                     </ListItem>
-
                     <Typography variant='body1' px={3} className={styles.listPara}>
-                         {obj.legal_framework_text}
+                        <section className={styles.markdown_container} dangerouslySetInnerHTML={{__html: showToolDetails.legal_framework_text_html.value}}></section>
                     </Typography>
                     <Divider />
                     <ListItem>
@@ -186,27 +166,17 @@ export default function CityProfile() {
                         </Typography>
 
                     </ListItem>
-
-
                     <Typography variant='body1' px={3} className={styles.listPara}>
-                        {obj.applicable_rates_text ? obj.applicable_rates_text :'N/A'}
+                        <section className={styles.markdown_container} dangerouslySetInnerHTML={{__html: showToolDetails.applicable_rates_text_html.value}}></section>
                     </Typography>
                     <Divider />
                 </List>
-
             </Card>
         )
     }
 
-    function showDescriptionOfTool(showHide, obj) {
-       
-        setListToolState(showHide)
-        setEachGrid(obj)
-    }
-
     return (
         <Container>
-
             <h2 className={styles.city_name_heading}>{city}</h2>
 
             <Box pt={3} className={styles.title}>
@@ -219,7 +189,7 @@ export default function CityProfile() {
                     {renderToolsGrid(cityData)}
                 </Grid>
             </Box>
-            {eachGrid && renderToolInfo(eachGrid)}
+            {showToolDetails && renderToolInfo(showToolDetails)}
         </Container>
     )
 }

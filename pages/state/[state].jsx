@@ -122,7 +122,7 @@ export default function StateProfile() {
     function rightSection() {
         return (
             <div>
-                <h1>State Profile</h1>
+                {/* <h1>State Profile</h1> */}
 
                 {renderStateProfile(stateProfile)}
                 
