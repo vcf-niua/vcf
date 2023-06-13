@@ -24,13 +24,17 @@ export default function Tool() {
 			.then(setToolInfoState)
 	}, [])
 
+	useEffect(()=>{
+		console.log(toolInfoState);
+	},[toolInfoState])
+
 	function renderToolBox(toolInfoState) {
 		let res = []
 
 		if(toolInfoState && toolInfoState.data) {
 			toolInfoState.data.forEach((t, idx) => {
 				let ic = '/images/icon/betterment_levy.svg'
-				console.log(t)
+				// console.log(t)
 				if(t.attributes.icon.data) {
 					ic = API_ENDPOINT_CMS + t.attributes.icon.data.attributes.url
 				}

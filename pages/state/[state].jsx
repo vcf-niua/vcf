@@ -35,6 +35,7 @@ export default function StateProfile() {
     }, [state])
 
     useEffect(() => {
+        
         console.log(stateProfile)
     }, [stateProfile])
 
