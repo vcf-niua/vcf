@@ -10,6 +10,7 @@ import remarkHtml from 'remark-html'
 import InfoCard from '@/components/InfoCard';
 import fetchData from '@/services/fetch';
 
+import { API_ENDPOINT_CMS } from '@/services/const.jsx';
 import styles from '@/styles/CityProfile.module.scss';
 
 export default function CityProfile() {
@@ -18,16 +19,27 @@ export default function CityProfile() {
     const { city } = router.query;
 
     const [cityData, setCityData] = useState();
+    
     const [showToolDetails, setShowToolDetails] = useState();
 
     useEffect(() => {
         fetchData('cities', 'GET', {
             'filters[name][$eqi]': city,
-            'populate': 'city_tools,city_tools,city_tools.annual_collection,city_tools.annual_collection.year,city_tools.tool_info,indicators.indicator,indicators.annual_collection'
+            'populate': 'city_tools,city_tools,city_tools.annual_collection,city_tools.annual_collection.year,city_tools.tool_info,city_tools.tool_info.icon,indicators.indicator,indicators.indicator.icon,indicators.annual_collection'
         })
             .then(res => res.json())
             .then(setCityData)
+
+           
     }, [city])
+
+    useEffect(()=> {
+        if(cityData) {
+            console.log(cityData)
+        }
+    },[cityData])
+
+    
 
     function getCityIndicatorCatWise(cityData) {
         let indicatorGroup = {}
@@ -43,16 +55,19 @@ export default function CityProfile() {
                 indicators.forEach((i, idx) => {
                     if (i.annual_collection.length > 0) {
                         let value = i.annual_collection[0].amount
-                        let indMeta = i.indicator.data.attributes
 
-                        let indGroupData = indicatorGroup[indMeta.category] || {}
+                        if(i.indicator.data) {
+                            let indMeta = i.indicator.data.attributes
 
-                        indGroupData[indMeta.title] = {
-                            icon: <LocationCityIcon />,
-                            value: value
+                            let indGroupData = indicatorGroup[indMeta.category] || {}
+    
+                            indGroupData[indMeta.title] = {
+                                icon: <img style={{width: '40px', height: '40px'}} src={API_ENDPOINT_CMS + i.indicator.data.attributes.icon.data.attributes.url}/>,
+                                value: value
+                            }
+    
+                            indicatorGroup[indMeta.category] = indGroupData
                         }
-
-                        indicatorGroup[indMeta.category] = indGroupData
                     }
                 })
             }
@@ -91,7 +106,7 @@ export default function CityProfile() {
                             icon={catData[c].icon}
                             title={c}
                             data={catData[c].value}
-                            cardType = "checkMenu" 
+                            // cardType = "checkMenu" 
                             
                         />
                     </Grid>
@@ -111,6 +126,7 @@ export default function CityProfile() {
     }
 
     function renderCityIndicators(cityData) {
+        
         if (cityData) {
             let indicatorGroup = getCityIndicatorCatWise(cityData)
 
@@ -128,18 +144,24 @@ export default function CityProfile() {
         let res = []
         if (cityData && cityData.data.length > 0) {
             let toolsArr = cityData.data[0].attributes.city_tools
-
+            
             toolsArr.forEach((t, idx) => {
-                let toolsInfo = t.tool_info.data.attributes
-                res.push(
-                    <Grid key={idx} item xs={6} sm={6} md={2.5}>
-                        <InfoCard
-                            icon=<LocationCityIcon />
-                            title={toolsInfo.title}
-                            onClick={() => handleInfoCardClick(t)}
-                        />
-                    </Grid>
-                )
+                if(t.tool_info.data) {
+                    let toolsInfo = t.tool_info.data.attributes
+                    let icon = toolsInfo.icon.data.attributes.url
+                    res.push(
+                        <Grid key={idx} item xs={6} sm={6} md={2.5}>
+    
+                            <InfoCard
+                                icon=<img style={{width: '40px', height: '40px'}} src={API_ENDPOINT_CMS + icon}/>
+                                title={toolsInfo.title}
+                                onClick={() => handleInfoCardClick(t)}
+                            />
+                        </Grid>
+                    )
+                }
+                
+               
             })
         }
 
