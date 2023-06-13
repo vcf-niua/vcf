@@ -4,9 +4,10 @@ import { useRouter } from 'next/router';
 import { Container, Grid, Box, Typography, Divider, Card, List, ListItem } from '@mui/material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 
+
 import InfoCard from '@/components/InfoCard';
 import fetchData from '@/services/fetch';
-
+import ReactMarkdown from 'react-markdown';
 import styles from '@/styles/CityProfile.module.scss';
 
 export default function CityProfile() {
@@ -177,7 +178,9 @@ export default function CityProfile() {
                     </ListItem>
 
                     <Typography variant='body1' px={3} className={styles.listPara}>
-                         {obj.legal_framework_text}
+                    <ReactMarkdown>{obj.legal_framework_text}</ReactMarkdown>
+                    
+
                     </Typography>
                     <Divider />
                     <ListItem>
@@ -189,7 +192,8 @@ export default function CityProfile() {
 
 
                     <Typography variant='body1' px={3} className={styles.listPara}>
-                        {obj.applicable_rates_text ? obj.applicable_rates_text :'N/A'}
+                        
+                        <ReactMarkdown>{obj.applicable_rates_text ? obj.applicable_rates_text :'N/A'}</ReactMarkdown>
                     </Typography>
                     <Divider />
                 </List>
