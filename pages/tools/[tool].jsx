@@ -32,6 +32,7 @@ export default function SpecificTool() {
    
     const [toolInfoState, setToolInfoState] = useState();
     const [toolDescription, setToolDescription] = useState();
+    const [cityList, setCityList] = useState();
 
     let tools = [
         {
@@ -1033,50 +1034,72 @@ export default function SpecificTool() {
     }
 
     function definition(toolDescription) {
-      if(toolDescription && toolDescription.data[0].attributes.description) {
-        
-        return (
-              <Box pt={3} pl={5} className={pagesStyle.title}>
-                <Typography variant="h6"  mb={1} sx={{ fontWeight: 'bold' }}>
-                    Definition
-                </Typography>
-
-                <Typography variant="body1">
-                    {toolDescription.data[0].attributes.description}
-                </Typography>
-            </Box>
-            )
-    }
-}
-    function indicator(toolDescription) {
-       if(toolDescription && toolDescription.data.length > 0) {
-        let indicators = toolDescription.data[0].attributes;
-        if(indicators.impact_indicators.data.length > 0) {
-            let state_indicator = indicators.impact_indicators;
+        if(toolDescription && toolDescription.data[0].attributes.description) {
+            
             return (
                 <Box pt={3} pl={5} className={pagesStyle.title}>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                        Indicator impacting the Tool
+                    <Typography variant="h6"  mb={1} sx={{ fontWeight: 'bold' }}>
+                        Definition
                     </Typography>
-    
-                    <Grid container spacing={2} mt={1}>
-                        {state_indicator.data.map((item, index) => (
-                            <Grid item xs={6} sm={6} md={3}>
-                                
-                                <InfoCard
-                                key={index}
-                                    icon=<LocationCityIcon/>
-                                    title={item.attributes.title}
-                                    
-                                />
-                            </Grid>
-                        ))}
-                    </Grid>
+
+                    <Typography variant="body1">
+                        {toolDescription.data[0].attributes.description}
+                    </Typography>
                 </Box>
-            )
+                )
         }
-       }
+    }
+
+    function renderCitiesList(cityList) {
+        console.log(cityList)
+        // return (
+        //     <Card 
+        //         className={`${styles.listContainer} ${styles.cardListInner}`}
+        //         style={{marginTop:"10px", boxShadow: "none"}} 
+        //     >
+        //         <List component="nav"  style={{transition: "transform 250ms linear"}}>
+        //             {cityList.map((item, index) => (
+        //                <div key={index}>
+        //                  <ListItem className={styles.cityTool}>
+        //                     <ListItemText primary={item.cities_name} className={styles.title}/>
+        //                 </ListItem>
+        //                 <Divider component="li" sx={{ backgroundColor: '#2D6E93' }}/>
+        //                </div>
+        //             ))}
+               
+        //         </List>
+        //     </Card>
+        // )
+    }
+    
+    function renderIndicator(toolDescription) {
+        if(toolDescription && toolDescription.data.length > 0) {
+            let indicators = toolDescription.data[0].attributes;
+            if(indicators.impact_indicators.data.length > 0) {
+                let state_indicator = indicators.impact_indicators;
+                return (
+                    <Box pt={3} pl={5} className={pagesStyle.title}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                            Indicator impacting the Tool
+                        </Typography>
         
+                        <Grid container spacing={2} mt={1}>
+                            {state_indicator.data.map((item, index) => (
+                                <Grid key={index} item xs={6} sm={6} md={3}>
+                                    <InfoCard
+                                        icon=<LocationCityIcon/>
+                                        title={item.attributes.title}
+                                        // onClick={setCityList(item)}
+                                    >
+                                        {/* {renderCitiesList(cityList)} */}
+                                    </InfoCard>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Box>
+                )
+            }
+        }
     }
     function stateAdoptingTool() {
         return (
@@ -1124,7 +1147,7 @@ export default function SpecificTool() {
                    {tool}
                  </h4>
                 {definition(toolDescription)}
-                {indicator(toolDescription)}
+                {renderIndicator(toolDescription)}
                 {stateAdoptingTool(toolDescription)}
             </div>
         )

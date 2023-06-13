@@ -24,7 +24,11 @@
     "react-dom": "18.2.0",
     "react-foundation": "^0.9.7",
     "react-slick": "^0.29.0",
+    "remark": "^14.0.3",
+    "remark-html": "^15.0.2",
+    "remark-parse": "^10.0.2",
     "sass": "^1.60.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "unified": "^10.1.2"
   }
 }

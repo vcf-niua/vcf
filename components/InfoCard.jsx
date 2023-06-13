@@ -17,42 +17,33 @@ export default function Infocard(props) {
     const [listOpenState, setListOpenState] = useState(false);
     const [listToolState, setListToolState] = useState(false);
 
-    const handleCardClick = () => {
-        if(props && props.cardType === 'stateMenu'){
-            setListToolState(!listToolState)
-            props.showDescriptionOfTool(!listToolState, props.eachGrid)
-        }else if(props && props.cardType === 'checkMenu'){
-            setListOpenState(false);
-        }else {
-            setListOpenState(!listOpenState);
+    const handleCardClick = (e) => {
+        if(props.onClick) {
+            props.onClick(e)
         }
+        // if(props && props.cardType === 'stateMenu'){
+        //     setListToolState(!listToolState)
+        //     props.showDescriptionOfTool(!listToolState, props.eachGrid)
+        // }else if(props && props.cardType === 'checkMenu'){
+        //     setListOpenState(false);
+        // }else {
+        //     setListOpenState(!listOpenState);
+        // }
     };
-    
-    function renderList(cityList) {
-       
-        return (
-            <Card className={`${styles.listContainer} ${styles.cardListInner}`}
-             style={{marginTop:"10px", boxShadow: "none"}} >
-                <List component="nav"  style={{transition: "transform 250ms linear"}}>
-                    {cityList.map((item, index) => (
-                       <div key={index}>
-                         <ListItem className={styles.cityTool}>
-                            <ListItemText primary={item.cities_name} className={styles.title}/>
-                        </ListItem>
-                        <Divider component="li" sx={{ backgroundColor: '#2D6E93' }}/>
-                       </div>
-                    ))}
-               
-                </List>
-            </Card>
-        )
-    }
 
+    let style = {}
+
+    if(props.onClick) {
+        style['cursor'] = 'pointer'
+    }
     
     return (
        <>
-        <Card className={`${styles.customIndicatorCard}`}
-         onClick={() => handleCardClick()}>
+        <Card 
+            className={`${styles.customIndicatorCard}`}
+            style={style}
+            onClick={handleCardClick}
+        >
             <div className={styles.icon}>
                 {props.icon}
             </div>
@@ -62,7 +53,8 @@ export default function Infocard(props) {
                 {props.data ? (<h2>{props.data}</h2>) : ''}
             </div>
         </Card>
-            {listOpenState && renderList(props.cityList)}
+            {/* {listOpenState && renderList(props.cityList)} */}
+            {props.children}
             
        </>
     )
