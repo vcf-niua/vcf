@@ -88,12 +88,15 @@ export default function StateProfile() {
         if(stateProfile) {
             let actList = stateProfile.data[0].attributes.laws;
             actList.map((item, index)=> {
-                let doc = item.law_document.data.attributes.url
+                if(item.law_document.data) {
+                    let doc = item.law_document.data.attributes.url
                 res.push(
                     <TableRow key={index}>
                         <TableCell className={`${styles.cell} ${styles.customColor}`} > <a href={API_ENDPOINT_CMS + doc} target="_blank"> {item.law_title}  </a>  </TableCell>
                     </TableRow>
                 )
+                }
+                
             })
         }
         
