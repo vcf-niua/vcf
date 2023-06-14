@@ -14,7 +14,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Image from 'next/image';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import pagesStyle from '@/styles/SpecificTool.module.scss';
 import CardWithList from '@/components/CardWithList';
 import Button from '@mui/material/Button';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
@@ -25,6 +24,8 @@ import fetchData from '@/services/fetch';
 import utilsDate from '@/services/utils';
 import utils from '@/services/utils';
 
+import { API_ENDPOINT_CMS } from '@/services/const.jsx';
+import pagesStyle from '@/styles/SpecificTool.module.scss';
 export default function SpecificTool() {
     const router = useRouter();
     const {tool} = router.query;
@@ -1003,7 +1004,7 @@ export default function SpecificTool() {
         if(tool) {
             fetchData('tool-infos', 'GET', {
                 'filters[title][$eqi]': tool,
-                'populate': 'icon,impact_indicators,case_studies'
+                'populate': 'icon,impact_indicators,impact_indicators.icon,case_studies'
             })
                 .then(res => res.json())
                 .then(setToolDescription)
@@ -1085,11 +1086,13 @@ export default function SpecificTool() {
         
                         <Grid container spacing={2} mt={1}>
                             {state_indicator.data.map((item, index) => (
-                                <Grid key={index} item xs={6} sm={6} md={3}>
+                                <Grid key={index} item xs={6} sm={6} md={4}>
                                     <InfoCard
-                                        icon=<LocationCityIcon/>
+                                        icon={item.attributes.icon.data ? 
+                                            (<img  style={{width: '40px', height: '40px'}} src={API_ENDPOINT_CMS + item.attributes.icon.data.attributes.url}/>) :
+                                             (<NoteAltIcon/>)}
                                         title={item.attributes.title}
-                                        // onClick={setCityList(item)}
+                                        
                                     >
                                         {/* {renderCitiesList(cityList)} */}
                                     </InfoCard>
@@ -1110,8 +1113,8 @@ export default function SpecificTool() {
                 <Grid container spacing={2} mt={1}>
                     {vcfTool[0].state_adopt_tool.map((item, index) => (
                     // <CardWithList />
-                    <Grid item xs={6} sm={6} md={3} >
-                        <InfoCard key={index} title={item.state_name} cityList={item.cities} data={34}  icon=<LocationCityIcon/> />
+                    <Grid item xs={6} sm={6} md={4} key={index}>
+                        <InfoCard  title={item.state_name} cityList={item.cities} data={34}  icon=<LocationCityIcon/> />
                     </Grid>
                 ))}
                 </Grid>

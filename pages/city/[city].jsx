@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Container, Grid, Box, Typography, Divider, Card, List, ListItem } from '@mui/material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
-import {unified} from 'unified'
+import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkHtml from 'remark-html'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 import InfoCard from '@/components/InfoCard';
 import fetchData from '@/services/fetch';
@@ -19,8 +20,14 @@ export default function CityProfile() {
     const { city } = router.query;
 
     const [cityData, setCityData] = useState();
-    
+
     const [showToolDetails, setShowToolDetails] = useState();
+
+    const tableData = [
+        ['Row 1, Column 1', 'Row 1, Column 2'],
+
+    ];
+
 
     useEffect(() => {
         fetchData('cities', 'GET', {
@@ -30,16 +37,16 @@ export default function CityProfile() {
             .then(res => res.json())
             .then(setCityData)
 
-           
+
     }, [city])
 
-    useEffect(()=> {
-        if(cityData) {
+    useEffect(() => {
+        if (cityData) {
             console.log(cityData)
         }
-    },[cityData])
+    }, [cityData])
 
-    
+
 
     function getCityIndicatorCatWise(cityData) {
         let indicatorGroup = {}
@@ -56,16 +63,16 @@ export default function CityProfile() {
                     if (i.annual_collection.length > 0) {
                         let value = i.annual_collection[0].amount
 
-                        if(i.indicator.data) {
+                        if (i.indicator.data) {
                             let indMeta = i.indicator.data.attributes
 
                             let indGroupData = indicatorGroup[indMeta.category] || {}
-    
+
                             indGroupData[indMeta.title] = {
-                                icon: <img style={{width: '40px', height: '40px'}} src={API_ENDPOINT_CMS + i.indicator.data.attributes.icon.data.attributes.url}/>,
+                                icon: <img style={{ width: '40px', height: '40px' }} src={API_ENDPOINT_CMS + i.indicator.data.attributes.icon.data.attributes.url} />,
                                 value: value
                             }
-    
+
                             indicatorGroup[indMeta.category] = indGroupData
                         }
                     }
@@ -82,7 +89,7 @@ export default function CityProfile() {
         let mkPipe = unified().use(remarkParse).use(remarkHtml)
 
         Promise.all([
-            mkPipe.process(toolInfoObj.applicable_rates_text), 
+            mkPipe.process(toolInfoObj.applicable_rates_text),
             mkPipe.process(toolInfoObj.legal_framework_text)
         ])
             .then((v) => {
@@ -106,8 +113,8 @@ export default function CityProfile() {
                             icon={catData[c].icon}
                             title={c}
                             data={catData[c].value}
-                            // cardType = "checkMenu" 
-                            
+                        // cardType = "checkMenu" 
+
                         />
                     </Grid>
                 )
@@ -126,7 +133,7 @@ export default function CityProfile() {
     }
 
     function renderCityIndicators(cityData) {
-        
+
         if (cityData) {
             let indicatorGroup = getCityIndicatorCatWise(cityData)
 
@@ -144,31 +151,56 @@ export default function CityProfile() {
         let res = []
         if (cityData && cityData.data.length > 0) {
             let toolsArr = cityData.data[0].attributes.city_tools
-            
+
             toolsArr.forEach((t, idx) => {
-                if(t.tool_info.data) {
+                if (t.tool_info.data) {
                     let toolsInfo = t.tool_info.data.attributes
                     let icon = toolsInfo.icon.data.attributes.url
                     res.push(
                         <Grid key={idx} item xs={6} sm={6} md={2.5}>
-    
+
                             <InfoCard
-                                icon=<img style={{width: '40px', height: '40px'}} src={API_ENDPOINT_CMS + icon}/>
+                                icon=<img style={{ width: '40px', height: '40px' }} src={API_ENDPOINT_CMS + icon} />
                                 title={toolsInfo.title}
                                 onClick={() => handleInfoCardClick(t)}
                             />
                         </Grid>
                     )
                 }
-                
-               
+
+
             })
         }
 
         return res
     }
 
+    function annualCollection(cell) {
+        if (cell.amount && cell.year.data) {
+            return (<>
+                <TableCell className={styles.list}>
+                   {cell.amount ? cell.amount : 'N/A'}
+                </TableCell>
+                <TableCell className={styles.list}>
+                   {cell.year.data ? cell.year.data.attributes.name : 'N/A'}
+
+                </TableCell>
+            </>)
+        }else if(cell.amount || cell.year.data) {
+            return (<>
+                <TableCell className={styles.list}>
+                   {cell.amount ? cell.amount : 'N/A'}
+                </TableCell>
+                <TableCell className={styles.list}>
+                   {cell.year.data ? cell.year.data.attributes.name : 'N/A'}
+
+                </TableCell>
+            </>)
+        }
+    }
+
     function renderToolInfo(showToolDetails) {
+
         return (
             <Card className={styles.cardList} pb={4}>
                 <h4 className={styles.cardHeader}> {showToolDetails.tool_info.data.attributes.title} </h4>
@@ -179,17 +211,45 @@ export default function CityProfile() {
                         </Typography>
                     </ListItem>
                     <Typography variant='body1' px={3} className={styles.listPara}>
-                        <section className={styles.markdown_container} dangerouslySetInnerHTML={{__html: showToolDetails.legal_framework_text_html.value}}></section>
+                        <section className={styles.markdown_container} dangerouslySetInnerHTML={{ __html: showToolDetails.legal_framework_text_html.value }}></section>
                     </Typography>
                     <Divider />
                     <ListItem>
                         <Typography variant='title' className={styles.listTitle}>
-                        Applicable charges
+                            Applicable charges
                         </Typography>
 
                     </ListItem>
                     <Typography variant='body1' px={3} className={styles.listPara}>
-                        <section className={styles.markdown_container} dangerouslySetInnerHTML={{__html: showToolDetails.applicable_rates_text_html.value}}></section>
+                        <section className={styles.markdown_container} dangerouslySetInnerHTML={{ __html: showToolDetails.applicable_rates_text_html.value }}></section>
+                    </Typography>
+                    <Divider />
+
+                    <ListItem>
+                        <Typography variant='title' className={styles.listTitle}>
+                            Annual charges/ collection
+                        </Typography>
+
+                    </ListItem>
+                    <Typography variant='body1' px={3} className={styles.listPara}>
+                        <TableContainer component={Paper}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell> <strong> Amount(Cr.) </strong> </TableCell>
+                                        <TableCell> <strong> Year</strong> </TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {showToolDetails.annual_collection.map((cell, rowIndex) => (
+                                        <TableRow key={rowIndex}>
+                                            {annualCollection(cell)}
+
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </Typography>
                     <Divider />
                 </List>
