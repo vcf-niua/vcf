@@ -43,6 +43,7 @@ export default function Infocard(props) {
             className={`${styles.customIndicatorCard}`}
             style={style}
             onClick={handleCardClick}
+            p={2}
         >
             <div className={styles.icon}>
                 {props.icon}
