@@ -1114,7 +1114,7 @@ export default function SpecificTool() {
                     {vcfTool[0].state_adopt_tool.map((item, index) => (
                     // <CardWithList />
                     <Grid item xs={6} sm={6} md={4} key={index}>
-                        <InfoCard  title={item.state_name} cityList={item.cities} data={34}  icon=<LocationCityIcon/> />
+                        <InfoCard  title={item.state_name} cityList={item.cities} data={34 - index}  icon=<LocationCityIcon/> />
                     </Grid>
                 ))}
                 </Grid>

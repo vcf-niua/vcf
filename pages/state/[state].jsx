@@ -27,7 +27,7 @@ export default function StateProfile() {
         if(state) {
             fetchData('states', 'GET', {
                 'filters[name][$eqi]': state,
-                'populate': 'laws,laws.law_document,cities'
+                'populate': 'laws,laws.law_document,cities,indicators,indicators.state_indicator'
             })
                 .then(res => res.json())
                 .then(setStateProfile)
@@ -53,32 +53,34 @@ export default function StateProfile() {
         )
     }
 
-    function renderDataGrid(attribs) {
-        let data = {
-            'Number of Cities': attribs.no_of_cities,
-            'Cities adopting VCF': attribs.cities.data.length,
-            'Total Population': attribs.population,
-            'Total Revenue (Cr)': attribs.total_revenue,
-            'VCF Revenue (Cr)': attribs.total_vcf_revenue
-        }
-
+    function renderDataGrid(city,indicators) {
+      if(indicators.length > 0) {
         let res = []
-        Object.keys(data).forEach((i, idx) => {
-            if(data[i]) {
+        res.push(
+            <Grid  item xs={6} sm={6} md={6}>
+                        <InfoCard
+                            icon=<LocationCityIcon/>
+                            title="Cities adopting VCF"
+                            data={city.cities.data.length}
+                        />
+                    </Grid>
+        )
+            indicators.forEach((i, idx)=> {
                 res.push(
                     <Grid key={idx} item xs={6} sm={6} md={6}>
                         <InfoCard
                             icon=<LocationCityIcon/>
-                            title={i}
-                            data={data[i]}
+                            title={i.state_indicator.data.attributes.title}
+                            data={i.value}
                         />
                     </Grid>
                 )
-            }
-            
-        })
+            })
+            return res
+      }
+        
+       
 
-        return res
     }
 
     //Listing State wise Act
@@ -110,7 +112,7 @@ export default function StateProfile() {
                 <Box pt={3} className={styles.title}>
                     <h4 className={styles.titleHeading}> {stateProfile.data[0].attributes.name} </h4>
                     <Grid container spacing={2} mt={1}>
-                        {renderDataGrid(stateProfile.data[0].attributes)}
+                        {renderDataGrid(stateProfile.data[0].attributes,stateProfile.data[0].attributes.indicators)}
                     </Grid>
                 </Box>
             )
