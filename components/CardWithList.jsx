@@ -29,7 +29,7 @@ export default function CardWithList(props) {
             <Card className={`${pagesStyle.listContainer} ${pagesStyle.cardListInner}`} style={{marginTop:"10px", boxShadow: "none"}}>
                 <List component="nav"  style={{transition: "transform 250ms linear"}}>
                     {cityList.map((item, index) => (
-                       <div>
+                       <div key={index}>
                          <ListItem className={pagesStyle.cityTool}>
                             <ListItemText primary={item.cities_name} className={pagesStyle.title}/>
                         </ListItem>
