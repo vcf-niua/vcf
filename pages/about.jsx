@@ -15,6 +15,11 @@ import styles from "@/styles/About.module.scss";
 
 export default function About() {
     const [open, setOpen] = useState(false);
+    let close = '/images/icon/close.png';
+    let localValue = '/images/icon/local_value.png';
+    let valueCapture = '/images/icon/value_capture.png';
+    let valueCreation = '/images/icon/value_creation.png';
+    let value_realization = '/images/icon/value_realization.png';
 
     function handleClickOpen() {
         setOpen(true);
@@ -34,25 +39,32 @@ export default function About() {
                 </div>
                 <div className={styles.containerBox}>
                     <Grid container spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        <Grid item xs={2} sm={4} md={6}>
+                        <Grid item xs={12} sm={6} md={6}>
                             <Box className={styles.boxCard} onClick={handleClickOpen}>
-                                <LocationCityIcon className={styles.hero_icon} />
+                                {/* <LocationCityIcon className={styles.hero_icon} /> */}
+                                <img src={localValue} className={styles.iconStyle}/>
+                                <p>Value Creation</p>
+                            </Box>
+                             
+                            
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                            <Box className={styles.boxCard} onClick={handleClickOpen}>
+                                <img src={valueCapture} className={styles.iconStyle}/>
+                            <p>Value Creation</p>
                             </Box>
                         </Grid>
-                        <Grid item xs={2} sm={4} md={6}>
+                        <Grid item xs={12} sm={6} md={6}>
                             <Box className={styles.boxCard} onClick={handleClickOpen}>
-                                <LocationCityIcon className={styles.hero_icon} />
-                            </Box>
-                        </Grid>
-                        <Grid item xs={2} sm={4} md={6}>
-                            <Box className={styles.boxCard} onClick={handleClickOpen}>
-                                <LocationCityIcon className={styles.hero_icon} />
+                                <img src={valueCreation} className={styles.iconStyle}/>
+                                <p>Value Creation</p>
                             </Box>
                         </Grid>
 
-                        <Grid item xs={2} sm={4} md={6}>
+                        <Grid item xs={12} sm={6} md={6}>
                             <Box className={styles.boxCard} onClick={handleClickOpen}>
-                                <LocationCityIcon className={styles.hero_icon} />
+                                <img src={value_realization} className={styles.iconStyle}/>
+                            <p style={{color:"#fff"}}>Value Creation</p>
                             </Box>
                         </Grid>
                     </Grid>
@@ -64,23 +76,24 @@ export default function About() {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title" sx={{ textAlign: "center" }}>
-                        {"Financing and entails four components"}
+                    <DialogTitle id="alert-dialog-title" className={styles.popUpTitle}>
+                        Financing and entails four components
                     </DialogTitle>
 
 
                     <Grid container spacing={1} px={1}>
-                        <Grid item xs={3}>
+                        <Grid item xs={12} md={3}>
 
                             <Paper sx={{ background: "#2D6E93" }}>
                                 <DialogContent >
                                     <DialogContentText id="alert-dialog-description">
                                         <LocationCityIcon className={`${styles.hero_icon2}`} />
+
                                     </DialogContentText>
                                 </DialogContent>
                             </Paper>
                         </Grid>
-                        <Grid item xs={9}>
+                        <Grid item xs={12} md={9}>
                             <Paper >
                                 <DialogContent>
                                     <DialogContentText id="alert-dialog-description">
@@ -94,7 +107,7 @@ export default function About() {
                     <DialogActions>
                         {/* <Button onClick={handleClose}>Disagree</Button> */}
                         <Button onClick={handleClose} autoFocus>
-                            close
+                            <img src={close} />
                         </Button>
                     </DialogActions>
 
@@ -102,19 +115,17 @@ export default function About() {
                 {/* End Modal */}
                 <div className={styles.text_container}>
                     <p>
-                        VCF can therefore be defined as the appropriation of value,
-                        generated by public sector intervention and private sector
-                        investment in relation to an underused asset (land and/or
-                        structure), for local re-investment to produce public good and
-                        potential private benefit.
+                        VCF can therefore be defined as the appropriation of value, generated by public sector
+                        intervention and private sector investment in relation to an underused asset (land and/or
+                        structure), for local re-investment to produce public good and potential private benefit.
                     </p>
                     <p style={{ marginTop: "10px" }}>VCF maintains both an:</p>
                     <p>
-                        Inward rate of return: The revenue return for the private sector
-                        following initial investment; and External rate of return: The
-                        proportion of this revenue which is reinvested in the same{" "}
+                        VCF maintains both an: Inward rate of return: The revenue return for the private sector
+                        following initial investment, and External rate of return: The proportion of this revenue
+                        which is reinvested in the same development scheme for the public good.
                     </p>
-                    <p>development scheme for the public good.</p>
+
                 </div>
             </Container>
         </section>

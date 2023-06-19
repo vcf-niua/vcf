@@ -3,13 +3,14 @@
 .customIndicatorCard {
     display: flex;
     height: 100px;
+    // background-color: #286080;
     background-color: variables.$base;
     border-radius: 10px;
     color:#fff;
     box-shadow: none;
     justify-content: center;
     align-content: center;
-    padding: 7px;
+    padding: 9px;
     .icon {
         font-size: 45px;
         align-self: center;

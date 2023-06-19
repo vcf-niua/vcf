@@ -43,14 +43,15 @@ export default function Infocard(props) {
             className={`${styles.customIndicatorCard}`}
             style={style}
             onClick={handleCardClick}
-            p={2}
+            sx={{backgroundColor: props.changeColor && props.changeColor+ " !important"}}
+            
         >
             <div className={styles.icon}>
                 {props.icon}
             </div>
             <div className={styles.content}>
-                <p style={{fontSize: props.data ? "": "initial"}}>{props.title}</p>
-                
+                <p style={{fontSize: props.data ? "": "initial"}}>{props.title} </p>
+                <p> {}</p>
                 {props.data ? (<h2>{props.data}</h2>) : ''}
             </div>
         </Card>
