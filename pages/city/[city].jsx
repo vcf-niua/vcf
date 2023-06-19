@@ -101,18 +101,19 @@ export default function CityProfile() {
     }
 
     function renderIndicatorCat(d, catName) {
-        console.log(d, catName)
+        // console.log(d, catName)
         let catData = d[catName]
         let indCatBox = []
 
         if (catData) {
             Object.keys(catData).forEach((c, idx) => {
+                
                 indCatBox.push(
                     <Grid key={idx} item xs={6} sm={6} md={2.5}>
                         <InfoCard
                             icon={catData[c].icon}
                             title={c}
-                            data={catData[c].value}
+                            data={catName=== 'Planning' && c ==='Master/ Development plan updated in last 10 years' ? catData[c].value === 1 ? "Yes" : "No" : catData[c].value}
                         // cardType = "checkMenu" 
 
                         />
@@ -163,6 +164,7 @@ export default function CityProfile() {
                                 icon=<img style={{ width: '40px', height: '40px' }} src={API_ENDPOINT_CMS + icon} />
                                 title={toolsInfo.title}
                                 onClick={() => handleInfoCardClick(t)}
+                                changeColor="#286080"
                             />
                         </Grid>
                     )
@@ -236,7 +238,7 @@ export default function CityProfile() {
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell> <strong> Amount(Cr.) </strong> </TableCell>
+                                        <TableCell> <strong> Amount (INR Cr.) </strong> </TableCell>
                                         <TableCell> <strong> Year</strong> </TableCell>
                                     </TableRow>
                                 </TableHead>

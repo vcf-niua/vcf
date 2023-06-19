@@ -7,8 +7,8 @@ import styles from '@/styles/Map.module.scss';
 export default function Map(props){
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng] = useState(82.678211);
-    const [lat] = useState(22.287897);
+    const [lng] = useState(props.lng || 82.678211);
+    const [lat] = useState(props.lat || 22.287897);
     const [zoom] = useState(props.zoom || 3.9);
     const [indiaBoundary, setIndiaBoundary] = useState();
     const hoveredStateId = useRef();

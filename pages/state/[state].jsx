@@ -121,7 +121,7 @@ export default function StateProfile() {
 
     function leftSection() {
         return (
-            <Map/>
+            <Map />
         )
     }
 
