@@ -41,9 +41,9 @@ export default function Tool() {
 				res.push(
 					<Grid key={idx} item xs={2} sm={4} md={3} >
 						<Link href={"/tools/" + t.attributes.title}>
-							<Card style={{boxShadow: 'none'}}>
+							<Card>
 								<CardContent className={styles.card}>
-									<img src={ic} style={{ width: "70px" }} />
+									<img src={ic} style={{ width: "80px" }} />
 									<Typography mt={1}>
 										{t.attributes.title}
 									</Typography>
