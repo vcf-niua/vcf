@@ -7,13 +7,15 @@ import styles from '@/styles/Map.module.scss';
 export default function Map(props){
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng] = useState(82.678211);
-    const [lat] = useState(22.287897);
+    const [lng] = useState(props.center?.longitute || 82.678211);
+    const [lat] = useState(props.center?.latitute || 22.287897);
     const [zoom] = useState(props.zoom || 3.9);
     const [indiaBoundary, setIndiaBoundary] = useState();
     const hoveredStateId = useRef();
 
     useEffect(() => {
+
+        console.log(lng, lat)
         if (map.current) return;
         map.current = new maplibregl.Map({
             container: mapContainer.current,
@@ -21,7 +23,7 @@ export default function Map(props){
             center: [lng, lat],
             zoom: zoom,
             minZoom: 3,
-            maxZoom: 5
+            maxZoom: 10
         });
 
         map.current.on('load', () => {
@@ -31,6 +33,12 @@ export default function Map(props){
         })
 
     }, []);
+
+    useEffect(() => {
+        if(props.center) {
+            map.current.setCenter([props.center?.longitute, props.center?.latitude])
+        }
+    }, [props.center])
 
     useEffect(() => {
         if(props.layerData) {
@@ -59,7 +67,7 @@ export default function Map(props){
                         10, 24
                     ]
                 }
-            }, 'border')
+            }, 'border_india')
 
             map.current.on('click', 'vcf-states-layer', (e) => {
                 var coordinates = e.features[0].geometry.coordinates.slice();
@@ -68,10 +76,15 @@ export default function Map(props){
                 while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 }
+
+                let msg = '<h2>' + prop.name + '</h2>'
+                if(prop.cities) {
+                    msg += '<p># of cities: ' + prop.cities + '</p>'
+                }
                 
                 new maplibregl.Popup()
                 .setLngLat(coordinates)
-                .setHTML('<h2>' + prop.name + '</h2><p># of cities: ' + prop.cities + '</p>')
+                .setHTML(msg)
                 .addTo(map.current);
             })
 
@@ -102,7 +115,7 @@ export default function Map(props){
                     'fill-opacity': [
                         'case',
                         ['boolean', ['feature-state', 'hover'], false],
-                        0.9,
+                        0.4,
                         0.2
                     ]
                 }
@@ -124,34 +137,36 @@ export default function Map(props){
                 }
             }, 'border_india')
 
-            map.current.on('mousemove', 'india-boundary-vcf-layer', (e) => {
-                if (e.features.length > 0) {
+            if(props.disableHighlight == undefined || props.disableHighlight == false) {
+                map.current.on('mousemove', 'india-boundary-vcf-layer', (e) => {
+                    if (e.features.length > 0) {
+                        if (hoveredStateId.current) {
+                            map.current.setFeatureState(
+                                { source: 'india-boundary-vcf', id: hoveredStateId.current },
+                                { hover: false }
+                            );
+                        }
+    
+                        // console.log(e.features[0])
+                        hoveredStateId.current = e.features[0].id;
+                        map.current.setFeatureState(
+                            { source: 'india-boundary-vcf', id: hoveredStateId.current },
+                            { hover: true }
+                        );
+                    }
+                })
+    
+                map.current.on('mouseleave', 'india-boundary-vcf-layer', (e) => {
+                    console.log('mouseleave')
                     if (hoveredStateId.current) {
                         map.current.setFeatureState(
                             { source: 'india-boundary-vcf', id: hoveredStateId.current },
                             { hover: false }
                         );
                     }
-
-                    // console.log(e.features[0])
-                    hoveredStateId.current = e.features[0].id;
-                    map.current.setFeatureState(
-                        { source: 'india-boundary-vcf', id: hoveredStateId.current },
-                        { hover: true }
-                    );
-                }
-            })
-
-            map.current.on('mouseleave', 'india-boundary-vcf-layer', (e) => {
-                console.log('mouseleave')
-                if (hoveredStateId.current) {
-                    map.current.setFeatureState(
-                        { source: 'india-boundary-vcf', id: hoveredStateId.current },
-                        { hover: false }
-                    );
-                }
-                hoveredStateId.current = null;
-            })
+                    hoveredStateId.current = null;
+                })
+            }
         }
     }, [indiaBoundary])
 

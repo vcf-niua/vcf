@@ -8,6 +8,7 @@ import remarkParse from 'remark-parse'
 import remarkHtml from 'remark-html'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
+import Map from '@/components/Map';
 import InfoCard from '@/components/InfoCard';
 import fetchData from '@/services/fetch';
 
@@ -32,7 +33,7 @@ export default function CityProfile() {
     useEffect(() => {
         fetchData('cities', 'GET', {
             'filters[name][$eqi]': city,
-            'populate': 'city_tools,city_tools,city_tools.annual_collection,city_tools.annual_collection.year,city_tools.tool_info,city_tools.tool_info.icon,indicators.indicator,indicators.indicator.icon,indicators.annual_collection'
+            'populate': 'city_tools,city_tools,city_tools.annual_collection,city_tools.annual_collection.year,city_tools.tool_info,city_tools.tool_info.icon,indicators.indicator,indicators.indicator.icon,indicators.annual_collection,centroid'
         })
             .then(res => res.json())
             .then(setCityData)
@@ -257,8 +258,19 @@ export default function CityProfile() {
         )
     }
 
+    function getCenterPoint(cityProfile) {
+        if(cityProfile && cityProfile.data.length > 0) {
+            console.log(cityProfile)
+            return cityProfile.data[0].attributes.centroid
+        }
+    }
+
     return (
         <Container>
+            <Grid style={{height: '500px'}} item xs={12} sm={12} md={7} mt={4}>
+                <Map center={getCenterPoint(cityData)} zoom={9} disableHighlight={true}/>
+            </Grid>
+            
             <h2 className={styles.city_name_heading}>{city}</h2>
 
             <Box pt={3} className={styles.title}>

@@ -22,16 +22,26 @@ export default function StateProfile() {
     const {state} = router.query;
 
     const [stateProfile, setStateProfile] = useState();
+    const [mapData, setMapData] = useState();
 
     useEffect(() => {
-        if(state) {
-            fetchData('states', 'GET', {
-                'filters[name][$eqi]': state,
-                'populate': 'laws,laws.law_document,cities,indicators,indicators.state_indicator'
-            })
-                .then(res => res.json())
-                .then(setStateProfile)
-        }
+        (async () => {
+            if(state) {
+                let dataStates = await fetchData('states', 'GET', {
+                    'filters[name][$eqi]': state,
+                    'populate': 'laws,laws.law_document,cities,indicators,indicators.state_indicator,centroid'
+                })
+                let jsonPromise = await dataStates.json()
+                setStateProfile(jsonPromise)
+                
+                fetchData('map-stats', 'GET', {
+                    'for': 'cities',
+                    'state': state
+                })
+                    .then(res => res.json())
+                    .then(setMapData)
+            }
+        })();
     }, [state])
 
     useEffect(() => {
@@ -119,9 +129,15 @@ export default function StateProfile() {
         }
     }
 
+    function getCenterPoint(stateProfile) {
+        if(stateProfile) {
+            return stateProfile.data[0].attributes.centroid
+        }
+    }
+
     function leftSection() {
         return (
-            <Map/>
+            <Map layerData={mapData} center={getCenterPoint(stateProfile)} zoom={5.5}/>
         )
     }
 
