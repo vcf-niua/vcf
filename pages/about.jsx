@@ -15,7 +15,13 @@ import styles from "@/styles/About.module.scss";
 
 export default function About() {
     const [open, setOpen] = useState(false);
+    const [state, setState] = useState({
+        icon: '/images/icon/local_value.png',
+        title: 'Value Creation',
+        description: "The unlocking and increase in the potential value of under-used assets (land and/or structures) as a result of a public sector intervention to stimulate demand from the private sector"
+      });
     let close = '/images/icon/close.png';
+
     let localValue = '/images/icon/local_value.png';
     let valueCapture = '/images/icon/value_capture.png';
     let valueCreation = '/images/icon/value_creation.png';
@@ -43,7 +49,7 @@ export default function About() {
                             <Box className={styles.boxCard} onClick={handleClickOpen}>
                                 {/* <LocationCityIcon className={styles.hero_icon} /> */}
                                 <img src={localValue} className={styles.iconStyle}/>
-                                <p>Value Creation</p>
+                                <p className={styles.iconTitle}> Local Value </p>
                             </Box>
                              
                             
@@ -51,20 +57,20 @@ export default function About() {
                         <Grid item xs={12} sm={6} md={6}>
                             <Box className={styles.boxCard} onClick={handleClickOpen}>
                                 <img src={valueCapture} className={styles.iconStyle}/>
-                            <p>Value Creation</p>
+                            <p className={styles.iconTitle}>Value Capture</p>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                             <Box className={styles.boxCard} onClick={handleClickOpen}>
                                 <img src={valueCreation} className={styles.iconStyle}/>
-                                <p>Value Creation</p>
+                                <p className={styles.iconTitle}>Value Creation</p>
                             </Box>
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={6}>
                             <Box className={styles.boxCard} onClick={handleClickOpen}>
                                 <img src={value_realization} className={styles.iconStyle}/>
-                            <p style={{color:"#fff"}}>Value Creation</p>
+                            <p className={styles.iconTitle}> Value Realization </p>
                             </Box>
                         </Grid>
                     </Grid>
