@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import Header from '@/components/Header';
-import { Card, CardContent, CardHeader, Avatar, IconButton, CardActions, Grid, Container, Box } from '@mui/material';
+import { Card, CardContent, CardHeader, Avatar, IconButton, CardActions, Grid, Container, Box, Divider } from '@mui/material';
 import { Table, TableBody, TableRow, TableCell, Typography, List, ListItem, ListItemText } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -34,6 +34,7 @@ export default function SpecificTool() {
     const [toolInfoState, setToolInfoState] = useState();
     const [toolDescription, setToolDescription] = useState();
     const [cityList, setCityList] = useState();
+    const [cityDetails, setCityDetails] = useState();
 
     let tools = [
         {
@@ -1008,6 +1009,34 @@ export default function SpecificTool() {
             })
                 .then(res => res.json())
                 .then(setToolDescription)
+
+            fetchData('cities', 'GET', {
+                'filters[city_tools][tool_info][title][$eqi]': tool,
+                'populate': 'state,state.icon,city_tools.tool_info'
+            })
+                .then(res => res.json())
+                .then(res => {
+                    let stateData = {}
+                    res.data.forEach(c => {
+                        if(!c.attributes.state.data) {
+                            return
+                        }
+
+                        let thisStateData = stateData[c.attributes.state.data.attributes.name] || {
+                            icon: c.attributes.state.data.attributes.icon ? API_ENDPOINT_CMS + c.attributes.state.data.attributes.icon.data.attributes.url : undefined
+                        }
+
+                        let cityList = thisStateData.cities || []
+
+                        cityList.push(
+                            c.attributes.name
+                        )
+                        
+                        thisStateData.cities = cityList
+                        stateData[c.attributes.state.data.attributes.name] = thisStateData
+                    })
+                    setCityList(stateData)
+                })
         }
     }, [tool])
 
@@ -1051,8 +1080,36 @@ export default function SpecificTool() {
         }
     }
 
-    function renderCitiesList(cityList) {
-        console.log(cityList)
+    function renderCitiesList(cityDetails) {
+        // console.log(cityDetails)
+        if(cityDetails) {
+            // console.log(cityList)
+            console.log(cityList[cityDetails])
+
+            let res = []
+
+            cityList[cityDetails].cities.forEach((c, idx) => {
+                res.push(
+                    <div key={idx}>
+                        <ListItem>
+                            <ListItemText primary={c}/>
+                        </ListItem>
+                        <Divider component="li" sx={{ backgroundColor: '#2D6E93' }}/>
+                    </div>
+                )
+            })
+
+            return (
+                <Card 
+                    style={{marginTop:"10px", boxShadow: "none"}} 
+                >
+                    <List component="nav"  style={{transition: "transform 250ms linear"}}>
+                        {res}
+                    </List>
+                    </Card> 
+            )
+        }
+        
         // return (
         //     <Card 
         //         className={`${styles.listContainer} ${styles.cardListInner}`}
@@ -1094,7 +1151,6 @@ export default function SpecificTool() {
                                         title={item.attributes.title}
                                         
                                     >
-                                        {/* {renderCitiesList(cityList)} */}
                                     </InfoCard>
                                 </Grid>
                             ))}
@@ -1104,22 +1160,25 @@ export default function SpecificTool() {
             }
         }
     }
-    function stateAdoptingTool() {
-        return (
-            <Box pt={4} pl={5} className={pagesStyle.title}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                    Cities adopting the Tool
-                </Typography>
-                <Grid container spacing={2} mt={1}>
-                    {vcfTool[0].state_adopt_tool.map((item, index) => (
-                    // <CardWithList />
-                    <Grid item xs={6} sm={6} md={4} key={index}>
-                        <InfoCard  title={item.state_name} cityList={item.cities} data={34 - index}  icon=<LocationCityIcon/> />
+    function stateAdoptingTool(cityList) {
+        if(cityList) {
+            console.log(cityList)
+            return (
+                <Box pt={4} pl={5} className={pagesStyle.title}>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        Cities adopting the Tool
+                    </Typography>
+                    <Grid container spacing={2} mt={1}>
+                        {Object.keys(cityList).map((stateName, index) => (
+                            <Grid item xs={6} sm={6} md={4} key={index}>
+                                <InfoCard title={stateName} data={cityList[stateName].cities.length}  icon=<img src={cityList[stateName].icon}/> onClick={(e, name) => {setCityDetails(name)}}/>
+                            </Grid>
+                        ))}
                     </Grid>
-                ))}
-                </Grid>
-            </Box>
-        )
+                    {cityDetails && renderCitiesList(cityDetails)}
+                </Box>
+            )
+        }
     }
 
     function rightSection() {
@@ -1151,7 +1210,7 @@ export default function SpecificTool() {
                  </h4>
                 {definition(toolDescription)}
                 {renderIndicator(toolDescription)}
-                {stateAdoptingTool(toolDescription)}
+                {stateAdoptingTool(cityList)}
             </div>
         )
     }
