@@ -8,6 +8,7 @@ import Link from 'next/link';
 
 import fetchData from '@/services/fetch';
 import { API_ENDPOINT_CMS } from '@/services/const.jsx';
+import ToolInfoCard from '@/components/ToolInfoCard';
 
 import styles from '@/styles/Tool.module.scss';
 
@@ -39,18 +40,7 @@ export default function Tool() {
 					ic = API_ENDPOINT_CMS + t.attributes.icon.data.attributes.url
 				}
 				res.push(
-					<Grid key={idx} item xs={2} sm={4} md={3} >
-						<Link href={"/tools/" + t.attributes.title}>
-							<Card>
-								<CardContent className={styles.card}>
-									<img src={ic} style={{ width: "80px" }} />
-									<Typography mt={1}>
-										{t.attributes.title}
-									</Typography>
-								</CardContent>
-							</Card>
-						</Link>
-					</Grid>
+					<ToolInfoCard  key={idx} title={t.attributes.title} img={ic} />
 				)
 			})
 		}
