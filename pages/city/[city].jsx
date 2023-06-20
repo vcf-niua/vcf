@@ -118,7 +118,7 @@ export default function CityProfile() {
                 }
                 
                 indCatBox.push(
-                    <Grid key={idx} item xs={6} sm={6} md={2.5}>
+                    <Grid key={idx} item xs={6} sm={6} md={3}>
                         <InfoCard
                             icon={catData[c].icon}
                             title={c}
@@ -167,7 +167,7 @@ export default function CityProfile() {
                     let toolsInfo = t.tool_info.data.attributes
                     let icon = toolsInfo.icon.data.attributes.url
                     res.push(
-                        <Grid key={idx} item xs={6} sm={6} md={2.5}>
+                        <Grid key={idx} item xs={6} sm={6} md={3}>
 
                             <InfoCard
                                 icon=<img style={{ width: '40px', height: '40px' }} src={API_ENDPOINT_CMS + icon} />
@@ -277,11 +277,20 @@ export default function CityProfile() {
 
     return (
         <Container>
-            <Grid style={{height: '500px'}} item xs={12} sm={12} md={7} mt={4}>
-                <Map center={getCenterPoint(cityData)} zoom={9} disableHighlight={true}/>
+            <Grid container>
+                <Grid item xs={12} sm={12} mt={4} pl={0}>
+                    <h2 className={styles.city_name_heading}>{city}</h2>
+                </Grid>
+                <Grid item style={{height: '250px'}} xs={12} sm={12} mt={4}>
+                    <Map center={getCenterPoint(cityData)} zoom={9} disableHighlight={true}/>
+                </Grid>
+                
+
+                
             </Grid>
             
-            <h2 className={styles.city_name_heading}>{city}</h2>
+            
+            
 
             <Box pt={3} className={styles.title}>
                 {renderCityIndicators(cityData)}
