@@ -33,8 +33,9 @@ export default function Infocard(props) {
     return (
        <>
         <Card 
-            className={`${styles.customIndicatorCard}`}
-            style={style}
+            style={{backgroundColor: '#144665', color: '#fff', boxShadow: 'none'}}
+            className={styles.customIndicatorCard}
+            // style={style}
             onClick={handleCardClick}
             
         >
