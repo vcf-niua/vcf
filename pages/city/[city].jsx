@@ -108,13 +108,21 @@ export default function CityProfile() {
 
         if (catData) {
             Object.keys(catData).forEach((c, idx) => {
+
+                let val = catData[c].value
+
+                if(val) {
+                    val = val.toLocaleString('hi')
+                } else {
+                    val = 'NA'
+                }
                 
                 indCatBox.push(
                     <Grid key={idx} item xs={6} sm={6} md={2.5}>
                         <InfoCard
                             icon={catData[c].icon}
                             title={c}
-                            data={catName=== 'Planning' && c ==='Master/ Development plan updated in last 10 years' ? catData[c].value === 1 ? "Yes" : "No" : catData[c].value}
+                            data={catName=== 'Planning' && c ==='Master/ Development plan updated in last 10 years' ? catData[c].value === 1 ? "Yes" : "No" : val}
                         // cardType = "checkMenu" 
 
                         />
@@ -165,7 +173,7 @@ export default function CityProfile() {
                                 icon=<img style={{ width: '40px', height: '40px' }} src={API_ENDPOINT_CMS + icon} />
                                 title={toolsInfo.title}
                                 onClick={() => handleInfoCardClick(t)}
-                                changeColor="#286080"
+                                backgroundColor={"#286080"}
                             />
                         </Grid>
                     )

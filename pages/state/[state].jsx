@@ -76,12 +76,18 @@ export default function StateProfile() {
                     </Grid>
         )
             indicators.forEach((i, idx)=> {
+                let val = i.value
+                if(val) {
+                    val = val.toLocaleString('hi')
+                } else {
+                    val = 'NA'
+                }
                 res.push(
                     <Grid key={idx} item xs={6} sm={6} md={6}>
                         <InfoCard
                             icon=<img src={API_ENDPOINT_CMS + i.state_indicator.data.attributes.icon.data.attributes.url}/>
                             title={i.state_indicator.data.attributes.title}
-                            data={i.value}
+                            data={val}
                         />
                     </Grid>
                 )

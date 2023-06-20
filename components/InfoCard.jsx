@@ -20,6 +20,10 @@ export default function Infocard(props) {
     if(props.onClick) {
         style['cursor'] = 'pointer'
     }
+
+    if(props.backgroundColor) {
+        style['backgroundColor'] = props.backgroundColor
+    }
     
     return (
         <>
