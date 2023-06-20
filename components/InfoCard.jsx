@@ -20,6 +20,10 @@ export default function Infocard(props) {
     if(props.onClick) {
         style['cursor'] = 'pointer'
     }
+
+    if(props.backgroundColor) {
+        style['backgroundColor'] = props.backgroundColor
+    }
     
     return (
         <>
@@ -29,7 +33,7 @@ export default function Infocard(props) {
                 onClick={handleCardClick}
                 
             >
-                <div className={styles.icon}>
+                <div className={styles.icon} style={{width: props.iconWidth}}>
                     {props.icon}
                 </div>
                 <div className={styles.content}>

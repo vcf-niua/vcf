@@ -10,6 +10,7 @@ import {
     CardHeader,
     Divider
 } from '@mui/material';
+import Link from 'next/link';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import pagesStyle from '@/styles/SpecificTool.module.scss';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
@@ -24,15 +25,18 @@ export default function CardWithList(props) {
         setListOpenState(!listOpenState);
     };
 
-    function renderList(cityList) {
+    function renderList(listData) {
+        console.log(listData)
         return (
-            <Card className={`${pagesStyle.listContainer} ${pagesStyle.cardListInner}`} style={{marginTop:"10px", boxShadow: "none"}}>
+            <Card className={`${pagesStyle.listContainer} ${pagesStyle.cardListInner}`} style={{marginTop:"10px", boxShadow: "none", backgroundColor: '#f6f6f6'}}>
                 <List component="nav"  style={{transition: "transform 250ms linear"}}>
-                    {cityList.map((item, index) => (
+                    {listData.map((item, index) => (
                        <div key={index}>
-                         <ListItem className={pagesStyle.cityTool}>
-                            <ListItemText primary={item.cities_name} className={pagesStyle.title}/>
-                        </ListItem>
+                            <Link href={'/city/' + item}>
+                                <ListItem className={pagesStyle.cityTool}>
+                                    <ListItemText primary={item} className={pagesStyle.title}/>
+                                </ListItem>
+                            </Link>
                         <Divider component="li" sx={{ backgroundColor: '#2D6E93' }}/>
                        </div>
                     ))}
@@ -43,26 +47,14 @@ export default function CardWithList(props) {
     }
     {/*  */ }
     return (
-        <Grid item xs={6} sm={6} md={3}>
+        <Grid item xs={12} sm={12} md={12}>
             <InfoCard
-                icon=<LocationCityIcon className={pagesStyle.icon} />
-                title={props.stateName} cityList={props.cities}
-                data={"2 Cities"}
+                icon={props.icon || <LocationCityIcon/>}
+                className={pagesStyle.icon}
+                {...props}
+                onClick={handleCardClick}
             />
-            {/* <Card className={`${pagesStyle.customIndicatorCard} ${pagesStyle.cardList}`} onClick={() => handleCardClick(props.cityList)}>
-                
-                <CardHeader
-
-                    avatar={<LocationCityIcon className={pagesStyle.icon} />}
-                    title={props.stateName} 
-                    subheader="2 Cities"
-                    subheaderTypographyProps={{variant:'h6',color:"#fff" }}
-
-                />
-                
-
-            </Card> */}
-            {listOpenState && renderList(props.cityList)}
+            {listOpenState && renderList(props.listData)}
             
         </Grid>
     )
