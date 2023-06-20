@@ -15,11 +15,15 @@ import styles from "@/styles/About.module.scss";
 
 export default function About() {
     const [open, setOpen] = useState(false);
-    const [state, setState] = useState({
-        icon: '/images/icon/local_value.png',
-        title: 'Value Creation',
-        description: "The unlocking and increase in the potential value of under-used assets (land and/or structures) as a result of a public sector intervention to stimulate demand from the private sector"
-      });
+    const [title, setTitle] = useState(false);
+    const [imag, setImag] = useState(false);
+    const [description, setDescription] = useState(false);
+   
+
+
+
+
+
     let close = '/images/icon/close.png';
 
     let localValue = '/images/icon/local_value.png';
@@ -27,7 +31,10 @@ export default function About() {
     let valueCreation = '/images/icon/value_creation.png';
     let value_realization = '/images/icon/value_realization.png';
 
-    function handleClickOpen() {
+    function handleClickOpen(title, imag, description) {
+        setTitle(title);
+        setImag(imag);
+        setDescription(description);
         setOpen(true);
     }
     function handleClose() {
@@ -46,31 +53,31 @@ export default function About() {
                 <div className={styles.containerBox}>
                     <Grid container spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
                         <Grid item xs={12} sm={6} md={6}>
-                            <Box className={styles.boxCard} onClick={handleClickOpen}>
+                            <Box className={styles.boxCard} onClick={()=>handleClickOpen("Local Value Recycling",localValue, "The re-investment of acquired monetary or in-kind contributions from the private sector within the same development site or scheme. This re-investment can pay for the initial public intervention but tends to fund further interventions." )}>
                                 {/* <LocationCityIcon className={styles.hero_icon} /> */}
-                                <img src={localValue} className={styles.iconStyle}/>
+                                <img src={localValue} className={styles.iconStyle} />
                                 <p className={styles.iconTitle}> Local Value </p>
                             </Box>
-                             
-                            
+
+
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
-                            <Box className={styles.boxCard} onClick={handleClickOpen}>
-                                <img src={valueCapture} className={styles.iconStyle}/>
-                            <p className={styles.iconTitle}>Value Capture</p>
+                            <Box className={styles.boxCard} onClick={()=> handleClickOpen("Value Capture", valueCapture, "Arrangements by the public sector for the acquisition of a proportion of private sector returns for local reinvestment. This can take the form of monetary or In kind contributions from the private to public actors." )}>
+                                <img src={valueCapture} className={styles.iconStyle} />
+                                <p className={styles.iconTitle}>Value Capture</p>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
-                            <Box className={styles.boxCard} onClick={handleClickOpen}>
-                                <img src={valueCreation} className={styles.iconStyle}/>
+                            <Box className={styles.boxCard} onClick={()=> handleClickOpen("Value Creation", valueCreation, "The unlocking and increase in the potential value of under-used assets (land and/or structures) as a result of a public sector intervention to stimulate demand from the private sector")}>
+                                <img src={valueCreation} className={styles.iconStyle} />
                                 <p className={styles.iconTitle}>Value Creation</p>
                             </Box>
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={6}>
-                            <Box className={styles.boxCard} onClick={handleClickOpen}>
-                                <img src={value_realization} className={styles.iconStyle}/>
-                            <p className={styles.iconTitle}> Value Realization </p>
+                            <Box className={styles.boxCard} onClick={()=> handleClickOpen("Value Realisation", value_realization, "Subsequent investment and development from the private sector which ensures that potential asset value increase is realised.")}>
+                                <img src={value_realization} className={styles.iconStyle} />
+                                <p className={styles.iconTitle}> Value Realization </p>
                             </Box>
                         </Grid>
                     </Grid>
@@ -83,7 +90,7 @@ export default function About() {
                     aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle id="alert-dialog-title" className={styles.popUpTitle}>
-                        Financing and entails four components
+                    {title}
                     </DialogTitle>
 
 
@@ -93,8 +100,8 @@ export default function About() {
                             <Paper sx={{ background: "#2D6E93" }}>
                                 <DialogContent >
                                     <DialogContentText id="alert-dialog-description">
-                                        <LocationCityIcon className={`${styles.hero_icon2}`} />
-
+                                        {/* <LocationCityIcon  /> */}
+                                        <img src={imag} className={`${styles.hero_icon2}`} width={90}/>
                                     </DialogContentText>
                                 </DialogContent>
                             </Paper>
@@ -103,7 +110,7 @@ export default function About() {
                             <Paper >
                                 <DialogContent>
                                     <DialogContentText id="alert-dialog-description">
-                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium magni aliquid cupiditate facere corporis tempora eligendi minima obcaecati, molestias suscipit nam repellat. Quaerat laudantium unde velit numquam expedita totam nulla?
+                                        {description}
                                     </DialogContentText>
 
                                 </DialogContent>

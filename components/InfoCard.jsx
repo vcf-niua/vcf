@@ -36,14 +36,13 @@ export default function Infocard(props) {
             className={`${styles.customIndicatorCard}`}
             style={style}
             onClick={handleCardClick}
-            
         >
             <div className={styles.icon}>
                 {props.icon}
             </div>
             <div className={styles.content}>
                 <p style={{fontSize: props.data ? "": "initial"}}>{props.title} </p>
-                <p> {}</p>
+                
                 {props.data ? (<h2>{props.data}</h2>) : ''}
             </div>
         </Card>
