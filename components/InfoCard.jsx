@@ -19,7 +19,8 @@ export default function Infocard(props) {
 
     const handleCardClick = (e) => {
         if(props.onClick) {
-            props.onClick(e)
+            // console.log(e, props.title)
+            props.onClick(e, props.title)
         }
        
     };
