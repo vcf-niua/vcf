@@ -29,7 +29,7 @@ export default function StateProfile() {
             if(state) {
                 let dataStates = await fetchData('states', 'GET', {
                     'filters[name][$eqi]': state,
-                    'populate': 'laws,laws.law_document,cities,indicators,indicators.state_indicator,centroid'
+                    'populate': 'laws,laws.law_document,cities,indicators,indicators.state_indicator,indicators.state_indicator.icon,centroid'
                 })
                 let jsonPromise = await dataStates.json()
                 setStateProfile(jsonPromise)
@@ -79,7 +79,7 @@ export default function StateProfile() {
                 res.push(
                     <Grid key={idx} item xs={6} sm={6} md={6}>
                         <InfoCard
-                            icon=<LocationCityIcon/>
+                            icon=<img src={API_ENDPOINT_CMS + i.state_indicator.data.attributes.icon.data.attributes.url}/>
                             title={i.state_indicator.data.attributes.title}
                             data={i.value}
                         />
@@ -104,7 +104,7 @@ export default function StateProfile() {
                     let doc = item.law_document.data.attributes.url
                 res.push(
                     <TableRow key={index}>
-                        <TableCell className={`${styles.cell} ${styles.customColor}`} > <a href={API_ENDPOINT_CMS + doc} target="_blank"> {item.law_title}  </a>  </TableCell>
+                        <TableCell className={`${styles.cell} ${styles.customColor}`} > <a href={API_ENDPOINT_CMS + doc} target="_blank" style={{fontFamily: 'Gilroy'}}> {item.law_title}  </a>  </TableCell>
                     </TableRow>
                 )
                 }
