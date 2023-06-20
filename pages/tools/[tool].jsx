@@ -1023,7 +1023,8 @@ export default function SpecificTool() {
                         }
 
                         let thisStateData = stateData[c.attributes.state.data.attributes.name] || {
-                            icon: c.attributes.state.data.attributes.icon ? API_ENDPOINT_CMS + c.attributes.state.data.attributes.icon.data.attributes.url : undefined
+                            icon: c.attributes.state.data.attributes.icon ? API_ENDPOINT_CMS + c.attributes.state.data.attributes.icon.data.attributes.url : undefined,
+                            cities: []
                         }
 
                         let cityList = thisStateData.cities || []
@@ -1082,7 +1083,7 @@ export default function SpecificTool() {
 
     function renderCitiesList(cityDetails) {
         // console.log(cityDetails)
-        if(cityDetails) {
+        if(cityDetails && cityList[cityDetails]) {
             // console.log(cityList)
             console.log(cityList[cityDetails])
 
