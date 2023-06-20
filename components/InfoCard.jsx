@@ -29,7 +29,7 @@ export default function Infocard(props) {
                 onClick={handleCardClick}
                 
             >
-                <div className={styles.icon}>
+                <div className={styles.icon} style={{width: props.iconWidth}}>
                     {props.icon}
                 </div>
                 <div className={styles.content}>
