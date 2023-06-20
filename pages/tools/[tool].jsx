@@ -1008,6 +1008,34 @@ export default function SpecificTool() {
             })
                 .then(res => res.json())
                 .then(setToolDescription)
+
+            fetchData('cities', 'GET', {
+                'filters[city_tools][tool_info][title][$eqi]': tool,
+                'populate': 'state,state.icon,city_tools.tool_info'
+            })
+                .then(res => res.json())
+                .then(res => {
+                    let stateData = {}
+                    res.data.forEach(c => {
+                        if(!c.attributes.state.data) {
+                            return
+                        }
+
+                        let thisStateData = stateData[c.attributes.state.data.attributes.name] || {
+                            icon: c.attributes.state.data.attributes.icon ? API_ENDPOINT_CMS + c.attributes.state.data.attributes.icon.data.attributes.url : undefined
+                        }
+
+                        let cityList = thisStateData.cities || []
+
+                        cityList.push(
+                            c.attributes.name
+                        )
+                        
+                        thisStateData.cities = cityList
+                        stateData[c.attributes.state.data.attributes.name] = thisStateData
+                    })
+                    setCityList(stateData)
+                })
         }
     }, [tool])
 
@@ -1104,22 +1132,24 @@ export default function SpecificTool() {
             }
         }
     }
-    function stateAdoptingTool() {
-        return (
-            <Box pt={4} pl={5} className={pagesStyle.title}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                    Cities adopting the Tool
-                </Typography>
-                <Grid container spacing={2} mt={1}>
-                    {vcfTool[0].state_adopt_tool.map((item, index) => (
-                    // <CardWithList />
-                    <Grid item xs={6} sm={6} md={4} key={index}>
-                        <InfoCard  title={item.state_name} cityList={item.cities} data={34 - index}  icon=<LocationCityIcon/> />
+    function stateAdoptingTool(cityList) {
+        if(cityList) {
+            console.log(cityList)
+            return (
+                <Box pt={4} pl={5} className={pagesStyle.title}>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        Cities adopting the Tool
+                    </Typography>
+                    <Grid container spacing={2} mt={1}>
+                        {Object.keys(cityList).map((stateName, index) => (
+                            <Grid item xs={6} sm={6} md={4} key={index}>
+                                <InfoCard  title={stateName} data={cityList[stateName].cities.length}  icon=<img src={cityList[stateName].icon}/> />
+                            </Grid>
+                        ))}
                     </Grid>
-                ))}
-                </Grid>
-            </Box>
-        )
+                </Box>
+            )
+        }
     }
 
     function rightSection() {
@@ -1151,7 +1181,7 @@ export default function SpecificTool() {
                  </h4>
                 {definition(toolDescription)}
                 {renderIndicator(toolDescription)}
-                {stateAdoptingTool(toolDescription)}
+                {stateAdoptingTool(cityList)}
             </div>
         )
     }
