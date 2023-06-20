@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/router';
 
 
-import Logo from './images/logo.svg';
+import Logo from './images/vcf_logo.svg';
 import NIUALogo from './images/niua.svg';
 import Link from 'next/link';
 import styles from '@/styles/Header.module.scss';
@@ -95,7 +95,7 @@ export default function Header() {
                                     noWrap
                                     
                                 >
-                                    Value Capture Financing
+                                    Value Capture Finance
                                 </Typography>
                             </div>
                         </Link>

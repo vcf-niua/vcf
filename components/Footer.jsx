@@ -16,7 +16,7 @@ export default function Footer() {
                     fontFamily: 'inherit'
                 }}
             >
-                {"Value Capture Financing"}
+                {"Value Capture Finance"}
             </Typography>
             <Typography
                 variant="body2"
