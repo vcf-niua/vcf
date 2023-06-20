@@ -21,14 +21,7 @@ export default function Infocard(props) {
         if(props.onClick) {
             props.onClick(e)
         }
-        // if(props && props.cardType === 'stateMenu'){
-        //     setListToolState(!listToolState)
-        //     props.showDescriptionOfTool(!listToolState, props.eachGrid)
-        // }else if(props && props.cardType === 'checkMenu'){
-        //     setListOpenState(false);
-        // }else {
-        //     setListOpenState(!listOpenState);
-        // }
+       
     };
 
     let style = {}
@@ -43,7 +36,6 @@ export default function Infocard(props) {
             className={`${styles.customIndicatorCard}`}
             style={style}
             onClick={handleCardClick}
-            sx={{backgroundColor: props.changeColor && props.changeColor+ " !important"}}
             
         >
             <div className={styles.icon}>
@@ -55,7 +47,7 @@ export default function Infocard(props) {
                 {props.data ? (<h2>{props.data}</h2>) : ''}
             </div>
         </Card>
-            {/* {listOpenState && renderList(props.cityList)} */}
+            
             {props.children}
             
        </>
