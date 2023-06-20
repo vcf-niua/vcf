@@ -1,22 +1,11 @@
 import { useState } from "react"
 import { 
-    Card,
-    List,
-    ListItem,
-    ListItemText,
-    Grid,
-    Divider,
-    Typography
+    Card
 } from '@mui/material';
-import { StyledEngineProvider } from '@mui/material/styles';
-
 
 import styles from '@/styles/InfoCard.module.scss';
 
 export default function Infocard(props) {
-
-    const [listOpenState, setListOpenState] = useState(false);
-    const [listToolState, setListToolState] = useState(false);
 
     const handleCardClick = (e) => {
         if(props.onClick) {
@@ -33,10 +22,10 @@ export default function Infocard(props) {
     }
     
     return (
-        <StyledEngineProvider injectFirst>
+        <>
             <Card 
                 className={styles.customIndicatorCard}
-                // style={style}
+                style={style}
                 onClick={handleCardClick}
                 
             >
@@ -52,6 +41,6 @@ export default function Infocard(props) {
             
             {props.children}
             
-        </StyledEngineProvider>
+        </>
     )
 }
