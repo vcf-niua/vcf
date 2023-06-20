@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import Header from '@/components/Header';
-import { Card, CardContent, CardHeader, Avatar, IconButton, CardActions, Grid, Container, Box } from '@mui/material';
+import { Card, CardContent, CardHeader, Avatar, IconButton, CardActions, Grid, Container, Box, Divider } from '@mui/material';
 import { Table, TableBody, TableRow, TableCell, Typography, List, ListItem, ListItemText } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -34,6 +34,7 @@ export default function SpecificTool() {
     const [toolInfoState, setToolInfoState] = useState();
     const [toolDescription, setToolDescription] = useState();
     const [cityList, setCityList] = useState();
+    const [cityDetails, setCityDetails] = useState();
 
     let tools = [
         {
@@ -1079,8 +1080,36 @@ export default function SpecificTool() {
         }
     }
 
-    function renderCitiesList(cityList) {
-        console.log(cityList)
+    function renderCitiesList(cityDetails) {
+        // console.log(cityDetails)
+        if(cityDetails) {
+            // console.log(cityList)
+            console.log(cityList[cityDetails])
+
+            let res = []
+
+            cityList[cityDetails].cities.forEach((c, idx) => {
+                res.push(
+                    <div key={idx}>
+                        <ListItem>
+                            <ListItemText primary={c}/>
+                        </ListItem>
+                        <Divider component="li" sx={{ backgroundColor: '#2D6E93' }}/>
+                    </div>
+                )
+            })
+
+            return (
+                <Card 
+                    style={{marginTop:"10px", boxShadow: "none"}} 
+                >
+                    <List component="nav"  style={{transition: "transform 250ms linear"}}>
+                        {res}
+                    </List>
+                    </Card> 
+            )
+        }
+        
         // return (
         //     <Card 
         //         className={`${styles.listContainer} ${styles.cardListInner}`}
@@ -1122,7 +1151,6 @@ export default function SpecificTool() {
                                         title={item.attributes.title}
                                         
                                     >
-                                        {/* {renderCitiesList(cityList)} */}
                                     </InfoCard>
                                 </Grid>
                             ))}
@@ -1143,10 +1171,11 @@ export default function SpecificTool() {
                     <Grid container spacing={2} mt={1}>
                         {Object.keys(cityList).map((stateName, index) => (
                             <Grid item xs={6} sm={6} md={4} key={index}>
-                                <InfoCard  title={stateName} data={cityList[stateName].cities.length}  icon=<img src={cityList[stateName].icon}/> />
+                                <InfoCard title={stateName} data={cityList[stateName].cities.length}  icon=<img src={cityList[stateName].icon}/> onClick={(e, name) => {setCityDetails(name)}}/>
                             </Grid>
                         ))}
                     </Grid>
+                    {cityDetails && renderCitiesList(cityDetails)}
                 </Box>
             )
         }
