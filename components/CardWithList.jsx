@@ -12,10 +12,10 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import pagesStyle from '@/styles/SpecificTool.module.scss';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 
 import InfoCard from '@/components/InfoCard';
+import pagesStyle from '@/styles/SpecificTool.module.scss';
 
 export default function CardWithList(props) {
     console.log(props.cities)
@@ -32,9 +32,9 @@ export default function CardWithList(props) {
                 <List component="nav"  style={{transition: "transform 250ms linear"}}>
                     {listData.map((item, index) => (
                        <div key={index}>
-                            <Link href={'/city/' + item}>
+                            <Link className={pagesStyle.citiesList} href={'/city/' + item}>
                                 <ListItem className={pagesStyle.cityTool}>
-                                    <ListItemText primary={item} className={pagesStyle.title}/>
+                                    <ListItemText primary={item} className={pagesStyle.cityTool}/>
                                 </ListItem>
                             </Link>
                         <Divider component="li" sx={{ backgroundColor: '#2D6E93' }}/>

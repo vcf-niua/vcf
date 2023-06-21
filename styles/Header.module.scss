@@ -20,8 +20,8 @@
           .brand_text {
            
             color: variables.$base;
-            font-size: 2rem;
-            margin-left: 10px;
+            font-size: 1.5rem;
+            margin-left: 8px;
             font-family: "Gilroy";
            
           }
@@ -64,6 +64,7 @@
       .niua_brand {
         svg {
           height: 40px;
+          margin-left: 20px;
         }
       }
     }

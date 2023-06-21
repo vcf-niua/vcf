@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 
 import Logo from './images/vcf_logo.svg';
 import NIUALogo from './images/niua.svg';
+import NIUAUsu from './images/logo_usu.svg';
 import Link from 'next/link';
 import styles from '@/styles/Header.module.scss';
 
@@ -106,7 +107,9 @@ export default function Header() {
                     </div>
                     <div className={styles.niua_brand}>
                         <NIUALogo/>
+                        <NIUAUsu/>
                     </div>
+                   
                 </Container>
                 
             </AppBar>
