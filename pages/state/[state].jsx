@@ -143,7 +143,7 @@ export default function StateProfile() {
 
     function leftSection() {
         return (
-            <Map layerData={mapData} center={getCenterPoint(stateProfile)} zoom={5.5}/>
+            <Map linkPath={"city"} layerData={mapData} center={getCenterPoint(stateProfile)} zoom={5.5}/>
         )
     }
 
