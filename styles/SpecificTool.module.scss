@@ -18,6 +18,9 @@
  .title {
   color: variables.$paraColor;
  }
+ .citiesList:hover {
+  background-color: variables.$secondary;
+ }
 
 .customCardLeft {
   height: 70vh;
@@ -65,12 +68,12 @@
 
 .cityTool {
   border-bottom: variables.$secondary;
-  color:variables.$secondary
+  color:variables.$paraColor
 }
 
 .cityTool:hover {
   cursor: pointer;
-  color: #4C95BF;
+  background-color: variables.$secondary;
   font-weight: bold;
 }
 

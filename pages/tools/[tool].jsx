@@ -97,7 +97,7 @@ export default function SpecificTool() {
                         <TableCell 
                             className={`${pagesStyle.cell} ${pagesStyle.customColor}`} 
                             style={{ backgroundColor: (t.attributes.title === tool && 'rgba(76, 149, 191, 0.41)') }}> 
-                                <Link href={"/tools/" + t.attributes.title}>{t.attributes.title}</Link>
+                                <Link style={{fontFamily: 'Gilroy'}} href={"/tools/" + t.attributes.title}>{t.attributes.title}</Link>
                         </TableCell>
                     </TableRow> 
 
@@ -155,24 +155,7 @@ export default function SpecificTool() {
             )
         }
         
-        // return (
-        //     <Card 
-        //         className={`${styles.listContainer} ${styles.cardListInner}`}
-        //         style={{marginTop:"10px", boxShadow: "none"}} 
-        //     >
-        //         <List component="nav"  style={{transition: "transform 250ms linear"}}>
-        //             {cityList.map((item, index) => (
-        //                <div key={index}>
-        //                  <ListItem className={styles.cityTool}>
-        //                     <ListItemText primary={item.cities_name} className={styles.title}/>
-        //                 </ListItem>
-        //                 <Divider component="li" sx={{ backgroundColor: '#2D6E93' }}/>
-        //                </div>
-        //             ))}
-               
-        //         </List>
-        //     </Card>
-        // )
+       
     }
     
     function renderIndicator(toolDescription) {
@@ -223,14 +206,8 @@ export default function SpecificTool() {
                                     iconWidth={'90px'}
                                     listData={cityList[stateName].cities}
                                 />
-                                {/* <InfoCard 
-                                    iconWidth={'90px'}
-                                    title={stateName} 
-                                    data={cityList[stateName].cities.length}  
-                                    icon=<img src={cityList[stateName].icon}/> 
-                                    onClick={(e, name) => {setCityDetails(name)}}
-                                /> */}
-                                {cityDetails && renderCitiesList(cityDetails)}
+                               
+                                {/* {cityDetails && renderCitiesList(cityDetails)} */}
                             </Grid>
                         ))}
                     </Grid>

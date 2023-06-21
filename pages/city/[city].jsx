@@ -80,8 +80,8 @@ export default function CityProfile() {
                 })
             }
         }
-        console.log(cityData)
-        console.log(indicatorGroup)
+        // console.log(cityData)
+        // console.log(indicatorGroup)
 
         return indicatorGroup
     }
