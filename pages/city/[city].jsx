@@ -173,7 +173,6 @@ export default function CityProfile() {
                                 icon=<img style={{ width: '40px', height: '40px' }} src={API_ENDPOINT_CMS + icon} />
                                 title={toolsInfo.title}
                                 onClick={() => handleInfoCardClick(t)}
-                                backgroundColor={"#286080"}
                             />
                         </Grid>
                     )
@@ -295,8 +294,8 @@ export default function CityProfile() {
             <Box pt={3} className={styles.title}>
                 {renderCityIndicators(cityData)}
             </Box>
-            <Box pt={3} className={styles.title}>
-                <h4>Tools</h4>
+            <Box pt={3} mt={9} className={styles.title}>
+                <h1>Tools</h1>
                 <Divider className={styles.line} />
                 <Grid container spacing={2} mt={1} mb={1}>
                     {renderToolsGrid(cityData)}

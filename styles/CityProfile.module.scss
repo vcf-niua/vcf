@@ -30,6 +30,7 @@
     .listContain {
         padding: 0 20px;
         .markdown_container {
+            color: variables.$black;
             ul, ol {
                 padding-left: 20px;
                 li {
@@ -55,5 +56,5 @@
 }
 
 .list {
-    color: variables.$paraColor
+    color: variables.$black
 }

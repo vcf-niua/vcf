@@ -118,7 +118,7 @@ export default function IndiaMainPage() {
 
     function leftSection() {
         return (
-            <Map layerData={statesGeoJson} zoom={3.2}/>
+            <Map layerData={statesGeoJson} zoom={3.2} linkPath={"state"}/>
         )
     }
 

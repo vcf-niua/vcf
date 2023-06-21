@@ -77,7 +77,7 @@ export default function Map(props){
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 }
 
-                let msg = '<h2>' + prop.name + '</h2>'
+                let msg = '<a href="/' + props.linkPath + '/' + prop.name + '"><h2>' + prop.name + '</h2></a>'
                 if(prop.cities) {
                     msg += '<p># of cities: ' + prop.cities + '</p>'
                 }
