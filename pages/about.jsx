@@ -139,6 +139,13 @@ export default function About() {
                         which is reinvested in the same development scheme for the public good.
                     </p>
 
+                    <p style={{ marginTop: "10px" }}>
+                    "The Ministry of Housing and Urban Affairs (MoHUA), Government of India (GoI) erstwhile Ministry of Urban Development aimed to guide the State Governments and Union Territories to leverage their assets, particularly the under-utilized resources such as land, to finance development of infrastructure.
+                    </p>
+
+                    <p style={{ marginTop: "10px" }}>With this intent, the MoHUA, GoI instituted the Policy <b>Framework for Value Capture Finance</b> in the year 2017. The Policy Framework was developed as an essential document to enlighten States and Union Territories of the country with the concepts and the key idea behind introducing VCF mechanisms at the local level to enhance financial strength and thereby provide better infrastructure. </p>
+                    <p style={{ marginTop: "10px" }}>Further, the Ministry supported about 100 Cities (out of the 500 AMRUT Cities/ 100 Smart Cities) in availing <b>Technical Assistance for developing a Value Capture Finance (VCF) framework</b> (including procedural, legal and institutional aspects), so as to effectively capture the additional land/ property value being generated through public investments made as a part of the implementation of the Smart Cities Mission. As part of this initiative the existing VCF tools being implemented by the Cities were studied, as well as recommendations for adopting new tools were put forward.</p>
+                    <p style={{ marginTop: "10px" }}>This portal attempts to utilize the information collated as part of the aforementioned Technical Assistance Reports, for the above Cities, to inform and enlighten other Cities/ Urban Local Bodies across India w.r.t the concepts/ mechanisms behind introducing VCF tools at the local level to enhance financial strength and thereby provide better infrastructure."</p>
                 </div>
             </Container>
         </section>

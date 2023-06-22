@@ -95,7 +95,6 @@ export default function Header() {
                                     className={styles.brand_text}
                                     variant="h6"
                                     noWrap
-                                    
                                 >
                                     Value Capture Finance
                                 </Typography>
