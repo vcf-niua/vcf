@@ -42,7 +42,12 @@ export default function KnowledgePlatform() {
 					let cs = t.attributes.case_studies.data[0]
 					let documentURL = cs.attributes.document.data.attributes.url
 					res.push(
-						<ToolInfoCard  key={idx} title={t.attributes.title} img={ic} href={API_ENDPOINT_CMS + documentURL}/>
+						<ToolInfoCard  
+							key={idx} 
+							title={t.attributes.title} 
+							description={cs.attributes.description}
+							img={ic} href={API_ENDPOINT_CMS + documentURL}
+						/>
 					)
 				}
 				

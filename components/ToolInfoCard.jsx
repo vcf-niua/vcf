@@ -18,6 +18,7 @@ export default function ToolInfoCard(props) {
                         <Typography mt={1}>
                             {props.title}
                         </Typography>
+                        {props.description && (<small style={{marginTop: '0px'}}>{props.description}</small>)}
                     </CardContent>
                 </Card>
             </Link>
