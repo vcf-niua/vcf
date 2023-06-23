@@ -4,6 +4,16 @@
     overflow-y: auto;
     color: variables.$base;
     margin: 10px 0;
+
+    p {
+        padding: 3px;
+    }
+
+    p:hover {
+        background-color: variables.$secondary;
+        color: #fff;
+       
+    }
 } 
 .stateList {
     color: variables.$secondary;
@@ -33,3 +43,5 @@
         }
     }
 }
+
+ 

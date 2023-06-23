@@ -6,7 +6,8 @@ import {
 import styles from '@/styles/InfoCard.module.scss';
 
 export default function Infocard(props) {
-
+// alert(props.data)
+    const extStyle = props.showHover ? styles.customIndicatorCard2 : styles.customIndicatorCard;
     const handleCardClick = (e) => {
         if(props.onClick) {
             // console.log(e, props.title)
@@ -28,10 +29,10 @@ export default function Infocard(props) {
     return (
         <>
             <Card 
-                className={styles.customIndicatorCard}
+                className={extStyle}
                 style={style}
                 onClick={handleCardClick}
-                
+                data= "color"
             >
                 <div className={styles.icon} style={{width: props.iconWidth}}>
                     {props.icon}

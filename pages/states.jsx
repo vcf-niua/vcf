@@ -104,8 +104,8 @@ export default function IndiaMainPage() {
 
             cities.forEach((c, idx) => {
                 res.push(
-                    <Grid key={idx} item xs={6} sm={6} md={6}>
-                        <Link href={'/city/' + c.attributes.name}><p>{c.attributes.name}</p></Link>
+                    <Grid key={idx} item xs={6} sm={6} md={6} >
+                        <Link  href={'/city/' + c.attributes.name} > <p>{c.attributes.name}</p></Link>
                     </Grid>
                 )
             })

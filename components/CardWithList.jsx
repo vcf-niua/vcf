@@ -53,6 +53,7 @@ export default function CardWithList(props) {
                 className={pagesStyle.icon}
                 {...props}
                 onClick={handleCardClick}
+                showHover="showHover"
             />
             {listOpenState && renderList(props.listData)}
             
