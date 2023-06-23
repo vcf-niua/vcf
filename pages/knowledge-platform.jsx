@@ -56,13 +56,14 @@ export default function KnowledgePlatform() {
 
     return (
         <>
-        <Container maxWidth="lg" >
-        <Box sx={{ flexGrow: 1, mt: 8 }} style={{paddingBottom: "100px"}} >
-          <Grid container spacing={{ xs: 2, md: 5 }} columns={{ xs: 4, sm: 8, md: 12 }} >
-            {renderToolBox(toolInfoState)}
-          </Grid>
-        </Box>
-        </Container>
+			<Container maxWidth="lg" >
+			<h1 style={{textAlign: 'center', marginTop: '40px'}}>Case Studies</h1>
+				<Box sx={{ flexGrow: 1, mt: 4 }} style={{paddingBottom: "100px"}} >
+				<Grid container spacing={{ xs: 2, md: 5 }} columns={{ xs: 4, sm: 8, md: 12 }} >
+					{renderToolBox(toolInfoState)}
+				</Grid>
+				</Box>
+			</Container>
     	</>
     )
 }
