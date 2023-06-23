@@ -11,7 +11,7 @@ import styles from '@/styles/Tool.module.scss';
 export default function ToolInfoCard(props) {
     return (
         <Grid  item xs={2} sm={4} md={3} >
-            <Link href={"/tools/" + props.title}>
+            <Link href={props.href}>
                 <Card>
                     <CardContent className={styles.card}>
                         <img src={props.img} style={{ width: "80px" }} />

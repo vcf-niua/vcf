@@ -17,7 +17,7 @@ export default function KnowledgePlatform() {
     const [toolInfoState, setToolInfoState] = useState();
     useEffect(() => {
 		fetchData('tool-infos', 'GET', {
-			'populate': 'icon'
+			'populate': 'case_studies,case_studies.document,icon'
 		})
 			.then(res => res.json())
 			.then(setToolInfoState)
@@ -37,9 +37,15 @@ export default function KnowledgePlatform() {
 				if(t.attributes.icon.data) {
 					ic = API_ENDPOINT_CMS + t.attributes.icon.data.attributes.url
 				}
-				res.push(
-					<ToolInfoCard  key={idx} title={t.attributes.title} img={ic} />
-				)
+
+				if(t.attributes.case_studies.data.length > 0) {
+					let cs = t.attributes.case_studies.data[0]
+					let documentURL = cs.attributes.document.data.attributes.url
+					res.push(
+						<ToolInfoCard  key={idx} title={t.attributes.title} img={ic} href={API_ENDPOINT_CMS + documentURL}/>
+					)
+				}
+				
 			})
 		}
 		
