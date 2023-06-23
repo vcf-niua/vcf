@@ -111,18 +111,18 @@ export default function CityProfile() {
 
                 let val = catData[c].value
 
-                if(val) {
+                if (val) {
                     val = val.toLocaleString('hi')
                 } else {
                     val = 'NA'
                 }
-                
+
                 indCatBox.push(
                     <Grid key={idx} item xs={6} sm={6} md={3}>
                         <InfoCard
                             icon={catData[c].icon}
                             title={c}
-                            data={catName=== 'Planning' && c ==='Master/ Development plan updated in last 10 years' ? catData[c].value === 1 ? "Yes" : "No" : val}
+                            data={catName === 'Planning' && c === 'Master/ Development plan updated in last 10 years' ? catData[c].value === 1 ? "Yes" : "No" : val}
                         // cardType = "checkMenu" 
 
                         />
@@ -132,8 +132,9 @@ export default function CityProfile() {
 
             return (
                 <div>
-                    <h4>{catName} Indicators</h4>
-                    <Divider className={styles.line} />
+
+                    <h4>{catName} </h4>
+
                     <Grid container spacing={2} mt={1} mb={3}>
                         {indCatBox}
                     </Grid>
@@ -149,6 +150,23 @@ export default function CityProfile() {
 
             return (
                 <Box pt={3} className={styles.title}>
+                    <h1>Indicators</h1>
+                    <Divider className={styles.line} />
+                    <section className={styles.footer}>
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            align="left"
+                            style={{
+                                fontFamily: 'inherit',
+                                marginBottom:"30px"
+                            }}
+                        >
+                            {"Note:- Data collated from Urban Outcomes Framework 2022, an initiative of Ministry of Housing and Urban Affairs, GOI. The Data displayed is still being validated by the cities"}
+                        </Typography>
+                        
+                    </section>
+
                     {renderIndicatorCat(indicatorGroup, 'City')}
                     {renderIndicatorCat(indicatorGroup, 'Finance')}
                     {renderIndicatorCat(indicatorGroup, 'Planning')}
@@ -173,6 +191,7 @@ export default function CityProfile() {
                                 icon=<img style={{ width: '40px', height: '40px' }} src={API_ENDPOINT_CMS + icon} />
                                 title={toolsInfo.title}
                                 onClick={() => handleInfoCardClick(t)}
+                                showHover="showHover"
                             />
                         </Grid>
                     )
@@ -189,20 +208,20 @@ export default function CityProfile() {
         if (cell.amount && cell.year.data) {
             return (<>
                 <TableCell className={styles.list}>
-                   {cell.amount ? cell.amount : 'N/A'}
+                    {cell.amount ? cell.amount : 'N/A'}
                 </TableCell>
                 <TableCell className={styles.list}>
-                   {cell.year.data ? cell.year.data.attributes.name : 'N/A'}
+                    {cell.year.data ? cell.year.data.attributes.name : 'N/A'}
 
                 </TableCell>
             </>)
-        }else if(cell.amount || cell.year.data) {
+        } else if (cell.amount || cell.year.data) {
             return (<>
                 <TableCell className={styles.list}>
-                   {cell.amount ? cell.amount : 'N/A'}
+                    {cell.amount ? cell.amount : 'N/A'}
                 </TableCell>
                 <TableCell className={styles.list}>
-                   {cell.year.data ? cell.year.data.attributes.name : 'N/A'}
+                    {cell.year.data ? cell.year.data.attributes.name : 'N/A'}
 
                 </TableCell>
             </>)
@@ -268,7 +287,7 @@ export default function CityProfile() {
     }
 
     function getCenterPoint(cityProfile) {
-        if(cityProfile && cityProfile.data.length > 0) {
+        if (cityProfile && cityProfile.data.length > 0) {
             console.log(cityProfile)
             return cityProfile.data[0].attributes.centroid
         }
@@ -280,16 +299,16 @@ export default function CityProfile() {
                 <Grid item xs={12} sm={12} mt={4} pl={0}>
                     <h2 className={styles.city_name_heading}>{city}</h2>
                 </Grid>
-                <Grid item style={{height: '250px'}} xs={12} sm={12} mt={4}>
-                    <Map center={getCenterPoint(cityData)} zoom={9} disableHighlight={true}/>
+                <Grid item style={{ height: '250px' }} xs={12} sm={12} mt={4}>
+                    <Map center={getCenterPoint(cityData)} zoom={9} disableHighlight={true} />
                 </Grid>
-                
 
-                
+
+
             </Grid>
-            
-            
-            
+
+
+
 
             <Box pt={3} className={styles.title}>
                 {renderCityIndicators(cityData)}
@@ -300,8 +319,23 @@ export default function CityProfile() {
                 <Grid container spacing={2} mt={1} mb={1}>
                     {renderToolsGrid(cityData)}
                 </Grid>
+                
             </Box>
             {showToolDetails && renderToolInfo(showToolDetails)}
+            <section className={styles.footer}>
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            align="left"
+                            style={{
+                                fontFamily: 'inherit',
+                                marginTop:'20px'
+                            }}
+                        >
+                            {"Note: Information/data presented is subject to updation."}
+                        </Typography>
+                       
+                    </section>
         </Container>
     )
 }

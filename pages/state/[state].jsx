@@ -66,15 +66,7 @@ export default function StateProfile() {
     function renderDataGrid(city,indicators) {
       if(indicators.length > 0) {
         let res = []
-        res.push(
-            <Grid  item xs={6} sm={6} md={6}>
-                        <InfoCard
-                            icon=<LocationCityIcon/>
-                            title="Cities adopting VCF"
-                            data={city.cities.data.length}
-                        />
-                    </Grid>
-        )
+       
             indicators.forEach((i, idx)=> {
                 let val = i.value
                 if(val) {
@@ -92,6 +84,15 @@ export default function StateProfile() {
                     </Grid>
                 )
             })
+            res.push(
+                <Grid  item xs={6} sm={6} md={6}>
+                            <InfoCard
+                                icon=<LocationCityIcon/>
+                                title="Cities Adopting VCF Pilot Tools"
+                                data={city.cities.data.length}
+                            />
+                        </Grid>
+            )
             return res
       }
         

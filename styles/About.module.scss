@@ -2,90 +2,62 @@
 
 .about {
     color: variables.$base;
-    text-align: center;
-    h1 {
-        font-size: 2.9rem;
-        text-align: center;
-        font-weight: 400;
-        margin: 40px 0;
-        line-height: 4rem;
-        span {
-            font-weight: 900;
-        }
-    }
+    text-align: left;
+
     p {
-        font-size: 1.5rem;
-        text-align: center;
+        font-size: 1.2rem;
+        text-align: left;
         line-height: 2.4rem;
+        margin-bottom: 15px;
+        text-align: justify
     }
-    .hero_section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 50px;
-        padding-bottom: 20px;
+
+    .brand {
+        margin-top: 50px ;
+        margin-bottom: 30px;
        
-        h1 {
-            width: 70%;
-        }
-        p {
-            width: 80%;
-        }
     }
-
-    .containerBox {
-        width: 407px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-bottom: 100px;
+    .list {
+        list-style-type: none;
+        font-size: 1.2rem;
+        text-align: left;
+        line-height: 2.1rem;
+        margin-bottom: 25px;
+        padding-left: 30px;
+        text-align: justify;
 
     }
+    // .hero_section {
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    //     padding-top: 50px;
+    //     padding-bottom: 20px;
+       
+    //     h1 {
+    //         width: 70%;
+    //     }
+    //     p {
+    //         width: 80%;
+    //     }
+    // }
+
+   
     .text_container {
         margin-bottom: 80px;
     }
 }
-.hero_icon {
-    font-size: 100px;
-    color: #fff;
-    margin-top: 20px;
-}
-.hero_icon2 {
-    font-size: 100px;
-    color: #fff;
-    padding: 5px;
-    text-align: center;
-}
-.boxCard {
-    display: 'flex';
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 150px;
-    border: 1px solid black;
-    background-color: variables.$base;
-    cursor: pointer;
-   
+// .hero_icon {
+//     font-size: 100px;
+//     color: #fff;
+//     margin-top: 20px;
+// }
+// .hero_icon2 {
+//     font-size: 100px;
+//     color: #fff;
+//     padding: 5px;
+//     text-align: center;
+// }
 
-    .iconStyle{
-        width:100px;
-        margin-top: 10px;
-        
-    }
 
-    .iconTitle {
-        color: #fff;
-        font-size: small;
-        font-weight: bold;
-    }
-}
-.boxCard:hover {
-    background-color: variables.$secondary;
-    border-color: #fff;
-}
 
-.popUpTitle {
-    background-color: variables.$base;
-    color: #fff;
-    padding: 10px;
-    margin-bottom: 5px;
-}

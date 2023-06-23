@@ -39,6 +39,49 @@
 
 }
 
+
+.customIndicatorCard2 {
+    display: flex;
+    height: 100px;
+    // background-color: #286080;
+    background-color: variables.$base;
+    border-radius: 10px;
+    color:#fff;
+    box-shadow: none;
+    justify-content: center;
+    align-content: center;
+    padding: 9px;
+    .icon {
+        font-size: 45px;
+        align-self: center;
+        display: flex;
+        // justify-content: center;
+        margin-right: 8px;
+        width: 50px;
+        svg {
+            font-size: 2.5rem;
+        }
+        img {
+            width: 100%;
+        }
+    }
+    .content {
+        align-self: center;
+        // text-align: center;
+        p {
+            font-size: 0.8rem;
+        }
+        h2 {
+            margin-top: 4px;
+            font-size: 1.6rem;
+        }
+    }
+
+}
+.customIndicatorCard2:hover {
+    background-color: variables.$secondary;
+}
+
 .cardListInner {
     position: absolute;
     width: 192px;
