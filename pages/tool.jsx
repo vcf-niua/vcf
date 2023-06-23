@@ -40,7 +40,7 @@ export default function Tool() {
 					ic = API_ENDPOINT_CMS + t.attributes.icon.data.attributes.url
 				}
 				res.push(
-					<ToolInfoCard  key={idx} title={t.attributes.title} img={ic} />
+					<ToolInfoCard  key={idx} title={t.attributes.title} img={ic} href={"/tools/" + t.attributes.title}/>
 				)
 			})
 		}
